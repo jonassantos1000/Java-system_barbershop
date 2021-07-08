@@ -11,6 +11,7 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import view.Servicos.ServicoPrincipal;
 /**
  *
  * @author Jonas Santos
@@ -148,6 +149,9 @@ public class PaginaInicial extends javax.swing.JFrame {
         btServico.setOpaque(true);
         btServico.setPreferredSize(new java.awt.Dimension(180, 45));
         btServico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btServicoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btServicoMouseEntered(evt);
             }
@@ -343,6 +347,11 @@ public class PaginaInicial extends javax.swing.JFrame {
     private void btSairMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSairMouseExited
         resetButton(btSair);
     }//GEN-LAST:event_btSairMouseExited
+
+    private void btServicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btServicoMouseClicked
+        ServicoPrincipal tela = new ServicoPrincipal();
+        tela.setVisible(true);
+    }//GEN-LAST:event_btServicoMouseClicked
 
     private static void setButton(JButton botao){
         botao.setBackground(new Color(58,58,58));

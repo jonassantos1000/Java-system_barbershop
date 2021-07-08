@@ -61,7 +61,6 @@ public class Cliente extends Pessoa {
     
     
     public void selectnoFilter(Cliente cliente,String limite) throws SQLException{
-        
             ClientesDAO dao = new ClientesDAO(this);
             List<Cliente> resultselect = new ArrayList<Cliente>();
             resultselect=dao.selectall(cliente,limite);
