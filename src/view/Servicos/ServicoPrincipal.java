@@ -266,7 +266,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         lbimagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/FundoTelaInicial.jpg"))); // NOI18N
         getContentPane().add(lbimagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
-        setSize(new java.awt.Dimension(1020, 675));
+        setSize(new java.awt.Dimension(1019, 670));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
