@@ -7,8 +7,10 @@ package model;
 
 import DAO.ServicoDAO;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,19 +18,19 @@ import java.util.List;
  */
 public class Servico {
    
-    public Servico(int codigo, String descricao, double preco, String data_cadastro, String data_alteracao, String usuario){
+    public Servico(int codigo, String descricao, double preco, String data_cadastro, String data_alteracao, String usuario,String observacao){
         setCodigo(codigo);
         setDescricao(descricao);
         setPreco(preco);
         setDataCadastro(data_cadastro);
         setDataAlteracao(data_alteracao);
         setUsuario(usuario);
-        
+        setObservacao(observacao);
     }
     
-    public Servico(int codigo, String descricao, double preco, String data_cadastro, String usuario){
+    public Servico(int codigo, String descricao, double preco, String data_cadastro, String usuario,String observacao){
         //construtor para criar novos servicos(não precisa informar a data de alteracao)
-        this(codigo,descricao,preco,data_cadastro,"",usuario);
+        this(codigo,descricao,preco,data_cadastro,"",usuario,observacao);
     }
     
     public Servico(int codigo, String descricao){
@@ -36,13 +38,16 @@ public class Servico {
         this(codigo,descricao,0,"","","");
     }
     
+        
     private int codigo = 0;
     private String descricao;
     private double preco;
     private String data_cadastro;
     private String data_alteracao;
     private String usuario;// Para gravar o usuario que realizou o cadastro
+    private String observacao;
     private List<Servico> result;
+    private Servico ResultSelectAltera;
     
     public int getCodigo() {
         return codigo;
@@ -92,14 +97,41 @@ public class Servico {
         return this.usuario;
     }
     
-    public void gravar(){
-        
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
     
-    public void alterar(){
-        
+    public void gravar(Servico servico) throws ParseException{
+        ServicoDAO daoinsert= new ServicoDAO(this);
+        daoinsert.insert(this);
     }
     
+    public void alterar(Servico servico){
+        ServicoDAO alterarServico= new ServicoDAO(this);
+        alterarServico.update();
+    }
+    
+    public void selectAlteraServico(int ID){
+        try{
+            ServicoDAO alteraServico = new ServicoDAO(this);
+            setResultSelectAltera(alteraServico.selectAlteraServico(ID));
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    
+    public void setResultSelectAltera(Servico servico){
+        this.ResultSelectAltera=servico;
+    }
+    
+    public Servico getResultSelectAltera(){
+        return ResultSelectAltera;
+    }
+
     public void setSelectFilter(List<Servico> result){
         this.result=result;
     }
@@ -115,9 +147,8 @@ public class Servico {
         resultselect=dao.selectall(servico, limite);
         setSelectFilter(resultselect);        
     }
-    
-    
-    
+
+
     
     
 }

@@ -9,6 +9,7 @@ import Util.Mascara;
 import Util.coalesce;
 import static Util.coalesce.coalesce;
 import static Util.coalesce.coalesceMascara;
+import Util.data;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -552,7 +553,7 @@ public class AlterarCliente extends javax.swing.JFrame {
         txtnome.setText(resultselectaltera.getresultalteracliente().getNome());
         txtCPF.setText(resultselectaltera.getresultalteracliente().getCPF());
         txtRG.setText(resultselectaltera.getresultalteracliente().getRG());
-        txtData.setText(resultselectaltera.getresultalteracliente().getData());
+        txtData.setText(data.formataDataBD(resultselectaltera.getresultalteracliente().getData()));
         txtEndereco.setText(resultselectaltera.getresultalteracliente().getEndereco());
         txtNumero.setText(resultselectaltera.getresultalteracliente().getNumero());
         txtComplemento.setText(resultselectaltera.getresultalteracliente().getComplemento());
@@ -562,7 +563,7 @@ public class AlterarCliente extends javax.swing.JFrame {
         txtTelefone.setText(resultselectaltera.getresultalteracliente().getTelefone());
         txtCelular.setText(resultselectaltera.getresultalteracliente().getCelular());
         txtObservacao.setText(resultselectaltera.getresultalteracliente().getObservacao());
-        txtDataAlteracao.setText(coalesce.coalesceData(resultselectaltera.getresultalteracliente().getData_alteracao()));
+        txtDataAlteracao.setText(data.formataDataBD(coalesce.coalesceData(resultselectaltera.getresultalteracliente().getData_alteracao())));
         
         if(resultselectaltera.getresultalteracliente().getNotificawhats().equals("T")){
             rbSim.doClick();

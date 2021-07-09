@@ -41,8 +41,6 @@ public class Cliente extends Pessoa {
        
     }
     
-    
-    
     private List<Cliente> result;
     private Cliente resultalteracliente;
 

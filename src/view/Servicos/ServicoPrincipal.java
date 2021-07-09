@@ -6,6 +6,7 @@
 package view.Servicos;
 
 import Util.ValidaNumeros;
+import Util.VerificaDecimal;
 import Util.data;
 import java.sql.SQLException;
 import java.util.List;
@@ -270,7 +271,9 @@ public class ServicoPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtDescricaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescricaoFocusLost
-
+        String minuscula=txtDescricao.getText();
+        txtDescricao.setText(minuscula.toUpperCase());
+        
     }//GEN-LAST:event_txtDescricaoFocusLost
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
@@ -327,8 +330,11 @@ public class ServicoPrincipal extends javax.swing.JFrame {
             for (Servico servico : listagem) {
                 String codigoformat;
                 String dataformat;
+                String precoformat;
+                precoformat=VerificaDecimal.validaDecimal(String.valueOf(servico.getPreco()).replace(".", ","));
                 codigoformat=String.valueOf(servico.getCodigo());
-                modelo.addRow(new Object[]{codigoformat,servico.getDescricao(),servico.getPreco(),data.formataDataString(servico.getDataAlteracao()),data.formataDataString(servico.getDataCadastro()),servico.getUsuario()});
+                
+                modelo.addRow(new Object[]{codigoformat,servico.getDescricao(),precoformat,data.formataDataBD(servico.getDataAlteracao()),data.formataDataBD(servico.getDataCadastro()),servico.getUsuario()});
             }
             if(lenlist.equals("1")){
                 lbLenlist.setText("A pesquisa retornou "+ lenlist+" registro");

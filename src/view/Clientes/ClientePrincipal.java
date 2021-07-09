@@ -387,7 +387,7 @@ public class ClientePrincipal extends javax.swing.JFrame {
                 String codigoformat;
                 String dataformat;
                 codigoformat=String.valueOf(cli.getCodigo());         
-                modelo.addRow(new Object[]{codigoformat,cli.getNome(),cli.getCPF(),cli.getRG(),cli.getEndereco(),cli.getEmail(),cli.getCelular(),data.formataDataString(cli.getData_alteracao()),data.formataDataString(cli.getData())});
+                modelo.addRow(new Object[]{codigoformat,cli.getNome(),cli.getCPF(),cli.getRG(),cli.getEndereco(),cli.getEmail(),cli.getCelular(),data.formataDataBD(cli.getData_alteracao()),data.formataDataBD(cli.getData())});
                
             }
             if(lenlist.equals("1")){

@@ -44,7 +44,7 @@ public class data {
         return dataFormatada;
     }    
 
-   public static String formataDataString(String data){
+   public static String formataDataBD(String data){
        try{
         SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
