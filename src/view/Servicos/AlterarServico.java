@@ -6,6 +6,7 @@
 package view.Servicos;
 
 import Util.Mascara;
+import static Util.VerificaDecimal.validaDecimal;
 import static Util.coalesce.coalesce;
 import Util.data;
 import javax.swing.JOptionPane;
@@ -262,7 +263,7 @@ public class AlterarServico extends javax.swing.JFrame {
         selectAlteraServico.selectAlteraServico(id);
         cod_servico.setText(codigo);
         txtDescricao.setText(selectAlteraServico.getResultSelectAltera().getDescricao());
-        txtValor.setText(String.valueOf(selectAlteraServico.getResultSelectAltera().getPreco()));
+        txtValor.setText(validaDecimal(String.valueOf(selectAlteraServico.getResultSelectAltera().getPreco()).replace(".", ",")));
         txtObservacoes.setText(selectAlteraServico.getResultSelectAltera().getObservacao());
         txtData.setText(data.formataDataBD(String.valueOf(selectAlteraServico.getResultSelectAltera().getDataCadastro())));
         txtDataAlteracao.setText(data.formataDataBD(String.valueOf(selectAlteraServico.getResultSelectAltera().getDataAlteracao())));
