@@ -152,7 +152,7 @@ public class AlterarCliente extends javax.swing.JFrame {
         txtNumero.setCaretColor(new java.awt.Color(255, 255, 255));
         txtNumero.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtNumero.setOpaque(false);
-        getContentPane().add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, 50, 20));
+        getContentPane().add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, 130, 20));
 
         lbCPF.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbCPF.setForeground(new java.awt.Color(255, 255, 255));
@@ -169,7 +169,7 @@ public class AlterarCliente extends javax.swing.JFrame {
         cod_cliente.setForeground(new java.awt.Color(255, 255, 255));
         cod_cliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cod_cliente.setOpaque(false);
-        getContentPane().add(cod_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 40, -1));
+        getContentPane().add(cod_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 60, -1));
 
         txtComplemento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtComplemento.setForeground(new java.awt.Color(255, 255, 255));
@@ -182,7 +182,7 @@ public class AlterarCliente extends javax.swing.JFrame {
                 txtComplementoFocusLost(evt);
             }
         });
-        getContentPane().add(txtComplemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 200, 170, 20));
+        getContentPane().add(txtComplemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 230, 20));
 
         txtCPF.setForeground(new java.awt.Color(255, 255, 255));
         txtCPF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -216,7 +216,7 @@ public class AlterarCliente extends javax.swing.JFrame {
         lbBairro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbBairro.setForeground(new java.awt.Color(255, 255, 255));
         lbBairro.setText("Bairro");
-        getContentPane().add(lbBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 60, 20));
+        getContentPane().add(lbBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 200, 50, 20));
 
         txtBairro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtBairro.setForeground(new java.awt.Color(255, 255, 255));
@@ -229,7 +229,7 @@ public class AlterarCliente extends javax.swing.JFrame {
                 txtBairroFocusLost(evt);
             }
         });
-        getContentPane().add(txtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 250, 20));
+        getContentPane().add(txtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, 140, 20));
 
         lbCEP.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbCEP.setForeground(new java.awt.Color(255, 255, 255));
@@ -241,12 +241,12 @@ public class AlterarCliente extends javax.swing.JFrame {
         txtCEP.setCaretColor(new java.awt.Color(255, 255, 255));
         txtCEP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtCEP.setOpaque(false);
-        getContentPane().add(txtCEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 240, 80, -1));
+        getContentPane().add(txtCEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 240, 130, -1));
 
         jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Ult. Alteracao");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 120, 100, 20));
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 100, 20));
 
         txtDataAlteracao.setEditable(false);
         txtDataAlteracao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -254,18 +254,18 @@ public class AlterarCliente extends javax.swing.JFrame {
         txtDataAlteracao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDataAlteracao.setCaretColor(new java.awt.Color(255, 255, 255));
         txtDataAlteracao.setOpaque(false);
-        getContentPane().add(txtDataAlteracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 120, 140, -1));
+        getContentPane().add(txtDataAlteracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 140, -1));
 
         lbComplemento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbComplemento.setForeground(new java.awt.Color(255, 255, 255));
         lbComplemento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbComplemento.setText("Complemento");
-        getContentPane().add(lbComplemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, 100, 20));
+        getContentPane().add(lbComplemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 100, 20));
 
         lbData_cadastro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbData_cadastro.setForeground(new java.awt.Color(255, 255, 255));
         lbData_cadastro.setText("Data Cadastro");
-        getContentPane().add(lbData_cadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 100, 20));
+        getContentPane().add(lbData_cadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 120, 100, 20));
 
         txtData.setEditable(false);
         txtData.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -273,7 +273,7 @@ public class AlterarCliente extends javax.swing.JFrame {
         txtData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtData.setCaretColor(new java.awt.Color(255, 255, 255));
         txtData.setOpaque(false);
-        getContentPane().add(txtData, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 90, 140, -1));
+        getContentPane().add(txtData, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 120, 140, -1));
 
         txtRG.setForeground(new java.awt.Color(255, 255, 255));
         txtRG.setHorizontalAlignment(javax.swing.JTextField.CENTER);

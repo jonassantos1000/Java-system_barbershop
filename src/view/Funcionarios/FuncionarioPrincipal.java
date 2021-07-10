@@ -5,6 +5,21 @@
  */
 package view.Funcionarios;
 
+import Util.Mascara;
+import Util.ValidaNumeros;
+import Util.data;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import model.Funcionario;
+
 /**
  *
  * @author Jonas Santos
@@ -16,8 +31,20 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
      */
     public FuncionarioPrincipal() {
         initComponents();
+        TableColumnModel modeltable = grid.getColumnModel();
+        modeltable.getColumn(0).setPreferredWidth(50);
+        modeltable.getColumn(1).setPreferredWidth(200);
+        modeltable.getColumn(2).setPreferredWidth(130);
+        modeltable.getColumn(3).setPreferredWidth(100);
+        modeltable.getColumn(4).setPreferredWidth(240);
+        modeltable.getColumn(5).setPreferredWidth(150);
+        modeltable.getColumn(6).setPreferredWidth(150);
+        modeltable.getColumn(7).setPreferredWidth(150);
+        modeltable.getColumn(8).setPreferredWidth(150);
+        txtCodigo.setDocument(new ValidaNumeros());
     }
-
+    
+    String lenlist;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -303,8 +330,8 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         try{
             Object obj= grid.getValueAt(grid.getSelectedRow(),0);
-            AlterarCliente alterar;
-            alterar = new AlterarCliente(obj.toString());
+            AlterarFuncionario alterar;
+            alterar = new AlterarFuncionario(obj.toString());
             alterar.setVisible(true);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Selecione o registro que deseja alterar");
@@ -312,7 +339,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncluirActionPerformed
-        IncluirCliente incluir = new IncluirCliente();
+        IncluirFuncionario incluir = new IncluirFuncionario();
         incluir.setVisible(true);
     }//GEN-LAST:event_btIncluirActionPerformed
 
@@ -333,7 +360,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         String rg=txtRG.getText();
         String email=txtEmail.getText();
         String limite = txtLimite.getText();
-        Cliente select = new Cliente(codigo,nome,cpf,rg,email);
+        Funcionario select = new Funcionario(codigo,nome,cpf,rg,email);
         DefaultTableModel modelo = (DefaultTableModel) grid.getModel();
         modelo.setNumRows(0);
 
@@ -350,18 +377,18 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         try {
             select.selectnoFilter(select, limite);
         } catch (SQLException ex) {
-            Logger.getLogger(ClientePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FuncionarioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
 
-            List<Cliente> listagem = select.getResultselect();
+            List<Funcionario> listagem = select.getResultselect();
             lenlist=String.valueOf(listagem.size());
-            for (Cliente cli : listagem) {
+            for (Funcionario func : listagem) {
                 String codigoformat;
                 String dataformat;
-                codigoformat=String.valueOf(cli.getCodigo());
-                modelo.addRow(new Object[]{codigoformat,cli.getNome(),cli.getCPF(),cli.getRG(),cli.getEndereco(),cli.getEmail(),cli.getCelular(),data.formataDataBD(cli.getData_alteracao()),data.formataDataBD(cli.getData())});
+                codigoformat=String.valueOf(func.getCodigo());
+                modelo.addRow(new Object[]{codigoformat,func.getNome(),func.getCPF(),func.getRG(),func.getEndereco(),func.getEmail(),func.getCelular(),data.formataDataBD(func.getData_alteracao()),data.formataDataBD(func.getData())});
 
             }
             if(lenlist.equals("1")){
@@ -372,15 +399,15 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao listar clientes, contate o suporte técnico");
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao listar funcionarios, contate o suporte técnico");
         }
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void gridMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridMouseClicked
         if(evt.getClickCount() == 2){
             Object obj= grid.getValueAt(grid.getSelectedRow(),0);
-            AlterarCliente alterar;
-            alterar = new AlterarCliente(obj.toString());
+            AlterarFuncionario alterar;
+            alterar = new AlterarFuncionario(obj.toString());
             alterar.setVisible(true);
 
         }
@@ -406,7 +433,14 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         txtCodigo.setText("");
 
     }//GEN-LAST:event_btLimparActionPerformed
-
+    private static void centralizar(JTable table, int column) {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.getColumnModel().getColumn(column).setCellRenderer(centerRenderer);
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */

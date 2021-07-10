@@ -50,8 +50,7 @@ public abstract class Pessoa {
     public Pessoa(int codigo, String nome, String cpf, String RG, String celular, String email, String data, String endereco, String bairro, String numero, String complemento, String telefone, String notificawhats, String observacao, String CEP){
         this(codigo,nome,cpf,RG,celular,email,data,endereco,bairro,numero,complemento,telefone,notificawhats,observacao,CEP,"");
     }
-   
-        
+      
     public void setRG(String rg){
         this.rg=rg;
     }

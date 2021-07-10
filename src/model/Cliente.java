@@ -32,6 +32,7 @@ public class Cliente extends Pessoa {
     
     
     public Cliente(int codigo, String nome, String cpf, String RG,String email) {
+        //construtor utilizado para realizar consultas no Banco de dados 
         this(codigo,nome,cpf,RG,"0",email,"0","0","0","0","0","0","0","0","0");
        
     }

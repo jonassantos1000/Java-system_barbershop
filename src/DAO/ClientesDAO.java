@@ -26,23 +26,18 @@ import java.util.Map.Entry;
 public class ClientesDAO {
     private final String SQLINCLUIR = "INSERT INTO CLIENTES (CODIGO,NOME,CPF,DATA_CADASTRO,RG,ENDERECO,NUMERO,CEP,BAIRRO,COMPLEMENTO,EMAIL,TELEFONE,"
             + "CELULAR,OBSERVACAO,NOTIFICA_WHATS) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    
-    
-    
+
     String SQLUPDATE="UPDATE CLIENTES SET NOME=?,CPF=?,RG=?,ENDERECO=?,NUMERO=?,CEP=?,BAIRRO=?,COMPLEMENTO=?,EMAIL=?"
             +",TELEFONE=?,CELULAR=?,OBSERVACAO=?,NOTIFICA_WHATS=?,DATA_ALTERACAO=? WHERE CODIGO=?";
-    
-    private String SQLSELECTALL;
-    
-    
-    private Cliente cliente;
-    private Cliente alteracliente;
 
     public ClientesDAO(Cliente cliente){
         this.cliente=cliente;
         this.alteracliente=cliente;
 
     }
+    private String SQLSELECTALL;
+    private Cliente cliente;
+    private Cliente alteracliente;
     
     public boolean insert() throws ParseException{
         try{
