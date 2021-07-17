@@ -128,7 +128,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         lbRG.setText("RG");
         getContentPane().add(lbRG, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 40, 20));
 
-        txtnome.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        txtnome.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtnome.setForeground(new java.awt.Color(255, 255, 255));
         txtnome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtnome.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -140,7 +140,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         });
         getContentPane().add(txtnome, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 290, -1));
 
-        txtNumero.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtNumero.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtNumero.setForeground(new java.awt.Color(255, 255, 255));
         txtNumero.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNumero.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -165,7 +165,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         cod_cliente.setOpaque(false);
         getContentPane().add(cod_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 60, -1));
 
-        txtComplemento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtComplemento.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtComplemento.setForeground(new java.awt.Color(255, 255, 255));
         txtComplemento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtComplemento.setAutoscrolls(false);
@@ -181,7 +181,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         txtCPF.setForeground(new java.awt.Color(255, 255, 255));
         txtCPF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCPF.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtCPF.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtCPF.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtCPF.setOpaque(false);
         getContentPane().add(txtCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, 130, 20));
 
@@ -190,7 +190,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         jLabel2.setText("Endereço");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 70, 20));
 
-        txtEndereco.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtEndereco.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtEndereco.setForeground(new java.awt.Color(255, 255, 255));
         txtEndereco.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtEndereco.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -212,7 +212,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         lbBairro.setText("Bairro");
         getContentPane().add(lbBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 60, 20));
 
-        txtBairro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtBairro.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtBairro.setForeground(new java.awt.Color(255, 255, 255));
         txtBairro.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtBairro.setText(" ");
@@ -233,7 +233,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         txtCEP.setForeground(new java.awt.Color(255, 255, 255));
         txtCEP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCEP.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtCEP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtCEP.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtCEP.setOpaque(false);
         getContentPane().add(txtCEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 240, 80, -1));
 
@@ -249,7 +249,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 120, 40, 20));
 
         txtData.setEditable(false);
-        txtData.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        txtData.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtData.setForeground(new java.awt.Color(255, 255, 255));
         txtData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtData.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -259,7 +259,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         txtRG.setForeground(new java.awt.Color(255, 255, 255));
         txtRG.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtRG.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtRG.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtRG.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtRG.setOpaque(false);
         getContentPane().add(txtRG, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 160, 110, 20));
 
@@ -283,7 +283,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("E-mail");
 
-        txtEmail.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtEmail.setForeground(new java.awt.Color(255, 255, 255));
         txtEmail.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtEmail.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -323,12 +323,14 @@ public class IncluirCliente extends javax.swing.JFrame {
         txtTelefone.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtTelefone.setText(" ");
         txtTelefone.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtTelefone.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtTelefone.setOpaque(false);
 
         txtCelular.setForeground(new java.awt.Color(255, 255, 255));
         txtCelular.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCelular.setText(" ");
         txtCelular.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtCelular.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtCelular.setOpaque(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -399,7 +401,7 @@ public class IncluirCliente extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbSim)
                     .addComponent(rbNao))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         getContentPane().add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 360, 250));
@@ -412,6 +414,7 @@ public class IncluirCliente extends javax.swing.JFrame {
 
         txtObservacoes.setBackground(new java.awt.Color(0, 0, 0));
         txtObservacoes.setColumns(20);
+        txtObservacoes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtObservacoes.setRows(5);
         txtObservacoes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         txtObservacoes.setOpaque(false);
@@ -447,6 +450,7 @@ public class IncluirCliente extends javax.swing.JFrame {
 
         getContentPane().add(jLayeredPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 340, 210));
 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/PainelFundo2.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1020, 670));

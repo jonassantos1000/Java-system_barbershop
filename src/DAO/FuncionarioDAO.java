@@ -116,7 +116,7 @@ public class FuncionarioDAO {
        
     public List<Funcionario> selectall(Funcionario funcionario, String limite) throws SQLException{
         try{
-            if (limite=="0" || limite==""){
+            if (limite.equals("0") || limite.isEmpty()){
                 limite="9999999"; 
             }
             

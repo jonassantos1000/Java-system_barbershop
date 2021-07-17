@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import view.Funcionarios.FuncionarioPrincipal;
+import view.Movimentacao.MovimentacaoPrincipal;
 import view.Servicos.ServicoPrincipal;
 /**
  *
@@ -231,6 +232,11 @@ public class PaginaInicial extends javax.swing.JFrame {
                 btMovimentacaoMouseExited(evt);
             }
         });
+        btMovimentacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMovimentacaoActionPerformed(evt);
+            }
+        });
         pnMenu.add(btMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 336, 220, 50));
 
         btSair.setBackground(new java.awt.Color(0, 0, 0));
@@ -363,6 +369,11 @@ public class PaginaInicial extends javax.swing.JFrame {
         FuncionarioPrincipal tela = new FuncionarioPrincipal();
         tela.setVisible(true);
     }//GEN-LAST:event_btCabeleireiroActionPerformed
+
+    private void btMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMovimentacaoActionPerformed
+        MovimentacaoPrincipal tela = new MovimentacaoPrincipal();
+        tela.setVisible(true);
+    }//GEN-LAST:event_btMovimentacaoActionPerformed
 
     private static void setButton(JButton botao){
         botao.setBackground(new Color(58,58,58));

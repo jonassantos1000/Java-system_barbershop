@@ -373,6 +373,11 @@ public class ClientePrincipal extends javax.swing.JFrame {
         centralizar(grid,7);
         centralizar(grid,8);
         
+        if (limite.equals("0") || limite.isEmpty()){
+                limite="9999999";
+        }else{
+            limite=limite;
+        }
         try {
             select.selectnoFilter(select, limite);
         } catch (SQLException ex) {

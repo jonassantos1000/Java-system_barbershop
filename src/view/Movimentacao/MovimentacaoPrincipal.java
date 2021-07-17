@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.Servicos;
+package view.Movimentacao;
 
+import Util.Mascara;
 import Util.ValidaNumeros;
-import Util.VerificaDecimal;
 import Util.data;
+import static Util.data.getdata;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,27 +19,33 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import model.Servico;
+import model.Cliente;
+import model.Movimentacao;
 
 /**
  *
  * @author Jonas Santos
  */
-public class ServicoPrincipal extends javax.swing.JFrame {
+public class MovimentacaoPrincipal extends javax.swing.JFrame {
 
     /**
-     * Creates new form ServicoPrincipal
+     * Creates new form MovimentacaoPrincipal
      */
-    public ServicoPrincipal() {
+    public MovimentacaoPrincipal() {
         initComponents();
         TableColumnModel modeltable = grid.getColumnModel();
-        modeltable.getColumn(0).setPreferredWidth(70);
-        modeltable.getColumn(1).setPreferredWidth(250);
-        modeltable.getColumn(2).setPreferredWidth(110);
-        modeltable.getColumn(3).setPreferredWidth(150);
-        modeltable.getColumn(4).setPreferredWidth(150);
-        modeltable.getColumn(5).setPreferredWidth(150); 
-        txtCodigo.setDocument(new ValidaNumeros());
+        modeltable.getColumn(0).setPreferredWidth(80);
+        modeltable.getColumn(1).setPreferredWidth(80);
+        modeltable.getColumn(2).setPreferredWidth(200);
+        modeltable.getColumn(3).setPreferredWidth(130);
+        modeltable.getColumn(4).setPreferredWidth(100);
+        modeltable.getColumn(5).setPreferredWidth(150);
+        modeltable.getColumn(6).setPreferredWidth(90);
+        modeltable.getColumn(7).setPreferredWidth(80);
+        modeltable.getColumn(8).setPreferredWidth(120);
+        txtCodigoMovimentacao.setDocument(new ValidaNumeros());
+        txtCodigoCliente.setDocument(new ValidaNumeros());
+        setDate();
     }
 
     /**
@@ -51,62 +58,113 @@ public class ServicoPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         lbTitulo = new javax.swing.JLabel();
+        lbCodigo1 = new javax.swing.JLabel();
+        lbCodigo2 = new javax.swing.JLabel();
         lbCodigo3 = new javax.swing.JLabel();
         lbCodigo4 = new javax.swing.JLabel();
+        lbCodigo5 = new javax.swing.JLabel();
         lbLenlist = new javax.swing.JLabel();
         txtLimite = new javax.swing.JTextField();
-        txtDescricao = new javax.swing.JTextField();
+        lbCodigo7 = new javax.swing.JLabel();
+        txtDataFinal = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
+        txtCodigoCliente = new javax.swing.JTextField();
+        lbCodigo8 = new javax.swing.JLabel();
+        txtDataInicial = new javax.swing.JTextField();
         btAlterar = new javax.swing.JButton();
         btIncluir = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         btPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         grid = new javax.swing.JTable();
-        lbCodigo = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
+        lbCodigoMovimentacao = new javax.swing.JLabel();
+        txtCodigoMovimentacao = new javax.swing.JTextField();
+        txtCPF = new javax.swing.JFormattedTextField();
+        txtRG = new javax.swing.JFormattedTextField();
         btLimpar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lbPainelBotoes = new javax.swing.JLabel();
         lbmenu = new javax.swing.JLabel();
         lbfundo = new javax.swing.JLabel();
         lbimagem = new javax.swing.JLabel();
+        lbimagem1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
-        setResizable(false);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbTitulo.setBackground(new java.awt.Color(0, 0, 0));
         lbTitulo.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         lbTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTitulo.setText("Serviços");
+        lbTitulo.setText("Movimentação");
         lbTitulo.setOpaque(true);
         getContentPane().add(lbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 690, 50));
 
+        lbCodigo1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        lbCodigo1.setForeground(new java.awt.Color(255, 255, 255));
+        lbCodigo1.setText("CPF");
+        getContentPane().add(lbCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, 20));
+
+        lbCodigo2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        lbCodigo2.setForeground(new java.awt.Color(255, 255, 255));
+        lbCodigo2.setText("RG");
+        getContentPane().add(lbCodigo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, 40));
+
         lbCodigo3.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         lbCodigo3.setForeground(new java.awt.Color(255, 255, 255));
-        lbCodigo3.setText("Descrição");
-        getContentPane().add(lbCodigo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
+        lbCodigo3.setText("Cliente");
+        getContentPane().add(lbCodigo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
 
         lbCodigo4.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         lbCodigo4.setForeground(new java.awt.Color(255, 255, 255));
         lbCodigo4.setText("Limite");
-        getContentPane().add(lbCodigo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
+        getContentPane().add(lbCodigo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, -1, -1));
+
+        lbCodigo5.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        lbCodigo5.setForeground(new java.awt.Color(255, 255, 255));
+        lbCodigo5.setText("Data Inicial");
+        getContentPane().add(lbCodigo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, -1, 30));
 
         lbLenlist.setForeground(new java.awt.Color(255, 255, 255));
         lbLenlist.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(lbLenlist, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 510, 220, 30));
+        getContentPane().add(lbLenlist, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 570, 220, 30));
 
         txtLimite.setText("500");
-        getContentPane().add(txtLimite, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 220, -1));
+        getContentPane().add(txtLimite, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 550, 220, -1));
 
-        txtDescricao.addFocusListener(new java.awt.event.FocusAdapter() {
+        lbCodigo7.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        lbCodigo7.setForeground(new java.awt.Color(255, 255, 255));
+        lbCodigo7.setText("Data Final");
+        getContentPane().add(lbCodigo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, -1, 30));
+        getContentPane().add(txtDataFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, 220, 20));
+
+        txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDescricaoFocusLost(evt);
+                txtNomeFocusLost(evt);
             }
         });
-        getContentPane().add(txtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 220, -1));
+        getContentPane().add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 220, -1));
+        getContentPane().add(txtCodigoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 220, -1));
+
+        lbCodigo8.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        lbCodigo8.setForeground(new java.awt.Color(255, 255, 255));
+        lbCodigo8.setText("Cod. Cliente");
+        getContentPane().add(lbCodigo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
+
+        txtDataInicial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDataInicialFocusLost(evt);
+            }
+        });
+        getContentPane().add(txtDataInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, 220, -1));
 
         btAlterar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         btAlterar.setForeground(new java.awt.Color(255, 255, 255));
@@ -179,14 +237,14 @@ public class ServicoPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Descrição", "Valor", "Data Alteracao", "Data Cadastro", "Usuario"
+                "Movimentação", "Cod.Cliente", "Cliente", "CPF", "RG", "Data Movimentação", "Valor Total", "Cod.Funcionario", "Funcionario", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -214,11 +272,26 @@ public class ServicoPrincipal extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 690, 440));
 
-        lbCodigo.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        lbCodigo.setForeground(new java.awt.Color(255, 255, 255));
-        lbCodigo.setText("Código");
-        getContentPane().add(lbCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
-        getContentPane().add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 220, -1));
+        lbCodigoMovimentacao.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        lbCodigoMovimentacao.setForeground(new java.awt.Color(255, 255, 255));
+        lbCodigoMovimentacao.setText("Cod. Movimentacao");
+        getContentPane().add(lbCodigoMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+        getContentPane().add(txtCodigoMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 220, -1));
+
+        txtCPF.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtCPF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCPFFocusGained(evt);
+            }
+        });
+        getContentPane().add(txtCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 220, -1));
+
+        txtRG.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtRGFocusGained(evt);
+            }
+        });
+        getContentPane().add(txtRG, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 220, -1));
 
         btLimpar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         btLimpar.setForeground(new java.awt.Color(255, 255, 255));
@@ -233,7 +306,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
                 btLimparActionPerformed(evt);
             }
         });
-        getContentPane().add(btLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 280, 90));
+        getContentPane().add(btLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 580, 280, 60));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
@@ -256,7 +329,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         lbmenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbmenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/menuClientePrincipal_fundo.png"))); // NOI18N
         lbmenu.setText("Filtros");
-        getContentPane().add(lbmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 300, 540));
+        getContentPane().add(lbmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 300, 580));
 
         lbfundo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbfundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/ClientePrincipal_fundo.png"))); // NOI18N
@@ -266,21 +339,29 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         lbimagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/FundoTelaInicial.jpg"))); // NOI18N
         getContentPane().add(lbimagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
-        setSize(new java.awt.Dimension(1019, 670));
+        lbimagem1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbimagem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/FundoTelaInicial.jpg"))); // NOI18N
+        getContentPane().add(lbimagem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
+
+        setSize(new java.awt.Dimension(1020, 675));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDescricaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescricaoFocusLost
-        String minuscula=txtDescricao.getText();
-        txtDescricao.setText(minuscula.toUpperCase());
-        
-    }//GEN-LAST:event_txtDescricaoFocusLost
+    private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
+        String minuscula= txtNome.getText();
+        txtNome.setText(minuscula.toUpperCase());
+    }//GEN-LAST:event_txtNomeFocusLost
+
+    private void txtDataInicialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataInicialFocusLost
+        String minuscula= txtDataInicial.getText();
+        txtDataInicial.setText(minuscula.toUpperCase());
+    }//GEN-LAST:event_txtDataInicialFocusLost
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         try{
             Object obj= grid.getValueAt(grid.getSelectedRow(),0);
-            AlterarServico alterar;
-            alterar = new AlterarServico(obj.toString());
+            AlterarMovimento alterar;
+            alterar = new AlterarMovimento(obj.toString());
             alterar.setVisible(true);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Selecione o registro que deseja alterar");
@@ -288,7 +369,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncluirActionPerformed
-        IncluirServico incluir = new IncluirServico();
+        IncluirMovimento incluir = new IncluirMovimento();
         incluir.setVisible(true);
     }//GEN-LAST:event_btIncluirActionPerformed
 
@@ -297,16 +378,24 @@ public class ServicoPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        int codigo;
-        if (txtCodigo.getText().equals("")){
-            codigo=0;
+        int codigoMovimentacao;
+        int codigoCliente = txtCodigoCliente.getText().equals("") ? 0 : Integer.parseInt(txtCodigoCliente.getText()); 
+        if (txtCodigoMovimentacao.getText().equals("")){
+            codigoMovimentacao=0;
         }else{
-            codigo = Integer.parseInt(txtCodigo.getText());
+            codigoMovimentacao = Integer.parseInt(txtCodigoMovimentacao.getText());
         }
-
-        String descricao= txtDescricao.getText();
+                           
+        String nome= txtNome.getText();
+        String cpf= txtCPF.getText();
+        String rg=txtRG.getText();
+        String DataInicial=txtDataInicial.getText();
+        String DataFinal=txtDataFinal.getText();
         String limite = txtLimite.getText();
-        Servico select = new Servico(codigo,descricao);
+        String dataConcatenada=DataInicial+";"+DataFinal; //O programa sempre irá setar a data inicial e final com a data do dia que esta sendo realizado a consulta
+        Cliente cliente = new Cliente(codigoCliente,nome,cpf,rg,"");
+        Movimentacao movimentacao = new Movimentacao(codigoMovimentacao, dataConcatenada.replace("/", "."),cliente);
+        
         DefaultTableModel modelo = (DefaultTableModel) grid.getModel();
         modelo.setNumRows(0);
 
@@ -316,26 +405,21 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         centralizar(grid,3);
         centralizar(grid,4);
         centralizar(grid,5);
-              
-        try {
-            select.selectFilter(select, limite);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServicoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        centralizar(grid,6);
+        centralizar(grid,7);
+        centralizar(grid,8);
         
         try {
             String lenlist;
-            List<Servico> listagem = select.getSelectFilter();
+            List<Movimentacao> listagem = movimentacao.consultarMovimentacao(movimentacao, limite);
             lenlist=String.valueOf(listagem.size());
-            for (Servico servico : listagem) {
+            for (Movimentacao mov : listagem) {
                 String codigoformat;
                 String dataformat;
-                String precoformat;
-                //precoformat=VerificaDecimal.validaDecimal(String.valueOf(servico.getPreco()).replace(".", ","));
-                precoformat=String.format("%.2f", servico.getPreco());
-                codigoformat=String.valueOf(servico.getCodigo());
-                
-                modelo.addRow(new Object[]{codigoformat,servico.getDescricao(),precoformat,data.formataDataBD(servico.getDataAlteracao()),data.formataDataBD(servico.getDataCadastro()),servico.getUsuario()});
+                codigoformat=String.valueOf(mov.getCodigo());
+                modelo.addRow(new Object[]{codigoformat,mov.getCliente().getCodigo(),mov.getCliente().getNome(),mov.getCliente().getCPF(),mov.getCliente().getRG(),
+                    data.formataDataBD(mov.getData()),mov.getValor(),mov.getFuncionario().getCodigo(),mov.getFuncionario().getNome()});
+
             }
             if(lenlist.equals("1")){
                 lbLenlist.setText("A pesquisa retornou "+ lenlist+" registro");
@@ -345,24 +429,39 @@ public class ServicoPrincipal extends javax.swing.JFrame {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao listar Serviços, contate o suporte técnico");
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao listar clientes, contate o suporte técnico");
         }
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void gridMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridMouseClicked
         if(evt.getClickCount() == 2){
             Object obj= grid.getValueAt(grid.getSelectedRow(),0);
-            AlterarServico alterar;
-            alterar = new AlterarServico(obj.toString());
+            AlterarMovimento alterar;
+            alterar = new AlterarMovimento(obj.toString());
             alterar.setVisible(true);
+
         }
     }//GEN-LAST:event_gridMouseClicked
 
-    private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
-        txtDescricao.setText("");
-        txtCodigo.setText("");
+    private void txtCPFFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusGained
+        txtCPF.setFormatterFactory(Mascara.getCpfMask());
+    }//GEN-LAST:event_txtCPFFocusGained
 
+    private void txtRGFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRGFocusGained
+        txtRG.setFormatterFactory(Mascara.getRgMask());
+    }//GEN-LAST:event_txtRGFocusGained
+
+    private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
+        txtCPF.setText("");
+        txtRG.setText("");
+        txtNome.setText("");
+        txtCodigoMovimentacao.setText("");
+        txtLimite.setText("500");
     }//GEN-LAST:event_btLimparActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+
+    }//GEN-LAST:event_formWindowGainedFocus
     
     private static void centralizar(JTable table, int column) {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -370,7 +469,12 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         table.getColumnModel().getColumn(column).setCellRenderer(centerRenderer);
     }
     
-       
+    private void setDate(){
+        txtDataInicial.setText(data.formataDataFiltro(getdata()));
+        txtDataFinal.setText(data.formataDataFiltro(getdata()));
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -388,20 +492,20 @@ public class ServicoPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ServicoPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MovimentacaoPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ServicoPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MovimentacaoPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ServicoPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MovimentacaoPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ServicoPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MovimentacaoPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ServicoPrincipal().setVisible(true);
+                new MovimentacaoPrincipal().setVisible(true);
             }
         });
     }
@@ -415,17 +519,28 @@ public class ServicoPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable grid;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbCodigo;
+    private javax.swing.JLabel lbCodigo1;
+    private javax.swing.JLabel lbCodigo2;
     private javax.swing.JLabel lbCodigo3;
     private javax.swing.JLabel lbCodigo4;
+    private javax.swing.JLabel lbCodigo5;
+    private javax.swing.JLabel lbCodigo7;
+    private javax.swing.JLabel lbCodigo8;
+    private javax.swing.JLabel lbCodigoMovimentacao;
     private javax.swing.JLabel lbLenlist;
     private javax.swing.JLabel lbPainelBotoes;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JLabel lbfundo;
     private javax.swing.JLabel lbimagem;
+    private javax.swing.JLabel lbimagem1;
     private javax.swing.JLabel lbmenu;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtDescricao;
+    private javax.swing.JFormattedTextField txtCPF;
+    private javax.swing.JTextField txtCodigoCliente;
+    private javax.swing.JTextField txtCodigoMovimentacao;
+    private javax.swing.JTextField txtDataFinal;
+    private javax.swing.JTextField txtDataInicial;
     private javax.swing.JTextField txtLimite;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JFormattedTextField txtRG;
     // End of variables declaration//GEN-END:variables
 }

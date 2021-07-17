@@ -120,10 +120,6 @@ public class ClientesDAO {
        
     public List<Cliente> selectall(Cliente cliente, String limite) throws SQLException{
         try{
-            if (limite=="0" || limite==""){
-                limite="9999999"; 
-            }
-            
             SQLSELECTALL="SELECT FIRST "+limite+" CODIGO,NOME,CPF,RG,EMAIL,ENDERECO,CELULAR,DATA_ALTERACAO,DATA_CADASTRO FROM CLIENTES as c ";
             int contador=0;
             //Campo codigo
@@ -190,7 +186,7 @@ public class ClientesDAO {
             
     }    catch(SQLException ex){
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Problemas no sistema, por favor tente mais tarde");
+            
         }
         return null;
     }     

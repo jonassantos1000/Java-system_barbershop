@@ -35,7 +35,7 @@ public class ServicoDAO {
     
         public List<Servico> selectall(Servico servico, String limite) throws SQLException{
             try{
-                if (limite=="0" || limite==""){
+                if (limite.equals("0") || limite.isEmpty()){
                     limite="9999999"; 
                 }
 
