@@ -5,6 +5,13 @@
  */
 package view.Movimentacao;
 
+import java.util.Locale;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author Jonas Santos
@@ -27,22 +34,306 @@ public class IncluirMovimento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        btCancelar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        lbNome = new javax.swing.JLabel();
+        cbCliente = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        btAdicionar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        grid = new javax.swing.JTable();
+        txtCodigoCliente = new javax.swing.JTextField();
+        lbNome1 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        txtnome1 = new javax.swing.JTextField();
+        lbcodigo = new javax.swing.JLabel();
+        cod_cliente = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtData = new javax.swing.JTextField();
+        btSalvar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btCancelar.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        btCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
+        btCancelar.setText(" Cancelar");
+        btCancelar.setBorder(null);
+        btCancelar.setBorderPainted(false);
+        btCancelar.setContentAreaFilled(false);
+        btCancelar.setFocusPainted(false);
+        btCancelar.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        btCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 530, 100, 80));
+
+        jLabel5.setFont(new java.awt.Font("Verdana", 1, 25)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Incluir Movimentação");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 930, 50));
+
+        lbNome.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbNome.setForeground(new java.awt.Color(255, 255, 255));
+        lbNome.setText("Cabeleireiro");
+        getContentPane().add(lbNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 90, 20));
+
+        cbCliente.setBackground(new java.awt.Color(0, 0, 0));
+        cbCliente.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        cbCliente.setForeground(new java.awt.Color(255, 255, 255));
+        cbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "item" }));
+        cbCliente.setLightWeightPopupEnabled(false);
+        cbCliente.setOpaque(false);
+        getContentPane().add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 280, -1));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(null);
+
+        jButton2.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/adcionar2.png"))); // NOI18N
+        jButton2.setText("Adicionar");
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setFocusPainted(false);
+        jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton2.setOpaque(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2);
+        jButton2.setBounds(-10, 30, 100, 30);
+
+        btAdicionar.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        btAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/remover.png"))); // NOI18N
+        btAdicionar.setText("Remover");
+        btAdicionar.setBorderPainted(false);
+        btAdicionar.setContentAreaFilled(false);
+        btAdicionar.setFocusPainted(false);
+        btAdicionar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btAdicionar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAdicionarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btAdicionar);
+        btAdicionar.setBounds(-10, 60, 100, 30);
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Ações");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(0, 4, 80, 20);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 80, 290));
+
+        grid.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Codigo", "Descrição", "Quantidade", "Valor Unitario", "Valor Total"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Short.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        grid.setShowHorizontalLines(false);
+        jScrollPane1.setViewportView(grid);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, 650, 290));
+
+        txtCodigoCliente.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        txtCodigoCliente.setForeground(new java.awt.Color(255, 255, 255));
+        txtCodigoCliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCodigoCliente.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtCodigoCliente.setOpaque(false);
+        txtCodigoCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCodigoClienteFocusLost(evt);
+            }
+        });
+        getContentPane().add(txtCodigoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 50, -1));
+
+        lbNome1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbNome1.setForeground(new java.awt.Color(255, 255, 255));
+        lbNome1.setText("Cliente");
+        getContentPane().add(lbNome1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 50, -1));
+
+        jComboBox2.setBackground(new java.awt.Color(0, 0, 0));
+        jComboBox2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jComboBox2.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "item" }));
+        jComboBox2.setLightWeightPopupEnabled(false);
+        jComboBox2.setOpaque(false);
+        getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 170, 150, -1));
+
+        txtnome1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        txtnome1.setForeground(new java.awt.Color(255, 255, 255));
+        txtnome1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtnome1.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtnome1.setOpaque(false);
+        txtnome1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtnome1FocusLost(evt);
+            }
+        });
+        getContentPane().add(txtnome1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 40, -1));
+
+        lbcodigo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbcodigo.setForeground(new java.awt.Color(255, 255, 255));
+        lbcodigo.setText("Codigo");
+        getContentPane().add(lbcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 50, -1));
+
+        cod_cliente.setEditable(false);
+        cod_cliente.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        cod_cliente.setForeground(new java.awt.Color(255, 255, 255));
+        cod_cliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        cod_cliente.setOpaque(false);
+        cod_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cod_clienteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cod_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 60, -1));
+
+        jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Data");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 120, 40, 20));
+
+        txtData.setEditable(false);
+        txtData.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        txtData.setForeground(new java.awt.Color(255, 255, 255));
+        txtData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtData.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtData.setOpaque(false);
+        getContentPane().add(txtData, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 110, -1));
+
+        btSalvar.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        btSalvar.setForeground(new java.awt.Color(255, 255, 255));
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btSalvar.setText(" Efetivar");
+        btSalvar.setBorderPainted(false);
+        btSalvar.setContentAreaFilled(false);
+        btSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 530, 100, 80));
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/PainelFundo2.png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1020, 670));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/FundoTelaInicial.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void txtCodigoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoClienteFocusLost
+        String minuscula= txtCodigoCliente.getText();
+        txtCodigoCliente.setText(minuscula.toUpperCase());
+    }//GEN-LAST:event_txtCodigoClienteFocusLost
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        if("".equals(txtCodigoCliente.getText()) ){
+            JOptionPane.showMessageDialog(null, "O campo Nome,CPF ou RG estão em branco, corrija e tente novamente");
+        }
+        else{
+
+            int codigo = Integer.parseInt(cod_cliente.getText());
+            String nome = coalesce(txtCodigoCliente.getText());
+            String CPF = coalesceMascara(txtCPF.getText());
+            String RG = coalesceMascara(txtRG.getText());
+            String endereco = coalesce(txtEndereco.getText());
+            String CEP = coalesceMascara(txtCEP.getText());
+            String data = txtData.getText();
+            String numero = coalesce(txtNumero.getText());
+            String bairro = coalesce(txtBairro.getText());
+            String complemento = coalesce(txtComplemento.getText());
+            String email=coalesce(txtEmail.getText());
+            String telefone=coalesceMascara(txtTelefone.getText());
+            String celular=coalesceMascara(txtCelular.getText());
+            String observacao= coalesce(txtObservacoes.getText());
+            String notificawhats=null;
+
+            if (rbSim.isSelected()){
+                notificawhats="T";
+            }
+            else{
+                notificawhats="F";
+            }
+
+            try {
+                //gravacliente(codigo, nome, CPF, RG, endereco, CEP);
+                Cliente incluirCliente = new Cliente(codigo,nome,CPF,RG,celular,email,data,endereco,bairro,numero,complemento,telefone,notificawhats,observacao, CEP);
+                incluirCliente.setNotificawhats(notificawhats);
+                incluirCliente.gravar(incluirCliente);
+                JOptionPane.showMessageDialog(null,"Cadastro Salvo com sucesso !");
+                this.dispose();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,"erro ao salvar cadastro!");
+            }
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void txtnome1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtnome1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnome1FocusLost
+
+    private void cod_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cod_clienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cod_clienteActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ProdutosMovimentacao tela = new ProdutosMovimentacao();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAdicionarActionPerformed
+    private static void centralizar(JTable table, int column) {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.getColumnModel().getColumn(column).setCellRenderer(centerRenderer);
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -80,5 +371,26 @@ public class IncluirMovimento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAdicionar;
+    private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btSalvar;
+    private javax.swing.JComboBox<String> cbCliente;
+    private javax.swing.JTextField cod_cliente;
+    private javax.swing.JTable grid;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbNome;
+    private javax.swing.JLabel lbNome1;
+    private javax.swing.JLabel lbcodigo;
+    private javax.swing.JTextField txtCodigoCliente;
+    private javax.swing.JTextField txtData;
+    private javax.swing.JTextField txtnome1;
     // End of variables declaration//GEN-END:variables
 }
