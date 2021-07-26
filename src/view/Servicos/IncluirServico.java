@@ -249,8 +249,7 @@ public class IncluirServico extends javax.swing.JFrame {
         countersServico.setCampo(campo);
         codigo=String.valueOf(countersServico.consultacodigo());
         cod_servico.setText(codigo);
-        txtData.setText(data.getdata());
-        
+        txtData.setText(data.getdata());      
     }
     /**
      * @param args the command line arguments

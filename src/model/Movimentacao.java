@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import DAO.MovimentacaoDAO;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -21,22 +22,22 @@ import java.util.ArrayList;
 public class Movimentacao {
    
     
-    public Movimentacao(int codigo, int quantidade, double valor, String data, Cliente cliente, Servico servico, Funcionario funcionario){
+    public Movimentacao(int codigo,double valor, String data, Cliente cliente, List<ProdutosMovimento> listProduto, Funcionario funcionario){
         setCodigo(codigo);
-        setQuantidade(quantidade);
         setValor(valor);
         setData(data);
         setCliente(cliente);
-        setServico(servico);
+        setListProduto(listProduto);
         setFuncionario(funcionario);
     }
     
     public Movimentacao(int codigo, String data, Cliente cliente){
-        this(codigo,0,0.0,data,cliente,null,null);
+        this(codigo,0.0,data,cliente,null,null);
     }
     
-    public Movimentacao(int codigo, String data, Cliente cliente, Funcionario funcionario){
-        this(codigo,0,0.0,data,cliente,null,funcionario);
+    public Movimentacao(int codigo,double valor, String data, Cliente cliente, Funcionario funcionario){
+        //UTILIZADO PARA CONSULTA NA VIEW
+        this(codigo,valor,data,cliente,null,funcionario);
     }
     
     
@@ -47,7 +48,15 @@ public class Movimentacao {
     private String data;
     private int quantidade;
     private Cliente cliente;
-    private Servico servico;
+    List<ProdutosMovimento> listProduto;
+
+    public List<ProdutosMovimento> getListProduto() {
+        return listProduto;
+    }
+
+    public void setListProduto(List<ProdutosMovimento> listProduto) {
+        this.listProduto = listProduto;
+    }
     private Funcionario funcionario;
 
     public Funcionario getFuncionario() {
@@ -81,29 +90,13 @@ public class Movimentacao {
     public void setData(String data) {
         this.data = data;
     }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-    
+  
         public Cliente getCliente() {
         return cliente;
     }
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-    }
-
-    public Servico getServico() {
-        return servico;
-    }
-
-    public void setServico(Servico servico) {
-        this.servico = servico;
     }
     
     public List<Movimentacao> consultarMovimentacao(Movimentacao movimentacao, String limite) throws SQLException{
@@ -113,10 +106,9 @@ public class Movimentacao {
         return resultSelect;
     }
      
-    public int incluir (){
-        int id = 123; /*instrução de teste*/
-     
-        return id;
+    public void gravar (Movimentacao mov) throws ParseException{
+        MovimentacaoDAO dao = new MovimentacaoDAO(this);
+        dao.insert();
     }
     
     public void alterar(){

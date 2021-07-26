@@ -5,6 +5,9 @@
  */
 package Util;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -23,5 +26,10 @@ public class VerificaDecimal {
         else{
             return valor;
         }
+    }
+    
+    public static Number nf (String numero) throws ParseException{
+        NumberFormat nf = new DecimalFormat("#,###.00");
+        return nf.parse(numero);
     }
 }

@@ -37,10 +37,10 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
         modeltable.getColumn(0).setPreferredWidth(80);
         modeltable.getColumn(1).setPreferredWidth(80);
         modeltable.getColumn(2).setPreferredWidth(200);
-        modeltable.getColumn(3).setPreferredWidth(130);
-        modeltable.getColumn(4).setPreferredWidth(100);
-        modeltable.getColumn(5).setPreferredWidth(150);
-        modeltable.getColumn(6).setPreferredWidth(90);
+        modeltable.getColumn(3).setPreferredWidth(80);
+        modeltable.getColumn(4).setPreferredWidth(150);
+        modeltable.getColumn(5).setPreferredWidth(130);
+        modeltable.getColumn(6).setPreferredWidth(180);
         modeltable.getColumn(7).setPreferredWidth(80);
         modeltable.getColumn(8).setPreferredWidth(120);
         txtCodigoMovimentacao.setDocument(new ValidaNumeros());
@@ -91,6 +91,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        setResizable(false);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -237,7 +238,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Movimentação", "Cod.Cliente", "Cliente", "CPF", "RG", "Data Movimentação", "Valor Total", "Cod.Funcionario", "Funcionario", ""
+                "Movimentação", "Cod.Cliente", "Cliente", "Valor Total", "CPF", "RG", "Data Movimentação", "Cod.Funcionario", "Funcionario", ""
             }
         ) {
             Class[] types = new Class [] {
@@ -416,9 +417,11 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
             for (Movimentacao mov : listagem) {
                 String codigoformat;
                 String dataformat;
+                String precoformat;
                 codigoformat=String.valueOf(mov.getCodigo());
-                modelo.addRow(new Object[]{codigoformat,mov.getCliente().getCodigo(),mov.getCliente().getNome(),mov.getCliente().getCPF(),mov.getCliente().getRG(),
-                    data.formataDataBD(mov.getData()),mov.getValor(),mov.getFuncionario().getCodigo(),mov.getFuncionario().getNome()});
+                precoformat=String.format("%.2f",mov.getValor());
+                modelo.addRow(new Object[]{codigoformat,mov.getCliente().getCodigo(),mov.getCliente().getNome(),precoformat,mov.getCliente().getCPF(),mov.getCliente().getRG(),
+                    data.formataDataBD(mov.getData()),mov.getFuncionario().getCodigo(),mov.getFuncionario().getNome()});
 
             }
             if(lenlist.equals("1")){
@@ -456,6 +459,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
         txtRG.setText("");
         txtNome.setText("");
         txtCodigoMovimentacao.setText("");
+        txtCodigoCliente.setText("");
         txtLimite.setText("500");
     }//GEN-LAST:event_btLimparActionPerformed
 

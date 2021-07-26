@@ -38,9 +38,15 @@ public class Funcionario extends Pessoa {
         this(codigo,nome,cpf,RG,celular,email,data_cadastro,endereco,"0","0","0","0","0","0",data_alteracao);
        
     }
-
+    
+    public Funcionario(int codigo) {
+        this(codigo,"","","","0","","0","0","0","0","0","0","0","0","0");
+    }
+    
     private List<Funcionario> result;
     private Funcionario resultalterafuncionario;
+
+
   
     public void gravar(Funcionario funcionario) throws ParseException{
         FuncionarioDAO dao = new FuncionarioDAO(this);

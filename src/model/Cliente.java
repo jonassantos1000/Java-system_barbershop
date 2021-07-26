@@ -42,8 +42,16 @@ public class Cliente extends Pessoa {
        
     }
     
+    public Cliente(int codigo) {
+        //Construtor utilizado para incluir movimentacao
+        this(codigo,"","","","0","","0","0","0","0","0","0","0","0","0");
+     
+    }
+    
     private List<Cliente> result;
     private Cliente resultalteracliente;
+
+
 
 
     

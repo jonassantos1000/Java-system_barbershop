@@ -38,6 +38,11 @@ public class Servico {
         this(codigo,descricao,0,"","","");
     }
     
+    public Servico(int codigo, String descricao, double preco){
+        //construtor utilizado para trazer o resultado da pesquisa na tela ServicoPrincipal
+        this(codigo,descricao,preco,"","","");
+    }
+    
         
     private int codigo = 0;
     private String descricao;
