@@ -42,6 +42,11 @@ public class Cliente extends Pessoa {
        
     }
     
+    public Cliente(int codigo, String nome) {
+        //Construtor utilizado para incluir movimentacao
+        this(codigo,nome,"","","0","","0","0","0","0","0","0","0","0","0");   
+    }
+    
     public Cliente(int codigo) {
         //Construtor utilizado para incluir movimentacao
         this(codigo,"","","","0","","0","0","0","0","0","0","0","0","0");

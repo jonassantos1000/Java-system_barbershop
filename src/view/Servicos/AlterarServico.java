@@ -6,9 +6,13 @@
 package view.Servicos;
 
 import Util.Mascara;
+import static Util.VerificaDecimal.nf;
 import static Util.VerificaDecimal.validaDecimal;
 import static Util.coalesce.coalesce;
 import Util.data;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Servico;
 
@@ -240,7 +244,12 @@ public class AlterarServico extends javax.swing.JFrame {
             int codigo = Integer.parseInt(cod_servico.getText());
             String descricao = coalesce(txtDescricao.getText());
             String data = txtData.getText();
-            double preco = Double.parseDouble(coalesce(txtValor.getText()).replace(",", "."));
+            double preco=0;
+            try {
+                preco = nf(coalesce(txtValor.getText())).doubleValue();
+            } catch (ParseException ex) {
+                Logger.getLogger(AlterarServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
             String observacao= coalesce(txtObservacoes.getText());
             String usuario=null;
             try {

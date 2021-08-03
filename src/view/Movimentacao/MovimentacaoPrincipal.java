@@ -361,8 +361,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         try{
             Object obj= grid.getValueAt(grid.getSelectedRow(),0);
-            AlterarMovimento alterar;
-            alterar = new AlterarMovimento(obj.toString());
+            AlterarMovimento alterar = new AlterarMovimento(obj.toString());
             alterar.setVisible(true);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Selecione o registro que deseja alterar");

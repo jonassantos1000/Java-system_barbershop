@@ -32,7 +32,7 @@ import model.Servico;
  *
  * @author Jonas Santos
  */
-public class IncluirMovimento extends javax.swing.JDialog {
+public class IncluirMovimento extends javax.swing.JFrame {
 
     /**
      * Creates new form IncluiMovimento
@@ -48,6 +48,7 @@ public class IncluirMovimento extends javax.swing.JDialog {
     List<ProdutosMovimento> listProd = new ArrayList<ProdutosMovimento>();
     public IncluirMovimento() {
         initComponents();
+        setOpcoesCBCliente();
         setCodigo();
         TableColumnModel modeltable = grid.getColumnModel();
         modeltable.getColumn(0).setPreferredWidth(50);
@@ -56,8 +57,9 @@ public class IncluirMovimento extends javax.swing.JDialog {
         modeltable.getColumn(3).setPreferredWidth(100);
         modeltable.getColumn(4).setPreferredWidth(150);
         txtCodigoBusca.setDocument(new ValidaNumeros());
-        setOpcoesCBCliente();
         setOpcoesCBFuncionario();
+        txtValorTotalVenda.setFormatterFactory(Mascara.getValorMask());
+        
     }
     
     public IncluirMovimento(List<ProdutosMovimento> produtos){
@@ -115,12 +117,12 @@ public class IncluirMovimento extends javax.swing.JDialog {
         btEfetivarAlt = new javax.swing.JButton();
         btCancelarAlt = new javax.swing.JButton();
         txtTotalProdAlt = new javax.swing.JFormattedTextField();
+        cbCliente = new javax.swing.JComboBox<>();
         btCancelar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         lbNome = new javax.swing.JLabel();
         lbValorTotalVenda = new javax.swing.JLabel();
-        cbCliente = new javax.swing.JComboBox<>();
-        txtValorTotalVenda = new javax.swing.JTextField();
+        txtValorTotalVenda = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         btAdicionarProd = new javax.swing.JButton();
         btRemoverProd = new javax.swing.JButton();
@@ -136,13 +138,12 @@ public class IncluirMovimento extends javax.swing.JDialog {
         cod_movimentacao = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         txtData = new javax.swing.JTextField();
-        btSalvar = new javax.swing.JButton();
+        btSalvarMovimento = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         PesquisaProduto.setMinimumSize(new java.awt.Dimension(666, 425));
         PesquisaProduto.setUndecorated(true);
-        PesquisaProduto.setPreferredSize(new java.awt.Dimension(666, 425));
         PesquisaProduto.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbDescricao.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -222,7 +223,7 @@ public class IncluirMovimento extends javax.swing.JDialog {
         btCancelar1.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
         btCancelar1.setForeground(new java.awt.Color(255, 255, 255));
         btCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
-        btCancelar1.setText("Cancelar");
+        btCancelar1.setText("Fechar");
         btCancelar1.setBorderPainted(false);
         btCancelar1.setContentAreaFilled(false);
         btCancelar1.setFocusPainted(false);
@@ -268,7 +269,6 @@ public class IncluirMovimento extends javax.swing.JDialog {
         IncluirProduto.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         IncluirProduto.setMinimumSize(new java.awt.Dimension(421, 156));
         IncluirProduto.setUndecorated(true);
-        IncluirProduto.setPreferredSize(new java.awt.Dimension(421, 156));
         IncluirProduto.setResizable(false);
         IncluirProduto.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -459,6 +459,23 @@ public class IncluirMovimento extends javax.swing.JDialog {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        cbCliente.setBackground(new java.awt.Color(0, 0, 0));
+        cbCliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cbCliente.setForeground(new java.awt.Color(255, 255, 255));
+        cbCliente.setLightWeightPopupEnabled(false);
+        cbCliente.setOpaque(false);
+        cbCliente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbClienteItemStateChanged(evt);
+            }
+        });
+        cbCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbClienteFocusGained(evt);
+            }
+        });
+        getContentPane().add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 280, -1));
+
         btCancelar.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         btCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
@@ -493,25 +510,18 @@ public class IncluirMovimento extends javax.swing.JDialog {
         lbValorTotalVenda.setText("Valor Total Venda");
         getContentPane().add(lbValorTotalVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 510, 130, 20));
 
-        cbCliente.setBackground(new java.awt.Color(0, 0, 0));
-        cbCliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbCliente.setForeground(new java.awt.Color(255, 255, 255));
-        cbCliente.setLightWeightPopupEnabled(false);
-        cbCliente.setOpaque(false);
-        cbCliente.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbClienteItemStateChanged(evt);
-            }
-        });
-        getContentPane().add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 280, -1));
-
         txtValorTotalVenda.setEditable(false);
-        txtValorTotalVenda.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         txtValorTotalVenda.setForeground(new java.awt.Color(255, 255, 255));
         txtValorTotalVenda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtValorTotalVenda.setText("0,0");
         txtValorTotalVenda.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtValorTotalVenda.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtValorTotalVenda.setOpaque(false);
+        txtValorTotalVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorTotalVendaActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtValorTotalVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 540, 110, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -693,19 +703,19 @@ public class IncluirMovimento extends javax.swing.JDialog {
         txtData.setOpaque(false);
         getContentPane().add(txtData, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 120, 150, -1));
 
-        btSalvar.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        btSalvar.setForeground(new java.awt.Color(255, 255, 255));
-        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
-        btSalvar.setText(" Efetivar");
-        btSalvar.setBorderPainted(false);
-        btSalvar.setContentAreaFilled(false);
-        btSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+        btSalvarMovimento.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        btSalvarMovimento.setForeground(new java.awt.Color(255, 255, 255));
+        btSalvarMovimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btSalvarMovimento.setText(" Efetivar");
+        btSalvarMovimento.setBorderPainted(false);
+        btSalvarMovimento.setContentAreaFilled(false);
+        btSalvarMovimento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btSalvarMovimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSalvarActionPerformed(evt);
+                btSalvarMovimentoActionPerformed(evt);
             }
         });
-        getContentPane().add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 550, 100, 80));
+        getContentPane().add(btSalvarMovimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 550, 100, 80));
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -743,28 +753,32 @@ public class IncluirMovimento extends javax.swing.JDialog {
 
     }//GEN-LAST:event_txtCodigoClienteFocusLost
 
-    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if(listProd.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Insira pelo menos 1 serviço !");
+    private void btSalvarMovimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarMovimentoActionPerformed
+        try{
+            if(listProd.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Insira pelo menos 1 serviço !");
+            }
+
+            int codigoMovimentacao=Integer.parseInt(cod_movimentacao.getText());
+            String dataCadastro=txtData.getText();
+            int codCliente = Integer.parseInt(txtCodigoCliente.getText());
+            int codFuncionario = Integer.parseInt(txtCodigoFuncionario.getText());
+            double totalVenda= nf(txtValorTotalVenda.getText()).doubleValue();
+
+            Cliente cliente = new Cliente(codCliente);
+            Funcionario funcionario = new Funcionario(codFuncionario);       
+            Movimentacao mov = new Movimentacao(codigoMovimentacao,totalVenda,dataCadastro,cliente,listProduto,funcionario);
+            try {
+                mov.gravar(mov);
+            } catch (ParseException ex) {
+                Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.dispose();
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao incluir a movimentação !");
         }
         
-        int codigoMovimentacao=Integer.parseInt(cod_movimentacao.getText());
-        String dataCadastro=txtData.getText();
-        int codCliente = Integer.parseInt(txtCodigoCliente.getText());
-        int codFuncionario = Integer.parseInt(txtCodigoFuncionario.getText());
-        double totalVenda= Double.parseDouble(txtValorTotalVenda.getText().replace(",","."));
-        
-        Cliente cliente = new Cliente(codCliente);
-        Funcionario funcionario = new Funcionario(codFuncionario);       
-        Movimentacao mov = new Movimentacao(codigoMovimentacao,totalVenda,dataCadastro,cliente,listProduto,funcionario);
-        try {
-            mov.gravar(mov);
-        } catch (ParseException ex) {
-            Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.dispose();
-        
-    }//GEN-LAST:event_btSalvarActionPerformed
+    }//GEN-LAST:event_btSalvarMovimentoActionPerformed
     
     private void txtCodigoFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoFuncionarioFocusLost
         List <Funcionario> listagem = listFuncionario;
@@ -835,8 +849,9 @@ public class IncluirMovimento extends javax.swing.JDialog {
         try {
             servico.selectFilter(servico, "99999");
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarProdutoMovimentacao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
+
 
         try {
             String lenlist;
@@ -924,7 +939,7 @@ public class IncluirMovimento extends javax.swing.JDialog {
             int codigo;
             codigo=Integer.parseInt(txtCodigoProd.getText());
             int qtde = Integer.parseInt(txtQtde.getText());
-            double valorUnitario= Double.parseDouble(txtValorUni.getText().replace(",", "."));
+            double valorUnitario= nf(txtValorUni.getText()).doubleValue();
             double valorTotal=nf(txtTotalProd.getText()).doubleValue();
 
             Servico servico = new Servico(codigo,txtDescricaoProd.getText());
@@ -982,22 +997,26 @@ public class IncluirMovimento extends javax.swing.JDialog {
     }//GEN-LAST:event_txtValorUniAltFocusLost
 
     private void btEfetivarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEfetivarAltActionPerformed
-        int indice=getIndice();
-        listProd.remove(indice);
-        
-        int codigo;
-        codigo=Integer.parseInt(txtCodigoAltProd.getText());
-        int qtde = Integer.parseInt(txtAltQtde.getText());
-        double valorUnitario=Double.parseDouble(txtValorUniAlt.getText().replace(",", "."));
-        double valorTotal=Double.parseDouble(txtTotalProdAlt.getText().replace(",", "."));
+        try{
+            int indice=getIndice();
+            listProd.remove(indice);
 
-        Servico servico = new Servico(codigo,txtDescricaoAltProd.getText());
-        ProdutosMovimento incluir = new ProdutosMovimento(servico,qtde,valorUnitario,valorTotal);
-        listProd.add(indice, incluir);
-        listProduto=listProd;
-        carregaGrid();
-        //incluir.setListaProduto(incluir);
-        AlterarProduto.setVisible(false);
+            int codigo;
+            codigo=Integer.parseInt(txtCodigoAltProd.getText());
+            int qtde = Integer.parseInt(txtAltQtde.getText());
+            double valorUnitario=nf(txtValorUniAlt.getText()).doubleValue();
+            double valorTotal=nf(txtTotalProdAlt.getText()).doubleValue();
+
+            Servico servico = new Servico(codigo,txtDescricaoAltProd.getText());
+            ProdutosMovimento incluir = new ProdutosMovimento(servico,qtde,valorUnitario,valorTotal);
+            listProd.add(indice, incluir);
+            listProduto=listProd;
+            carregaGrid();
+            //incluir.setListaProduto(incluir);
+            AlterarProduto.setVisible(false);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao alterar produto !");
+        }
     }//GEN-LAST:event_btEfetivarAltActionPerformed
 
     private void btCancelarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarAltActionPerformed
@@ -1058,6 +1077,14 @@ public class IncluirMovimento extends javax.swing.JDialog {
         txtCodigoProd.requestFocus();
         }
     }//GEN-LAST:event_txtValorUniKeyPressed
+
+    private void txtValorTotalVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorTotalVendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorTotalVendaActionPerformed
+
+    private void cbClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbClienteFocusGained
+
+    }//GEN-LAST:event_cbClienteFocusGained
     private static void centralizar(JTable table, int column) {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -1087,6 +1114,7 @@ public class IncluirMovimento extends javax.swing.JDialog {
                     //modelo.addRow(new Object[]{"1","teste"});      
                     valorTotalVenda=valorTotalVenda+Double.parseDouble(totalFormat.replace(",","."));
                 }
+            
             txtValorTotalVenda.setText(String.format("%.2f",valorTotalVenda));
         }catch(Exception ex){
             ex.printStackTrace();
@@ -1105,12 +1133,19 @@ public class IncluirMovimento extends javax.swing.JDialog {
     private void setMask(){
         txtValorUni.setFormatterFactory(Mascara.getValorMask());
         txtTotalProd.setFormatterFactory(Mascara.getValorMask());
+        txtValorUniAlt.setFormatterFactory(Mascara.getValorMask());
+        txtTotalProdAlt.setFormatterFactory(Mascara.getValorMask());
+       // 
     }
 
     private void calculaTotal(){
         int qtde=Integer.valueOf(txtQtde.getText());
         double total;
-        valorUnitario=Double.parseDouble(txtValorUni.getText().replace(",", "."));
+        try {
+            valorUnitario=nf(txtValorUni.getText()).doubleValue();
+        } catch (ParseException ex) {
+            Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
+        }
         total=valorUnitario*qtde;
         txtTotalProd.setText(String.format("%.2f",total));
     }
@@ -1118,7 +1153,11 @@ public class IncluirMovimento extends javax.swing.JDialog {
     private void calculaTotalAlt(){
         int qtde=Integer.valueOf(txtAltQtde.getText());
         double total;
-        valorUnitario=Double.valueOf(txtValorUniAlt.getText().replace(",", "."));
+        try {
+            valorUnitario=nf(txtValorUniAlt.getText()).doubleValue();
+        } catch (ParseException ex) {
+            Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
+        }
         total=valorUnitario*qtde;
         txtTotalProdAlt.setText(String.format("%.2f",total));
     }
@@ -1243,7 +1282,7 @@ public class IncluirMovimento extends javax.swing.JDialog {
     private javax.swing.JButton btEfetivarAlt;
     private javax.swing.JButton btIncluir;
     private javax.swing.JButton btRemoverProd;
-    private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btSalvarMovimento;
     private javax.swing.JComboBox<String> cbCliente;
     private javax.swing.JComboBox<String> cbFuncionario;
     private javax.swing.JTextField cod_movimentacao;
@@ -1292,7 +1331,7 @@ public class IncluirMovimento extends javax.swing.JDialog {
     private javax.swing.JTextField txtQtde;
     private javax.swing.JFormattedTextField txtTotalProd;
     private javax.swing.JFormattedTextField txtTotalProdAlt;
-    private javax.swing.JTextField txtValorTotalVenda;
+    private javax.swing.JFormattedTextField txtValorTotalVenda;
     private javax.swing.JFormattedTextField txtValorUni;
     private javax.swing.JFormattedTextField txtValorUniAlt;
     // End of variables declaration//GEN-END:variables

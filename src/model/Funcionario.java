@@ -39,6 +39,10 @@ public class Funcionario extends Pessoa {
        
     }
     
+    public Funcionario(int codigo,String nome) {
+        this(codigo,nome,"","","0","","0","0","0","0","0","0","0","0","0");
+    }
+    
     public Funcionario(int codigo) {
         this(codigo,"","","","0","","0","0","0","0","0","0","0","0","0");
     }

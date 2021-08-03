@@ -56,7 +56,7 @@ public class ServicoDAO {
                     SQLSELECTALL=SQLSELECTALL+"and s.DESCRICAO LIKE '%"+servico.getDescricao()+"%' ";  
                     }
                 }
-
+                SQLSELECTALL=SQLSELECTALL+"ORDER BY COD_SERVICO";
                 PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLSELECTALL);
                 ResultSet rs = pst.executeQuery();
                 List<Servico> listServico = new ArrayList<Servico>();

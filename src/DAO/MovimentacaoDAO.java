@@ -16,6 +16,7 @@ import model.Cliente;
 import model.Funcionario;
 import model.Movimentacao;
 import model.ProdutosMovimento;
+import model.Servico;
 
 /**
  *
@@ -129,6 +130,39 @@ public class MovimentacaoDAO {
         }
         return null;
     } 
+        
+    public Movimentacao selectAlteraMovimentacao (int ID) throws SQLException{
+        try{
+            String CONSULTAVENDA;
+            CONSULTAVENDA="SELECT v.COD_VENDA ,v.DT_VENDA ,v.VL_TOTAL_VENDA ,v.COD_FUNCIONARIO ,v.COD_CLIENTE, c.NOME AS nomeCliente, f.NOME AS nomeFuncionario FROM VENDAS v, CLIENTES c, FUNCIONARIO f WHERE v.COD_VENDA ='"+ID+"' AND v.COD_CLIENTE =c.CODIGO AND v.COD_FUNCIONARIO =f.COD_FUNCIONARIO";
+            String CONSULTAITENSVENDIDOS="SELECT i.COD_SERVICO, i.COD_VENDA, i.QT_SERVICO_VENDIDO, i.VL_UNITARIO_PRODUTO_VENDIDO, s.DESCRICAO FROM ITENS_VENDAS i, SERVICOS s WHERE i.COD_VENDA ='"+ID+"' AND i.COD_SERVICO = s.COD_SERVICO";
+            List<ProdutosMovimento> listagem= new ArrayList<ProdutosMovimento>();
+
+            PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(CONSULTAITENSVENDIDOS);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                double valorUni=rs.getDouble("VL_UNITARIO_PRODUTO_VENDIDO");
+                int qtde=rs.getInt("QT_SERVICO_VENDIDO");
+                double vlTotal=valorUni*qtde;
+                Servico servico = new Servico(rs.getInt("COD_SERVICO"), rs.getString("DESCRICAO"));
+                ProdutosMovimento ItensVendidos= new ProdutosMovimento(servico,qtde,valorUni,vlTotal);
+                listagem.add(ItensVendidos);
+            }
+            pst= Connection.connectionFactory.getconnection().prepareStatement(CONSULTAVENDA);
+            rs = pst.executeQuery();
+            while(rs.next()){
+                Cliente cliente = new Cliente(rs.getInt("COD_CLIENTE"), rs.getString("NOMECLIENTE"));
+                Funcionario funcionario = new Funcionario(rs.getInt("COD_FUNCIONARIO"),rs.getString("NOMEFUNCIONARIO"));
+                Movimentacao mov = new Movimentacao(ID,rs.getDouble("VL_TOTAL_VENDA"),rs.getString("DT_VENDA"),cliente,listagem,funcionario);
+                return mov;    
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+            
+        }
+        return null;
+    }   
+        
 
     public boolean insert() throws ParseException{
         try{
@@ -158,12 +192,42 @@ public class MovimentacaoDAO {
         }
         catch(SQLException e){
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Não foi possivel gravar a movimentação !!!");
             return false;
         }
     }
 
+    public boolean update(){
+        try{
+            String ID = String.valueOf(alteraMovimentacao.getCodigo());
+            String SQLDELETE="DELETE FROM ITENS_VENDAS WHERE COD_VENDA='"+ID+"'";
+            String SQLUPDATE="UPDATE VENDAS SET VL_TOTAL_VENDA=?, COD_FUNCIONARIO=?,COD_CLIENTE=? WHERE COD_VENDA='"+ID+"'";
+            PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLDELETE);//deleta os produtos antes da alteração
+            pst.executeUpdate();
+            pst= Connection.connectionFactory.getconnection().prepareStatement(SQLUPDATE);//atualiza os dados na tabela vendas
+            pst.setDouble(1, alteraMovimentacao.getValor());
+            pst.setInt(2, alteraMovimentacao.getFuncionario().getCodigo());
+            pst.setInt(3, alteraMovimentacao.getCliente().getCodigo());
+            pst.executeUpdate();
+            
+            //INSERT NA TABELA DE PRODUTOS VENDIDOS
+            pst= Connection.connectionFactory.getconnection().prepareStatement(SQLINSERTPRODUTOSVENDA);
+            List<ProdutosMovimento> listagem = alteraMovimentacao.getListProduto();
+          
+            for (ProdutosMovimento mov : listagem) {
+                pst.setInt(1, mov.getServico().getCodigo());
+                pst.setInt(2, alteraMovimentacao.getCodigo());
+                pst.setInt(3, mov.getQtde());
+                pst.setDouble(4,mov.getPreco());
+                pst.executeUpdate();
+            }
+            
+            return true;
 
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+            return false;
+        }
+    }
 
 
 }
