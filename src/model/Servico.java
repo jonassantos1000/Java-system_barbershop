@@ -120,6 +120,11 @@ public class Servico {
         alterarServico.update();
     }
     
+    public void apagar(Servico servico){
+        ServicoDAO excluirServico= new ServicoDAO(this);
+        excluirServico.delete();
+    }    
+    
     public void selectAlteraServico(int ID){
         try{
             ServicoDAO alteraServico = new ServicoDAO(this);

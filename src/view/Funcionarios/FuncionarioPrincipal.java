@@ -67,6 +67,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         btAlterar = new javax.swing.JButton();
         btIncluir = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
+        btCancelar1 = new javax.swing.JButton();
         btPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         grid = new javax.swing.JTable();
@@ -151,7 +152,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
                 btAlterarActionPerformed(evt);
             }
         });
-        getContentPane().add(btAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 550, 150, 50));
+        getContentPane().add(btAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 550, 150, 50));
 
         btIncluir.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         btIncluir.setForeground(new java.awt.Color(255, 255, 255));
@@ -166,12 +167,12 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
                 btIncluirActionPerformed(evt);
             }
         });
-        getContentPane().add(btIncluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 550, 150, 50));
+        getContentPane().add(btIncluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 550, -1, 50));
 
         btCancelar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         btCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
-        btCancelar.setText("Cancelar");
+        btCancelar.setText("Fechar");
         btCancelar.setToolTipText("");
         btCancelar.setBorderPainted(false);
         btCancelar.setContentAreaFilled(false);
@@ -181,7 +182,22 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
                 btCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 550, 140, 50));
+        getContentPane().add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 550, 140, 50));
+
+        btCancelar1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btCancelar1.setForeground(new java.awt.Color(255, 255, 255));
+        btCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
+        btCancelar1.setText("Excluir");
+        btCancelar1.setToolTipText("");
+        btCancelar1.setBorderPainted(false);
+        btCancelar1.setContentAreaFilled(false);
+        btCancelar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelar1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btCancelar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 550, 140, 50));
 
         btPesquisar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         btPesquisar.setForeground(new java.awt.Color(255, 255, 255));
@@ -196,7 +212,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
                 btPesquisarActionPerformed(evt);
             }
         });
-        getContentPane().add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 550, 140, 50));
+        getContentPane().add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 550, 140, 50));
 
         jScrollPane1.setBackground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -433,6 +449,24 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         txtCodigo.setText("");
 
     }//GEN-LAST:event_btLimparActionPerformed
+
+    private void btCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelar1ActionPerformed
+        try{
+            String codFuncionarioSelecionado= grid.getValueAt(grid.getSelectedRow(),0).toString();
+            String nomeFuncionarioSelecionado= grid.getValueAt(grid.getSelectedRow(),1).toString();
+            int confirmacao= JOptionPane.showConfirmDialog(null, "Deseja excluir o serviço selecionado ? \n Funcionario: "+codFuncionarioSelecionado+" | "+nomeFuncionarioSelecionado, "**** Atenção ****",1);
+            
+            if (confirmacao==0){
+                int cod=Integer.parseInt(codFuncionarioSelecionado);
+                Funcionario excluirFuncionario = new Funcionario(cod,nomeFuncionarioSelecionado);
+                excluirFuncionario.apagar(excluirFuncionario);
+            }
+            btPesquisar.doClick();
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Selecione o funcionario que deseja excluir !");
+            ex.printStackTrace();
+            }
+    }//GEN-LAST:event_btCancelar1ActionPerformed
     private static void centralizar(JTable table, int column) {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -479,6 +513,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btCancelar1;
     private javax.swing.JButton btIncluir;
     private javax.swing.JButton btLimpar;
     private javax.swing.JButton btPesquisar;

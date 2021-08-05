@@ -132,6 +132,20 @@ public class ServicoDAO {
            
         }
        
+        public boolean delete(){
+            try{
+                String SQLDELETE="DELETE FROM SERVICOS WHERE COD_SERVICO=?";
+                PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLDELETE);
+                pst.setInt(1, servico.getCodigo());
+                pst.executeUpdate();
+                return true;
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, "Não foi possivel excluir este serviço, pois ele foi utilizado numa movimentação !");
+                ex.printStackTrace();
+                return false;
+            }
+           
+        }
         
     
 }

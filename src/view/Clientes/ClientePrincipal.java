@@ -70,6 +70,7 @@ public class ClientePrincipal extends javax.swing.JFrame {
         btAlterar = new javax.swing.JButton();
         btIncluir = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
         btPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         grid = new javax.swing.JTable();
@@ -156,7 +157,7 @@ public class ClientePrincipal extends javax.swing.JFrame {
                 btAlterarActionPerformed(evt);
             }
         });
-        getContentPane().add(btAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 550, 150, 50));
+        getContentPane().add(btAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 550, -1, 50));
 
         btIncluir.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         btIncluir.setForeground(new java.awt.Color(255, 255, 255));
@@ -171,12 +172,12 @@ public class ClientePrincipal extends javax.swing.JFrame {
                 btIncluirActionPerformed(evt);
             }
         });
-        getContentPane().add(btIncluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 550, 150, 50));
+        getContentPane().add(btIncluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 550, 140, 50));
 
         btCancelar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         btCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
-        btCancelar.setText("Cancelar");
+        btCancelar.setText("Fechar");
         btCancelar.setToolTipText("");
         btCancelar.setBorderPainted(false);
         btCancelar.setContentAreaFilled(false);
@@ -186,7 +187,22 @@ public class ClientePrincipal extends javax.swing.JFrame {
                 btCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 550, 140, 50));
+        getContentPane().add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 550, 140, 50));
+
+        btExcluir.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btExcluir.setForeground(new java.awt.Color(255, 255, 255));
+        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
+        btExcluir.setText("Excluir");
+        btExcluir.setToolTipText("");
+        btExcluir.setBorderPainted(false);
+        btExcluir.setContentAreaFilled(false);
+        btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 550, 150, 50));
 
         btPesquisar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         btPesquisar.setForeground(new java.awt.Color(255, 255, 255));
@@ -201,7 +217,7 @@ public class ClientePrincipal extends javax.swing.JFrame {
                 btPesquisarActionPerformed(evt);
             }
         });
-        getContentPane().add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 550, 140, 50));
+        getContentPane().add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 550, 130, 50));
 
         jScrollPane1.setBackground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -447,6 +463,24 @@ public class ClientePrincipal extends javax.swing.JFrame {
     private void txtRGFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRGFocusGained
         txtRG.setFormatterFactory(Mascara.getRgMask());
     }//GEN-LAST:event_txtRGFocusGained
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        try{
+            String codClienteSelecionado= grid.getValueAt(grid.getSelectedRow(),0).toString();
+            String nomeClienteSelecionado= grid.getValueAt(grid.getSelectedRow(),1).toString();
+            int confirmacao= JOptionPane.showConfirmDialog(null, "Deseja excluir o cliente selecionado ? \n Cliente: "+codClienteSelecionado+" | "+nomeClienteSelecionado, "**** Atenção ****",1);
+            
+            if (confirmacao==0){
+                int cod=Integer.parseInt(codClienteSelecionado);
+                Cliente excluirCliente = new Cliente(cod,nomeClienteSelecionado);
+                excluirCliente.apagar(excluirCliente);
+            }
+            btPesquisar.doClick();
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Selecione o cliente que deseja excluir !");
+            ex.printStackTrace();
+            }
+    }//GEN-LAST:event_btExcluirActionPerformed
     private static void centralizar(JTable table, int column) {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -491,6 +525,7 @@ public class ClientePrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btExcluir;
     private javax.swing.JButton btIncluir;
     private javax.swing.JButton btLimpar;
     private javax.swing.JButton btPesquisar;

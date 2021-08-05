@@ -146,12 +146,8 @@ public class Movimentacao {
         dao.update();
     }
     
-    public void cancelar (){
-        
-    }
-    
-    public void estornar (){
-        
-    }
-
+    public void apagar(Movimentacao Movimentacao){
+        MovimentacaoDAO excluirMovimentacao= new MovimentacaoDAO(this);
+        excluirMovimentacao.delete();
+    }   
 }

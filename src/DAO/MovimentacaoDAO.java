@@ -228,6 +228,25 @@ public class MovimentacaoDAO {
             return false;
         }
     }
+    
+    public boolean delete(){
+            try{
+                String SQLDELETE="DELETE FROM ITENS_VENDAS WHERE COD_VENDA=?";
+                PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLDELETE);
+                pst.setInt(1, movimentacao.getCodigo());
+                pst.executeUpdate();
+                SQLDELETE="DELETE FROM VENDAS WHERE COD_VENDA=?";
+                pst= Connection.connectionFactory.getconnection().prepareStatement(SQLDELETE);
+                pst.setInt(1, movimentacao.getCodigo());
+                pst.executeUpdate();
 
+                return true;
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, "Não foi possivel excluir a movimentação !");
+                ex.printStackTrace();
+                return false;
+            }
+           
+        }
 
 }

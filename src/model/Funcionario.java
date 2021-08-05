@@ -62,6 +62,10 @@ public class Funcionario extends Pessoa {
         daoaltera.update();
     }
     
+    public void apagar(Funcionario Funcionario){
+        FuncionarioDAO excluirFuncionario= new FuncionarioDAO(this);
+        excluirFuncionario.delete();
+    }   
     
     
     public void selectnoFilter(Funcionario funcionario,String limite) throws SQLException{

@@ -189,5 +189,20 @@ public class ClientesDAO {
             
         }
         return null;
-    }     
+    }
+    
+    public boolean delete(){
+            try{
+                String SQLDELETE="DELETE FROM CLIENTES WHERE CODIGO=?";
+                PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLDELETE);
+                pst.setInt(1, cliente.getCodigo());
+                pst.executeUpdate();
+                return true;
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, "Não foi possivel excluir este cliente, pois ele foi utilizado numa movimentação !");
+                ex.printStackTrace();
+                return false;
+            }
+           
+        }
 }

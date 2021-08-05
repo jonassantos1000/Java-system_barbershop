@@ -55,11 +55,7 @@ public class Cliente extends Pessoa {
     
     private List<Cliente> result;
     private Cliente resultalteracliente;
-
-
-
-
-    
+  
     public void gravar(Cliente cliente) throws ParseException{
         ClientesDAO dao = new ClientesDAO(this);
         dao.insert();
@@ -70,7 +66,10 @@ public class Cliente extends Pessoa {
         daoaltera.update();
     }
     
-    
+    public void apagar(Cliente cliente){
+        ClientesDAO excluirCliente= new ClientesDAO(this);
+        excluirCliente.delete();
+    } 
     
     public void selectnoFilter(Cliente cliente,String limite) throws SQLException{
             ClientesDAO dao = new ClientesDAO(this);

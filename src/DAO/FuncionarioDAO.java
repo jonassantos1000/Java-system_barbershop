@@ -190,4 +190,19 @@ public class FuncionarioDAO {
         }
         return null;
     }
+    
+    public boolean delete(){
+            try{
+                String SQLDELETE="DELETE FROM FUNCIONARIO WHERE COD_FUNCIONARIO=?";
+                PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLDELETE);
+                pst.setInt(1, funcionario.getCodigo());
+                pst.executeUpdate();
+                return true;
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, "Não foi possivel excluir este funcionario, pois ele foi utilizado numa movimentação !");
+                ex.printStackTrace();
+                return false;
+            }
+           
+        }
 }
