@@ -82,7 +82,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         lbfundo = new javax.swing.JLabel();
         lbimagem = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbTitulo.setBackground(new java.awt.Color(0, 0, 0));
@@ -330,7 +330,8 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         lbimagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/FundoTelaInicial.jpg"))); // NOI18N
         getContentPane().add(lbimagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
-        pack();
+        setSize(new java.awt.Dimension(1036, 714));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
