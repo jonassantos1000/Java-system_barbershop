@@ -42,6 +42,7 @@ public class IncluirServico extends javax.swing.JFrame {
 
         btCancelar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        ckInativo = new javax.swing.JCheckBox();
         lbDescricao = new javax.swing.JLabel();
         txtDescricao = new javax.swing.JTextField();
         lbcodigo = new javax.swing.JLabel();
@@ -86,6 +87,13 @@ public class IncluirServico extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Incluir Serviço");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 930, 50));
+
+        ckInativo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        ckInativo.setForeground(new java.awt.Color(255, 255, 255));
+        ckInativo.setText("Inativo");
+        ckInativo.setContentAreaFilled(false);
+        ckInativo.setFocusPainted(false);
+        getContentPane().add(ckInativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, 90, -1));
 
         lbDescricao.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbDescricao.setForeground(new java.awt.Color(255, 255, 255));
@@ -227,6 +235,8 @@ public class IncluirServico extends javax.swing.JFrame {
             String descricao = coalesce(txtDescricao.getText());
             String data = txtData.getText();
             double preco=0;
+            String cbInativo = ckInativo.isSelected()==false ? "F" : "T";
+            
             try {
                 preco = nf(coalesce(txtValor.getText())).doubleValue();
             } catch (ParseException ex) {
@@ -236,7 +246,7 @@ public class IncluirServico extends javax.swing.JFrame {
             String usuario=null;
             try {
                 //gravacliente(codigo, nome, CPF, RG, endereco, CEP);
-                Servico incluirServico = new Servico(codigo,descricao,preco,data,usuario,observacao);
+                Servico incluirServico = new Servico(codigo,descricao,preco,data,usuario,observacao,cbInativo);
                 incluirServico.gravar(incluirServico);
                 JOptionPane.showMessageDialog(null,"Cadastro Salvo com sucesso !");
                 this.dispose();
@@ -298,6 +308,7 @@ public class IncluirServico extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JCheckBox ckInativo;
     private javax.swing.JTextField cod_servico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;

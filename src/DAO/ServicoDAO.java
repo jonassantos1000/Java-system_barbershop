@@ -35,6 +35,11 @@ public class ServicoDAO {
     
         public List<Servico> selectall(Servico servico, String limite) throws SQLException{
             try{
+                
+                if(servico.getInativo()==""){
+                    servico.setInativo("F");
+                }
+                
                 if (limite.equals("0") || limite.isEmpty()){
                     limite="9999999"; 
                 }
@@ -56,13 +61,23 @@ public class ServicoDAO {
                     SQLSELECTALL=SQLSELECTALL+"and s.DESCRICAO LIKE '%"+servico.getDescricao()+"%' ";  
                     }
                 }
+                
+                if (!"T".equals(servico.getInativo())){
+                    if (contador==0){
+                        SQLSELECTALL=SQLSELECTALL+"WHERE s.INATIVO = '"+servico.getInativo()+"' ";
+                        contador++;
+                    }else{
+                        SQLSELECTALL=SQLSELECTALL+"and s.INATIVO = '"+servico.getInativo()+"' ";  
+                    }
+                }
+                
                 SQLSELECTALL=SQLSELECTALL+"ORDER BY COD_SERVICO";
                 PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLSELECTALL);
                 ResultSet rs = pst.executeQuery();
                 List<Servico> listServico = new ArrayList<Servico>();
 
                 while (rs.next()){
-                    Servico select = new Servico(rs.getInt("COD_SERVICO"),rs.getString("DESCRICAO"),rs.getDouble("PRECO"),rs.getString("DATA_CADASTRO"),rs.getString("DATA_ALTERACAO"),rs.getString("USUARIO"),"");
+                    Servico select = new Servico(rs.getInt("COD_SERVICO"),rs.getString("DESCRICAO"),rs.getDouble("PRECO"),rs.getString("DATA_CADASTRO"),rs.getString("DATA_ALTERACAO"),rs.getString("USUARIO"),"","");
                     listServico.add(select);
                 }
                 return listServico;
@@ -76,7 +91,7 @@ public class ServicoDAO {
     
         public boolean insert(Servico servico) throws ParseException{
             try{
-                SQLINSERT="INSERT INTO SERVICOS (COD_SERVICO,DESCRICAO,PRECO,DATA_CADASTRO,USUARIO, OBSERVACAO) VALUES (?,?,?,?,?,?)";
+                SQLINSERT="INSERT INTO SERVICOS (COD_SERVICO,DESCRICAO,PRECO,DATA_CADASTRO,USUARIO, OBSERVACAO,INATIVO) VALUES (?,?,?,?,?,?,?)";
                 PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLINSERT);
                 
                 pst.setInt(1, servico.getCodigo());
@@ -85,6 +100,7 @@ public class ServicoDAO {
                 pst.setDate(4, data.getSqlDate(data.formataData(servico.getDataCadastro())));
                 pst.setString(5, servico.getUsuario());
                 pst.setString(6, servico.getObservacao());
+                pst.setString(7, servico.getInativo());
                 pst.executeUpdate();
                 return true;
             }catch(SQLException ex){
@@ -99,7 +115,7 @@ public class ServicoDAO {
                 PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLSELECTALTERACLIENTE);
                 ResultSet rs = pst.executeQuery();
                 while(rs.next()){                
-                    Servico resultAlteraServico = new Servico (ID,rs.getString("DESCRICAO"),rs.getDouble("PRECO"),String.valueOf(rs.getTimestamp("DATA_CADASTRO")).replace(".0", ""),String.valueOf(rs.getTimestamp("DATA_ALTERACAO")).replace(".0", ""),rs.getString("USUARIO"),rs.getString("OBSERVACAO"));
+                    Servico resultAlteraServico = new Servico (ID,rs.getString("DESCRICAO"),rs.getDouble("PRECO"),String.valueOf(rs.getTimestamp("DATA_CADASTRO")).replace(".0", ""),String.valueOf(rs.getTimestamp("DATA_ALTERACAO")).replace(".0", ""),rs.getString("USUARIO"),rs.getString("OBSERVACAO"),rs.getString("INATIVO"));
                     alteraServico=resultAlteraServico;
                 }
                 return alteraServico;
@@ -112,14 +128,15 @@ public class ServicoDAO {
         
         public boolean update(){
             try{
-                SQLUPDATE="UPDATE SERVICOS SET DESCRICAO=?,PRECO=?,DATA_ALTERACAO=?,USUARIO=?,OBSERVACAO=? WHERE COD_SERVICO=?";
+                SQLUPDATE="UPDATE SERVICOS SET DESCRICAO=?,PRECO=?,DATA_ALTERACAO=?,USUARIO=?,OBSERVACAO=?,INATIVO=? WHERE COD_SERVICO=?";
                 PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLUPDATE);
                 pst.setString(1, servico.getDescricao());
                 pst.setDouble(2, servico.getPreco());
                 pst.setDate(3, data.getSqlDate(data.formataData(data.getdata())));
                 pst.setString(4, servico.getUsuario());
                 pst.setString(5, servico.getObservacao());
-                pst.setInt(6, servico.getCodigo());
+                pst.setString(6, servico.getInativo());
+                pst.setInt(7, servico.getCodigo());
                 pst.executeUpdate();
                 return true;
             }catch(SQLException ex){

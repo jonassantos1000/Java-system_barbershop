@@ -50,6 +50,7 @@ public class AlterarServico extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         lbData_alteracao = new javax.swing.JLabel();
         lbDescricao = new javax.swing.JLabel();
+        ckInativo = new javax.swing.JCheckBox();
         txtDataAlteracao = new javax.swing.JTextField();
         txtDescricao = new javax.swing.JTextField();
         lbcodigo = new javax.swing.JLabel();
@@ -67,6 +68,7 @@ public class AlterarServico extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btCancelar.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
@@ -101,6 +103,13 @@ public class AlterarServico extends javax.swing.JFrame {
         lbDescricao.setForeground(new java.awt.Color(255, 255, 255));
         lbDescricao.setText("Descrição");
         getContentPane().add(lbDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, 80, -1));
+
+        ckInativo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        ckInativo.setForeground(new java.awt.Color(255, 255, 255));
+        ckInativo.setText("Inativo");
+        ckInativo.setContentAreaFilled(false);
+        ckInativo.setFocusPainted(false);
+        getContentPane().add(ckInativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, 90, -1));
 
         txtDataAlteracao.setEditable(false);
         txtDataAlteracao.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -222,7 +231,7 @@ public class AlterarServico extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/FundoTelaInicial.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
-        setSize(new java.awt.Dimension(1035, 709));
+        setSize(new java.awt.Dimension(1019, 670));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -245,6 +254,7 @@ public class AlterarServico extends javax.swing.JFrame {
             String descricao = coalesce(txtDescricao.getText());
             String data = txtData.getText();
             double preco=0;
+            String cbInativo = ckInativo.isSelected()==false ? "F" : "T";
             try {
                 preco = nf(coalesce(txtValor.getText())).doubleValue();
             } catch (ParseException ex) {
@@ -254,7 +264,7 @@ public class AlterarServico extends javax.swing.JFrame {
             String usuario=null;
             try {
                 //gravacliente(codigo, nome, CPF, RG, endereco, CEP);
-                Servico alterarServico = new Servico(codigo,descricao,preco,data,usuario,observacao);
+                Servico alterarServico = new Servico(codigo,descricao,preco,data,usuario,observacao,cbInativo);
                 alterarServico.alterar(alterarServico);
                 JOptionPane.showMessageDialog(null,"Cadastro Salvo com sucesso !");
                 this.dispose();
@@ -268,7 +278,7 @@ public class AlterarServico extends javax.swing.JFrame {
     private void setValue(){
         int id;
         id=Integer.parseInt(codigo);
-        Servico selectAlteraServico = new Servico(id,"");
+        Servico selectAlteraServico = new Servico(id,"","");
         selectAlteraServico.selectAlteraServico(id);
         cod_servico.setText(codigo);
         txtDescricao.setText(selectAlteraServico.getResultSelectAltera().getDescricao());
@@ -276,7 +286,13 @@ public class AlterarServico extends javax.swing.JFrame {
         txtObservacoes.setText(selectAlteraServico.getResultSelectAltera().getObservacao());
         txtData.setText(data.formataDataBD(String.valueOf(selectAlteraServico.getResultSelectAltera().getDataCadastro())));
         txtDataAlteracao.setText(data.formataDataBD(String.valueOf(selectAlteraServico.getResultSelectAltera().getDataAlteracao())));
+        if(selectAlteraServico.getResultSelectAltera().getInativo().equals("T")){
+            ckInativo.setSelected(true);
+        }else{
+            ckInativo.setSelected(false);
+        }
     }
+    
     private void setMask(){
         txtValor.setFormatterFactory(Mascara.getValorMask());
     }
@@ -321,6 +337,7 @@ public class AlterarServico extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JCheckBox ckInativo;
     private javax.swing.JTextField cod_servico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;

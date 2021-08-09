@@ -54,6 +54,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         lbCodigo3 = new javax.swing.JLabel();
         lbCodigo4 = new javax.swing.JLabel();
         lbLenlist = new javax.swing.JLabel();
+        ckInativo = new javax.swing.JCheckBox();
         txtLimite = new javax.swing.JTextField();
         txtDescricao = new javax.swing.JTextField();
         btAlterar = new javax.swing.JButton();
@@ -98,6 +99,12 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         lbLenlist.setForeground(new java.awt.Color(255, 255, 255));
         lbLenlist.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lbLenlist, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 510, 220, 30));
+
+        ckInativo.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        ckInativo.setForeground(new java.awt.Color(255, 255, 255));
+        ckInativo.setText("Listar Inativos");
+        ckInativo.setOpaque(false);
+        getContentPane().add(ckInativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, -1));
 
         txtLimite.setText("500");
         getContentPane().add(txtLimite, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 220, -1));
@@ -324,10 +331,10 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         }else{
             codigo = Integer.parseInt(txtCodigo.getText());
         }
-
+        String cbInativo = ckInativo.isSelected()==false ? "F" : "T";
         String descricao= txtDescricao.getText();
         String limite = txtLimite.getText();
-        Servico select = new Servico(codigo,descricao);
+        Servico select = new Servico(codigo,descricao,cbInativo);
         DefaultTableModel modelo = (DefaultTableModel) grid.getModel();
         modelo.setNumRows(0);
 
@@ -452,6 +459,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btIncluir;
     private javax.swing.JButton btLimpar;
     private javax.swing.JButton btPesquisar;
+    private javax.swing.JCheckBox ckInativo;
     private javax.swing.JTable grid;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

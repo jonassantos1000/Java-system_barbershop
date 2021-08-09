@@ -154,7 +154,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         lbQtdeResult.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lbQtdeResult.setForeground(new java.awt.Color(255, 255, 255));
         lbQtdeResult.setText("Pesquise o produto desejado");
-        PesquisaProduto.getContentPane().add(lbQtdeResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 180, 30));
+        PesquisaProduto.getContentPane().add(lbQtdeResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 240, 30));
 
         btBuscar.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
         btBuscar.setForeground(new java.awt.Color(255, 255, 255));

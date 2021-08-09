@@ -5,12 +5,15 @@
  */
 package view;
 
+import Util.Criptografia;
+import static Util.Criptografia.criptografar;
 import view.Clientes.ClientePrincipal;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import model.Usuarios;
 import view.Funcionarios.FuncionarioPrincipal;
 import view.Movimentacao.MovimentacaoPrincipal;
 import view.Servicos.ServicoPrincipal;
@@ -23,12 +26,13 @@ public class PaginaInicial extends javax.swing.JFrame {
     /**
      * Creates new form telaPrincipal
      */
+    
+    private boolean status=false;
     public PaginaInicial() {
         initComponents();
+        bloquearAcesso();
     }
-    
-    
-    
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,16 +52,23 @@ public class PaginaInicial extends javax.swing.JFrame {
         btCliente = new javax.swing.JButton();
         btServico = new javax.swing.JButton();
         btRelatorio = new javax.swing.JButton();
-        btCabeleireiro = new javax.swing.JButton();
+        btFuncionario = new javax.swing.JButton();
         btMovimentacao = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
         pnCentral = new javax.swing.JPanel();
         painelImagemFundo1 = new view.painelImagemFundo();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lbSenha = new javax.swing.JLabel();
+        lbLogin = new javax.swing.JLabel();
+        txtLogin = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JPasswordField();
+        btLogar = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(760, 300));
+        setMinimumSize(new java.awt.Dimension(803, 494));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(803, 494));
         setResizable(false);
 
         pnTitulo.setBackground(new java.awt.Color(0, 0, 0));
@@ -145,20 +156,23 @@ public class PaginaInicial extends javax.swing.JFrame {
         btServico.setToolTipText("");
         btServico.setBorderPainted(false);
         btServico.setContentAreaFilled(false);
+        btServico.setEnabled(false);
         btServico.setFocusPainted(false);
         btServico.setMaximumSize(new java.awt.Dimension(230, 50));
         btServico.setMinimumSize(new java.awt.Dimension(120, 45));
         btServico.setOpaque(true);
         btServico.setPreferredSize(new java.awt.Dimension(180, 45));
         btServico.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btServicoMouseClicked(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btServicoMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btServicoMouseExited(evt);
+            }
+        });
+        btServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btServicoActionPerformed(evt);
             }
         });
         pnMenu.add(btServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 186, 220, 50));
@@ -185,32 +199,32 @@ public class PaginaInicial extends javax.swing.JFrame {
         });
         pnMenu.add(btRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 236, 220, 50));
 
-        btCabeleireiro.setBackground(new java.awt.Color(0, 0, 0));
-        btCabeleireiro.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        btCabeleireiro.setForeground(new java.awt.Color(255, 255, 255));
-        btCabeleireiro.setText("Funcionarios");
-        btCabeleireiro.setToolTipText("");
-        btCabeleireiro.setBorderPainted(false);
-        btCabeleireiro.setContentAreaFilled(false);
-        btCabeleireiro.setFocusPainted(false);
-        btCabeleireiro.setMaximumSize(new java.awt.Dimension(230, 50));
-        btCabeleireiro.setMinimumSize(new java.awt.Dimension(120, 45));
-        btCabeleireiro.setOpaque(true);
-        btCabeleireiro.setPreferredSize(new java.awt.Dimension(180, 45));
-        btCabeleireiro.addMouseListener(new java.awt.event.MouseAdapter() {
+        btFuncionario.setBackground(new java.awt.Color(0, 0, 0));
+        btFuncionario.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btFuncionario.setForeground(new java.awt.Color(255, 255, 255));
+        btFuncionario.setText("Funcionarios");
+        btFuncionario.setToolTipText("");
+        btFuncionario.setBorderPainted(false);
+        btFuncionario.setContentAreaFilled(false);
+        btFuncionario.setFocusPainted(false);
+        btFuncionario.setMaximumSize(new java.awt.Dimension(230, 50));
+        btFuncionario.setMinimumSize(new java.awt.Dimension(120, 45));
+        btFuncionario.setOpaque(true);
+        btFuncionario.setPreferredSize(new java.awt.Dimension(180, 45));
+        btFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btCabeleireiroMouseEntered(evt);
+                btFuncionarioMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btCabeleireiroMouseExited(evt);
+                btFuncionarioMouseExited(evt);
             }
         });
-        btCabeleireiro.addActionListener(new java.awt.event.ActionListener() {
+        btFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCabeleireiroActionPerformed(evt);
+                btFuncionarioActionPerformed(evt);
             }
         });
-        pnMenu.add(btCabeleireiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 286, 220, 50));
+        pnMenu.add(btFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 286, 220, 50));
 
         btMovimentacao.setBackground(new java.awt.Color(0, 0, 0));
         btMovimentacao.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -271,24 +285,43 @@ public class PaginaInicial extends javax.swing.JFrame {
         pnCentral.setBackground(new java.awt.Color(218, 239, 249));
         pnCentral.setPreferredSize(new java.awt.Dimension(400, 200));
 
-        painelImagemFundo1.setImg(new ImageIcon("src/Resources/FundoTelaInicial.jpg"));
+        painelImagemFundo1.setImg(new ImageIcon(""));
+        painelImagemFundo1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout painelImagemFundo1Layout = new javax.swing.GroupLayout(painelImagemFundo1);
-        painelImagemFundo1.setLayout(painelImagemFundo1Layout);
-        painelImagemFundo1Layout.setHorizontalGroup(
-            painelImagemFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
-        );
-        painelImagemFundo1Layout.setVerticalGroup(
-            painelImagemFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 463, Short.MAX_VALUE)
-        );
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Version 1.0");
+        painelImagemFundo1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 460, 80, -1));
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoInicial.png"))); // NOI18N
+        painelImagemFundo1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 580, 160));
+
+        lbSenha.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbSenha.setText("Senha:");
+        painelImagemFundo1.add(lbSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 60, -1));
+
+        lbLogin.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbLogin.setText("Login:");
+        painelImagemFundo1.add(lbLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 60, -1));
+        painelImagemFundo1.add(txtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 190, -1));
+        painelImagemFundo1.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 190, -1));
+
+        btLogar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btLogar.setText("Entrar");
+        btLogar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLogarActionPerformed(evt);
+            }
+        });
+        painelImagemFundo1.add(btLogar, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 370, 90, -1));
 
         javax.swing.GroupLayout pnCentralLayout = new javax.swing.GroupLayout(pnCentral);
         pnCentral.setLayout(pnCentralLayout);
         pnCentralLayout.setHorizontalGroup(
             pnCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelImagemFundo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnCentralLayout.createSequentialGroup()
+                .addComponent(painelImagemFundo1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         pnCentralLayout.setVerticalGroup(
             pnCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,13 +369,13 @@ public class PaginaInicial extends javax.swing.JFrame {
         resetButton(btRelatorio);
     }//GEN-LAST:event_btRelatorioMouseExited
 
-    private void btCabeleireiroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCabeleireiroMouseEntered
-        setButton(btCabeleireiro);
-    }//GEN-LAST:event_btCabeleireiroMouseEntered
+    private void btFuncionarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btFuncionarioMouseEntered
+        setButton(btFuncionario);
+    }//GEN-LAST:event_btFuncionarioMouseEntered
 
-    private void btCabeleireiroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCabeleireiroMouseExited
-        resetButton(btCabeleireiro);
-    }//GEN-LAST:event_btCabeleireiroMouseExited
+    private void btFuncionarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btFuncionarioMouseExited
+        resetButton(btFuncionario);
+    }//GEN-LAST:event_btFuncionarioMouseExited
 
     private void btMovimentacaoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btMovimentacaoMouseEntered
         setButton(btMovimentacao);
@@ -360,21 +393,57 @@ public class PaginaInicial extends javax.swing.JFrame {
         resetButton(btSair);
     }//GEN-LAST:event_btSairMouseExited
 
-    private void btServicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btServicoMouseClicked
-        ServicoPrincipal tela = new ServicoPrincipal();
-        tela.setVisible(true);
-    }//GEN-LAST:event_btServicoMouseClicked
-
-    private void btCabeleireiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCabeleireiroActionPerformed
+    private void btFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFuncionarioActionPerformed
         FuncionarioPrincipal tela = new FuncionarioPrincipal();
         tela.setVisible(true);
-    }//GEN-LAST:event_btCabeleireiroActionPerformed
+    }//GEN-LAST:event_btFuncionarioActionPerformed
 
     private void btMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMovimentacaoActionPerformed
         MovimentacaoPrincipal tela = new MovimentacaoPrincipal();
         tela.setVisible(true);
     }//GEN-LAST:event_btMovimentacaoActionPerformed
 
+    private void btLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogarActionPerformed
+        try{
+            String login = txtLogin.getText();
+            String senha= new String(txtSenha.getPassword());
+            //System.out.println("login:"+login+"senha:"+senha);
+
+            if(status==true){
+                txtLogin.setText("");
+                txtSenha.setText("");
+                btLogar.setText("Entrar");
+                bloquearAcesso();
+                status=false;
+
+            }else if(status==false){            
+                String senhaCrip = (criptografar(senha));
+                Usuarios usuario = new Usuarios(login);
+                String senhaBanco=usuario.selectall(usuario).getSenha();
+                if (senhaBanco.equals(senhaCrip)==true){
+                    btLogar.setText("Sair");
+                    btLogar.setSelected(true);
+                    liberaAcesso();
+                    status=true;
+                }
+                else{
+                    btLogar.setSelected(false);
+                    JOptionPane.showMessageDialog(null, "Senha incorreta !");
+                    status=false;
+                }
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro ao se conectar com as credenciais fornecidas ! \n Verifique e tente acessar novamente !");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btLogarActionPerformed
+
+    private void btServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btServicoActionPerformed
+        ServicoPrincipal tela = new ServicoPrincipal();
+        tela.setVisible(true);
+    }//GEN-LAST:event_btServicoActionPerformed
+        
+    
     private static void setButton(JButton botao){
         botao.setBackground(new Color(58,58,58));
         botao.setFont(new Font("Trebuchet MS",1,19));
@@ -384,6 +453,24 @@ public class PaginaInicial extends javax.swing.JFrame {
         botao.setBackground(new Color(0,0,0));
         botao.setFont(new Font("Trebuchet MS",1,18));
     }
+    
+    private void bloquearAcesso(){
+        btCliente.setEnabled(false);
+        btFuncionario.setEnabled(false);
+        btServico.setEnabled(false);
+        btRelatorio.setEnabled(false);
+        btMovimentacao.setEnabled(false);
+    }
+    
+    private void liberaAcesso(){
+        btCliente.setEnabled(true);
+        btFuncionario.setEnabled(true);
+        btServico.setEnabled(true);
+        btRelatorio.setEnabled(true);
+        btMovimentacao.setEnabled(true);
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -421,8 +508,9 @@ public class PaginaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCabeleireiro;
     private javax.swing.JButton btCliente;
+    private javax.swing.JButton btFuncionario;
+    private javax.swing.JToggleButton btLogar;
     private javax.swing.JButton btMovimentacao;
     private javax.swing.JButton btRelatorio;
     private javax.swing.JButton btSair;
@@ -431,10 +519,16 @@ public class PaginaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel lbLogin;
     private javax.swing.JLabel lbMenu;
+    private javax.swing.JLabel lbSenha;
     private view.painelImagemFundo painelImagemFundo1;
     private javax.swing.JPanel pnCentral;
     private javax.swing.JPanel pnMenu;
     private javax.swing.JPanel pnTitulo;
+    private javax.swing.JTextField txtLogin;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }

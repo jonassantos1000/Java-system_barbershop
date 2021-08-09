@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class Servico {
    
-    public Servico(int codigo, String descricao, double preco, String data_cadastro, String data_alteracao, String usuario,String observacao){
+    public Servico(int codigo, String descricao, double preco, String data_cadastro, String data_alteracao, String usuario,String observacao,String inativo){
         setCodigo(codigo);
         setDescricao(descricao);
         setPreco(preco);
@@ -26,24 +26,30 @@ public class Servico {
         setDataAlteracao(data_alteracao);
         setUsuario(usuario);
         setObservacao(observacao);
+        setInativo(inativo);
     }
     
-    public Servico(int codigo, String descricao, double preco, String data_cadastro, String usuario,String observacao){
+    public Servico(int codigo, String descricao, double preco, String data_cadastro, String usuario,String observacao,String inativo){
         //construtor para criar novos servicos(não precisa informar a data de alteracao)
-        this(codigo,descricao,preco,data_cadastro,"",usuario,observacao);
+        this(codigo,descricao,preco,data_cadastro,"",usuario,observacao,inativo);
+    }
+    
+    public Servico(int codigo, String descricao, String inativo){
+        //utilizado para retornar pesquisa da tela principal de serviços
+        this(codigo,descricao,0,"","","",inativo);
     }
     
     public Servico(int codigo, String descricao){
-        //construtor utilizado para trazer o resultado da pesquisa na tela ServicoPrincipal
-        this(codigo,descricao,0,"","","");
+        //construtor utilizado para trazer o resultado inicial da tela de alteração e na tela de incluir e alterar movimentacao
+        this(codigo,descricao,0,"","","","");
     }
     
     public Servico(int codigo, String descricao, double preco){
         //construtor utilizado para trazer o resultado da pesquisa na tela ServicoPrincipal
-        this(codigo,descricao,preco,"","","");
+        this(codigo,descricao,preco,"","","","");
     }
     
-        
+    private String inativo;    
     private int codigo = 0;
     private String descricao;
     private double preco;
@@ -54,6 +60,13 @@ public class Servico {
     private List<Servico> result;
     private Servico ResultSelectAltera;
     
+    public String getInativo() {
+        return inativo;
+    }
+
+    public void setInativo(String inativo) {
+        this.inativo = inativo;
+    }
     public int getCodigo() {
         return codigo;
     }
