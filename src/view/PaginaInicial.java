@@ -7,6 +7,7 @@ package view;
 
 import Util.Criptografia;
 import static Util.Criptografia.criptografar;
+import static Util.User.setPermissao;
 import view.Clientes.ClientePrincipal;
 import java.awt.Color;
 import java.awt.Font;
@@ -68,7 +69,6 @@ public class PaginaInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(803, 494));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(803, 494));
         setResizable(false);
 
         pnTitulo.setBackground(new java.awt.Color(0, 0, 0));
@@ -303,11 +303,18 @@ public class PaginaInicial extends javax.swing.JFrame {
         lbLogin.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbLogin.setText("Login:");
         painelImagemFundo1.add(lbLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 60, -1));
+
+        txtLogin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtLoginFocusLost(evt);
+            }
+        });
         painelImagemFundo1.add(txtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 190, -1));
         painelImagemFundo1.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 190, -1));
 
         btLogar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btLogar.setText("Entrar");
+        btLogar.setFocusPainted(false);
         btLogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btLogarActionPerformed(evt);
@@ -419,11 +426,15 @@ public class PaginaInicial extends javax.swing.JFrame {
             }else if(status==false){            
                 String senhaCrip = (criptografar(senha));
                 Usuarios usuario = new Usuarios(login);
+                
                 String senhaBanco=usuario.selectall(usuario).getSenha();
+                String gerencia = usuario.selectall(usuario).getGerencia();
+                        
                 if (senhaBanco.equals(senhaCrip)==true){
                     btLogar.setText("Sair");
                     btLogar.setSelected(true);
                     liberaAcesso();
+                    setPermissao(gerencia);
                     status=true;
                 }
                 else{
@@ -433,7 +444,8 @@ public class PaginaInicial extends javax.swing.JFrame {
                 }
             }
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao se conectar com as credenciais fornecidas ! \n Verifique e tente acessar novamente !");
+            bloquearAcesso();
+            JOptionPane.showMessageDialog(null, "Usuario invalido ! \n\nVerifique e tente acessar novamente !");
             e.printStackTrace();
         }
     }//GEN-LAST:event_btLogarActionPerformed
@@ -442,6 +454,11 @@ public class PaginaInicial extends javax.swing.JFrame {
         ServicoPrincipal tela = new ServicoPrincipal();
         tela.setVisible(true);
     }//GEN-LAST:event_btServicoActionPerformed
+
+    private void txtLoginFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusLost
+        String minuscula= txtLogin.getText();
+        txtLogin.setText(minuscula.toUpperCase());
+    }//GEN-LAST:event_txtLoginFocusLost
         
     
     private static void setButton(JButton botao){
@@ -460,6 +477,7 @@ public class PaginaInicial extends javax.swing.JFrame {
         btServico.setEnabled(false);
         btRelatorio.setEnabled(false);
         btMovimentacao.setEnabled(false);
+        btLogar.setSelected(false);
     }
     
     private void liberaAcesso(){

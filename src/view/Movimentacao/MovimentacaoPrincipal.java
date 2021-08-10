@@ -6,6 +6,8 @@
 package view.Movimentacao;
 
 import Util.Mascara;
+import Util.User;
+import static Util.User.getPermissao;
 import Util.ValidaNumeros;
 import Util.data;
 import static Util.data.getdata;
@@ -46,6 +48,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
         txtCodigoMovimentacao.setDocument(new ValidaNumeros());
         txtCodigoCliente.setDocument(new ValidaNumeros());
         setDate();
+        
     }
 
     /**
@@ -175,6 +178,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
         btAlterar.setToolTipText("");
         btAlterar.setBorderPainted(false);
         btAlterar.setContentAreaFilled(false);
+        btAlterar.setFocusPainted(false);
         btAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,6 +194,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
         btIncluir.setToolTipText("");
         btIncluir.setBorderPainted(false);
         btIncluir.setContentAreaFilled(false);
+        btIncluir.setFocusPainted(false);
         btIncluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,6 +210,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
         btCancelar.setToolTipText("");
         btCancelar.setBorderPainted(false);
         btCancelar.setContentAreaFilled(false);
+        btCancelar.setFocusPainted(false);
         btCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,6 +226,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
         btExcluir.setToolTipText("");
         btExcluir.setBorderPainted(false);
         btExcluir.setContentAreaFilled(false);
+        btExcluir.setFocusPainted(false);
         btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,6 +242,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
         btPesquisar.setToolTipText("");
         btPesquisar.setBorderPainted(false);
         btPesquisar.setContentAreaFilled(false);
+        btPesquisar.setFocusPainted(false);
         btPesquisar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -317,6 +325,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
         btLimpar.setToolTipText("");
         btLimpar.setBorderPainted(false);
         btLimpar.setContentAreaFilled(false);
+        btLimpar.setFocusPainted(false);
         btLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -484,16 +493,20 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         try{
-            
-            String codMovimentacaoSelecionado= grid.getValueAt(grid.getSelectedRow(),0).toString();
-            String descMovCliente= grid.getValueAt(grid.getSelectedRow(),2).toString();
-            int confirmacao= JOptionPane.showConfirmDialog(null, "Deseja excluir a movimentação selecionada ? \n Movimentação: "+codMovimentacaoSelecionado+" | Cliente: "+descMovCliente, "**** Atenção ****",1);     
-            if (confirmacao==0){
-                int cod=Integer.parseInt(codMovimentacaoSelecionado);
-                Movimentacao excluirMovimento = new Movimentacao(cod,"",null);
-                excluirMovimento.apagar(excluirMovimento);
+            String permissao = getPermissao();
+            if(permissao.equals("T")){
+                String codMovimentacaoSelecionado= grid.getValueAt(grid.getSelectedRow(),0).toString();
+                String descMovCliente= grid.getValueAt(grid.getSelectedRow(),2).toString();
+                int confirmacao= JOptionPane.showConfirmDialog(null, "Deseja excluir a movimentação selecionada ? \n Movimentação: "+codMovimentacaoSelecionado+" | Cliente: "+descMovCliente, "**** Atenção ****",1);     
+                if (confirmacao==0){
+                    int cod=Integer.parseInt(codMovimentacaoSelecionado);
+                    Movimentacao excluirMovimento = new Movimentacao(cod,"",null);
+                    excluirMovimento.apagar(excluirMovimento);
+                }
+                btPesquisar.doClick();
+            }else{
+                JOptionPane.showMessageDialog(null, "Usuario não possui privilegio administrativo para realizar esta ação");
             }
-            btPesquisar.doClick();
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Selecione a movimentação que deseja excluir !");
             ex.printStackTrace();

@@ -21,7 +21,7 @@ public class connectionFactory {
             if(conexao==null){
                 Class.forName("org.firebirdsql.jdbc.FBDriver"); 
                 conexao= DriverManager.getConnection(
-                    "jdbc:firebirdsql:127.0.0.1/3050:C:\\sys\\base\\MTX.FDB?encoding=ISO8859_1",
+                    "jdbc:firebirdsql:127.0.0.1/3050:C:\\conatus\\base\\CONATUS.FDB?encoding=ISO8859_1",
                     "SYSDBA", "masterkey");
             }
             

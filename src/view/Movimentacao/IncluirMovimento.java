@@ -709,6 +709,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         btSalvarMovimento.setText(" Efetivar");
         btSalvarMovimento.setBorderPainted(false);
         btSalvarMovimento.setContentAreaFilled(false);
+        btSalvarMovimento.setFocusPainted(false);
         btSalvarMovimento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btSalvarMovimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
