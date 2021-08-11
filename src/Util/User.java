@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,6 +27,8 @@ public class User {
             gravaTexto.printf(login);
             user.close();
         }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"A instalação do sistema esta com problemas, contate o suporte técnico !");
+            System.exit(0);
             ex.printStackTrace();
         }
     }
@@ -38,9 +41,11 @@ public class User {
             line = br.readLine();
             return line;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"A instalação do sistema esta com problemas, contate o suporte técnico !");
+            System.exit(0);
         } catch (IOException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"A instalação do sistema esta com problemas, contate o suporte técnico !");
+            System.exit(0);
         }
         return null;
     }

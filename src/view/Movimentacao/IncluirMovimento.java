@@ -981,7 +981,8 @@ public class IncluirMovimento extends javax.swing.JFrame {
             txtAltQtde.setText(String.valueOf(qtde));
             setMask();
             txtValorUniAlt.setText(String.format("%.2f",valor));
-            txtTotalProdAlt.setText(String.format("%.2f",total));        
+            txtTotalProdAlt.setText(String.format("%.2f",total));  
+            
             AlterarProduto.setLocationRelativeTo(null);
             AlterarProduto.setVisible(true);
         }catch(Exception ex){

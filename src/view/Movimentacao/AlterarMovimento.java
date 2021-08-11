@@ -145,6 +145,8 @@ public class AlterarMovimento extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
+        PesquisaProduto.setMinimumSize(new java.awt.Dimension(675, 435));
+        PesquisaProduto.setPreferredSize(new java.awt.Dimension(675, 435));
         PesquisaProduto.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbDescricao.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -267,6 +269,8 @@ public class AlterarMovimento extends javax.swing.JFrame {
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         PesquisaProduto.getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 430));
 
+        IncluirProduto.setMinimumSize(new java.awt.Dimension(435, 200));
+        IncluirProduto.setPreferredSize(new java.awt.Dimension(435, 200));
         IncluirProduto.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbCodigo1.setText("Codigo");
@@ -359,6 +363,8 @@ public class AlterarMovimento extends javax.swing.JFrame {
         });
         IncluirProduto.getContentPane().add(txtTotalProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 84, 90, -1));
 
+        AlterarProduto.setMinimumSize(new java.awt.Dimension(435, 200));
+        AlterarProduto.setPreferredSize(new java.awt.Dimension(435, 200));
         AlterarProduto.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbCodigo2.setText("Codigo");
@@ -557,7 +563,7 @@ public class AlterarMovimento extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btRemoverProd);
-        btRemoverProd.setBounds(-10, 90, 100, 30);
+        btRemoverProd.setBounds(-10, 97, 100, 23);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -781,8 +787,10 @@ public class AlterarMovimento extends javax.swing.JFrame {
             setMask();
             txtValorUniAlt.setText(String.format("%.2f",valor));
             txtTotalProdAlt.setText(String.format("%.2f",total));
+            
             AlterarProduto.setLocationRelativeTo(null);
             AlterarProduto.setVisible(true);
+
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Selecione o registro que deseja alterar !");
         }
@@ -1046,7 +1054,7 @@ public class AlterarMovimento extends javax.swing.JFrame {
     private void btEfetivarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEfetivarAltActionPerformed
         try{
             int indice=getIndice();
-            listProduto.remove(indice);
+            listProd.remove(indice);
 
             int codigo;
             codigo=Integer.parseInt(txtCodigoAltProd.getText());
@@ -1092,7 +1100,7 @@ public class AlterarMovimento extends javax.swing.JFrame {
         centralizar(grid,4);
         double valorTotalVenda=0;
         try{
-            List<ProdutosMovimento> listagem= listProduto;
+            List<ProdutosMovimento> listagem= listProd;
                 for (ProdutosMovimento mov : listagem) {
                     String codigoformat;
                     String valorFormat;
@@ -1174,7 +1182,7 @@ public class AlterarMovimento extends javax.swing.JFrame {
             txtDataAlteracao.setText(data.formataDataBD(String.valueOf(selectAlteraMovimento.getResultSelectAltera().getDataAlteracao())));
             cliente=String.valueOf(selectAlteraMovimento.getResultSelectAltera().getCliente().getCodigo())+" | "+selectAlteraMovimento.getResultSelectAltera().getCliente().getNome();
             funcionario=String.valueOf(selectAlteraMovimento.getResultSelectAltera().getFuncionario().getCodigo())+" | "+selectAlteraMovimento.getResultSelectAltera().getFuncionario().getNome();
-            listProduto=selectAlteraMovimento.getResultSelectAltera().getListProduto();
+            listProd=selectAlteraMovimento.getResultSelectAltera().getListProduto();
             setOpcoesCBCliente();
             setOpcoesCBFuncionario();
             cbCliente.setSelectedItem(cliente);

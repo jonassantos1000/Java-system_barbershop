@@ -310,6 +310,12 @@ public class PaginaInicial extends javax.swing.JFrame {
             }
         });
         painelImagemFundo1.add(txtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 190, -1));
+
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
+            }
+        });
         painelImagemFundo1.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, 190, -1));
 
         btLogar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -415,6 +421,7 @@ public class PaginaInicial extends javax.swing.JFrame {
             String login = txtLogin.getText();
             String senha= new String(txtSenha.getPassword());
             //System.out.println("login:"+login+"senha:"+senha);
+            
 
             if(status==true){
                 txtLogin.setText("");
@@ -429,12 +436,11 @@ public class PaginaInicial extends javax.swing.JFrame {
                 
                 String senhaBanco=usuario.selectall(usuario).getSenha();
                 String gerencia = usuario.selectall(usuario).getGerencia();
-                        
+                setPermissao(gerencia);        
                 if (senhaBanco.equals(senhaCrip)==true){
                     btLogar.setText("Sair");
                     btLogar.setSelected(true);
                     liberaAcesso();
-                    setPermissao(gerencia);
                     status=true;
                 }
                 else{
@@ -459,6 +465,13 @@ public class PaginaInicial extends javax.swing.JFrame {
         String minuscula= txtLogin.getText();
         txtLogin.setText(minuscula.toUpperCase());
     }//GEN-LAST:event_txtLoginFocusLost
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+        if(evt.getKeyCode() == evt.VK_ENTER){
+           btLogar.requestFocus(true);
+           btLogar.doClick();
+        }
+    }//GEN-LAST:event_txtSenhaKeyPressed
         
     
     private static void setButton(JButton botao){
