@@ -58,7 +58,7 @@ public class connectionFactory {
             }
         catch(SQLException SQLex){
             SQLex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao se conectar ao banco de dados");
+            JOptionPane.showMessageDialog(null, "Não foi possivel se conectar ao Banco de dados");
             System.exit(0);
             return null;
         }
