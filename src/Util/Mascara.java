@@ -107,4 +107,14 @@ public class Mascara {
         return(new DefaultFormatterFactory (mask, mask));
     
     }
+    
+    public static DefaultFormatterFactory cleanMak(){
+        MaskFormatter mask = null;
+        try{
+            mask = new MaskFormatter("");
+        }catch (ParseException ex){
+            return null;
+        }
+        return(new DefaultFormatterFactory (mask, mask));
+    }
 }

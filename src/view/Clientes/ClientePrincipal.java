@@ -276,9 +276,6 @@ public class ClientePrincipal extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCPFFocusGained(evt);
             }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCPFFocusLost(evt);
-            }
         });
         getContentPane().add(txtCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 220, -1));
 
@@ -434,8 +431,8 @@ public class ClientePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailFocusLost
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
-        txtCPF.setText("");
-        txtRG.setText("");
+        txtCPF.setFormatterFactory(Mascara.cleanMak());
+        txtRG.setFormatterFactory(Mascara.cleanMak());
         txtNome.setText("");
         txtEmail.setText("");
         txtCodigo.setText("");
@@ -451,10 +448,6 @@ public class ClientePrincipal extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_gridMouseClicked
-
-    private void txtCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCPFFocusLost
 
     private void txtCPFFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusGained
         txtCPF.setFormatterFactory(Mascara.getCpfMask());

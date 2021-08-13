@@ -56,7 +56,8 @@ public class IncluirMovimento extends javax.swing.JFrame {
         modeltable.getColumn(2).setPreferredWidth(130);
         modeltable.getColumn(3).setPreferredWidth(100);
         modeltable.getColumn(4).setPreferredWidth(150);
-        txtCodigoBusca.setDocument(new ValidaNumeros());
+        txtCodigoBuscaProduto.setDocument(new ValidaNumeros());
+        txtBuscaCodigoCliente.setDocument(new ValidaNumeros());
         setOpcoesCBFuncionario();
         txtValorTotalVenda.setFormatterFactory(Mascara.getValorMask());
         
@@ -81,9 +82,9 @@ public class IncluirMovimento extends javax.swing.JFrame {
         btBuscar = new javax.swing.JButton();
         txtDescricao = new javax.swing.JTextField();
         lbCodigo = new javax.swing.JLabel();
-        txtCodigoBusca = new javax.swing.JTextField();
+        txtCodigoBuscaProduto = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        gridBusca = new javax.swing.JTable();
+        gridBuscaProduto = new javax.swing.JTable();
         btCancelar1 = new javax.swing.JButton();
         btIncluir = new javax.swing.JButton();
         lbTitulo = new javax.swing.JLabel();
@@ -117,8 +118,29 @@ public class IncluirMovimento extends javax.swing.JFrame {
         btEfetivarAlt = new javax.swing.JButton();
         btCancelarAlt = new javax.swing.JButton();
         txtTotalProdAlt = new javax.swing.JFormattedTextField();
-        cbCliente = new javax.swing.JComboBox<>();
+        PesquisarCliente = new javax.swing.JDialog();
+        jLabel11 = new javax.swing.JLabel();
+        lbDescricao3 = new javax.swing.JLabel();
+        lbQtdeResultCliente = new javax.swing.JLabel();
+        lbCPF = new javax.swing.JLabel();
+        btLimparBuscaCliente = new javax.swing.JButton();
+        txtBuscaRGCliente = new javax.swing.JFormattedTextField();
+        lbCPF1 = new javax.swing.JLabel();
+        btBuscar1 = new javax.swing.JButton();
+        txtBuscaNomeCliente = new javax.swing.JTextField();
+        txtBuscaCPFCliente = new javax.swing.JFormattedTextField();
+        lbCodigo3 = new javax.swing.JLabel();
+        txtBuscaCodigoCliente = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        gridBuscaCliente = new javax.swing.JTable();
+        btCancelar2 = new javax.swing.JButton();
+        btBuscaEscolherCliente = new javax.swing.JButton();
+        lbTitulo1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         btCancelar = new javax.swing.JButton();
+        btPesquisarCliente = new javax.swing.JButton();
+        cbCliente = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         lbNome = new javax.swing.JLabel();
         lbValorTotalVenda = new javax.swing.JLabel();
@@ -188,14 +210,14 @@ public class IncluirMovimento extends javax.swing.JFrame {
         lbCodigo.setText("Codigo");
         PesquisaProduto.getContentPane().add(lbCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, -1));
 
-        txtCodigoBusca.addActionListener(new java.awt.event.ActionListener() {
+        txtCodigoBuscaProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoBuscaActionPerformed(evt);
+                txtCodigoBuscaProdutoActionPerformed(evt);
             }
         });
-        PesquisaProduto.getContentPane().add(txtCodigoBusca, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 170, -1));
+        PesquisaProduto.getContentPane().add(txtCodigoBuscaProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 170, -1));
 
-        gridBusca.setModel(new javax.swing.table.DefaultTableModel(
+        gridBuscaProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -211,12 +233,12 @@ public class IncluirMovimento extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        gridBusca.addMouseListener(new java.awt.event.MouseAdapter() {
+        gridBuscaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                gridBuscaMouseClicked(evt);
+                gridBuscaProdutoMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(gridBusca);
+        jScrollPane2.setViewportView(gridBuscaProduto);
 
         PesquisaProduto.getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, -1, 180));
 
@@ -447,6 +469,192 @@ public class IncluirMovimento extends javax.swing.JFrame {
         });
         AlterarProduto.getContentPane().add(txtTotalProdAlt, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 84, 90, -1));
 
+        PesquisarCliente.setMinimumSize(new java.awt.Dimension(666, 425));
+        PesquisarCliente.setUndecorated(true);
+        PesquisarCliente.setPreferredSize(new java.awt.Dimension(666, 425));
+        PesquisarCliente.setResizable(false);
+        PesquisarCliente.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel11.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel11.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Filtros");
+        jLabel11.setMaximumSize(new java.awt.Dimension(58, 30));
+        jLabel11.setMinimumSize(new java.awt.Dimension(58, 30));
+        jLabel11.setOpaque(true);
+        jLabel11.setPreferredSize(new java.awt.Dimension(58, 30));
+        PesquisarCliente.getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 170, 40));
+
+        lbDescricao3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbDescricao3.setForeground(new java.awt.Color(255, 255, 255));
+        lbDescricao3.setText("Nome");
+        PesquisarCliente.getContentPane().add(lbDescricao3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+
+        lbQtdeResultCliente.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbQtdeResultCliente.setForeground(new java.awt.Color(255, 255, 255));
+        lbQtdeResultCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbQtdeResultCliente.setText("Informe o filtro desejado");
+        PesquisarCliente.getContentPane().add(lbQtdeResultCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 180, 30));
+
+        lbCPF.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbCPF.setForeground(new java.awt.Color(255, 255, 255));
+        lbCPF.setText("CPF");
+        PesquisarCliente.getContentPane().add(lbCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+
+        btLimparBuscaCliente.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        btLimparBuscaCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btLimparBuscaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btLimparBuscaCliente.setText("Limpar");
+        btLimparBuscaCliente.setBorderPainted(false);
+        btLimparBuscaCliente.setContentAreaFilled(false);
+        btLimparBuscaCliente.setFocusPainted(false);
+        btLimparBuscaCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btLimparBuscaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLimparBuscaClienteActionPerformed(evt);
+            }
+        });
+        PesquisarCliente.getContentPane().add(btLimparBuscaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 120, 40));
+
+        txtBuscaRGCliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBuscaRGCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscaRGClienteFocusGained(evt);
+            }
+        });
+        txtBuscaRGCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaRGClienteActionPerformed(evt);
+            }
+        });
+        PesquisarCliente.getContentPane().add(txtBuscaRGCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 120, -1));
+
+        lbCPF1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbCPF1.setForeground(new java.awt.Color(255, 255, 255));
+        lbCPF1.setText("RG");
+        PesquisarCliente.getContentPane().add(lbCPF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
+
+        btBuscar1.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        btBuscar1.setForeground(new java.awt.Color(255, 255, 255));
+        btBuscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btBuscar1.setText("Buscar");
+        btBuscar1.setBorderPainted(false);
+        btBuscar1.setContentAreaFilled(false);
+        btBuscar1.setFocusPainted(false);
+        btBuscar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btBuscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBuscar1ActionPerformed(evt);
+            }
+        });
+        PesquisarCliente.getContentPane().add(btBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 350, 120, 40));
+
+        txtBuscaNomeCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscaNomeClienteFocusLost(evt);
+            }
+        });
+        txtBuscaNomeCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaNomeClienteActionPerformed(evt);
+            }
+        });
+        PesquisarCliente.getContentPane().add(txtBuscaNomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 120, -1));
+
+        txtBuscaCPFCliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBuscaCPFCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscaCPFClienteFocusGained(evt);
+            }
+        });
+        PesquisarCliente.getContentPane().add(txtBuscaCPFCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 120, -1));
+
+        lbCodigo3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbCodigo3.setForeground(new java.awt.Color(255, 255, 255));
+        lbCodigo3.setText("Codigo");
+        PesquisarCliente.getContentPane().add(lbCodigo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+
+        txtBuscaCodigoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaCodigoClienteActionPerformed(evt);
+            }
+        });
+        PesquisarCliente.getContentPane().add(txtBuscaCodigoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 120, -1));
+
+        gridBuscaCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Nome", "CPF", "RG", ""
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        gridBuscaCliente.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        gridBuscaCliente.setShowHorizontalLines(false);
+        gridBuscaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gridBuscaClienteMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(gridBuscaCliente);
+
+        PesquisarCliente.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 430, 240));
+
+        btCancelar2.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        btCancelar2.setForeground(new java.awt.Color(255, 255, 255));
+        btCancelar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
+        btCancelar2.setText("Fechar");
+        btCancelar2.setBorderPainted(false);
+        btCancelar2.setContentAreaFilled(false);
+        btCancelar2.setFocusPainted(false);
+        btCancelar2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btCancelar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelar2ActionPerformed(evt);
+            }
+        });
+        PesquisarCliente.getContentPane().add(btCancelar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 110, 40));
+
+        btBuscaEscolherCliente.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        btBuscaEscolherCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btBuscaEscolherCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btBuscaEscolherCliente.setText("Escolher");
+        btBuscaEscolherCliente.setBorderPainted(false);
+        btBuscaEscolherCliente.setContentAreaFilled(false);
+        btBuscaEscolherCliente.setFocusPainted(false);
+        btBuscaEscolherCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btBuscaEscolherCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBuscaEscolherClienteActionPerformed(evt);
+            }
+        });
+        PesquisarCliente.getContentPane().add(btBuscaEscolherCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 100, 40));
+
+        lbTitulo1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lbTitulo1.setForeground(new java.awt.Color(255, 255, 255));
+        lbTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbTitulo1.setText("Pesquisar Cliente");
+        PesquisarCliente.getContentPane().add(lbTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 390, 40));
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/PainelFundo.png"))); // NOI18N
+        jLabel9.setText("jLabel1");
+        PesquisarCliente.getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 630, 380));
+
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/FundoTelaInicial3.jpg"))); // NOI18N
+        jLabel10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        PesquisarCliente.getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 430));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
@@ -458,23 +666,6 @@ public class IncluirMovimento extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        cbCliente.setBackground(new java.awt.Color(0, 0, 0));
-        cbCliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cbCliente.setForeground(new java.awt.Color(255, 255, 255));
-        cbCliente.setLightWeightPopupEnabled(false);
-        cbCliente.setOpaque(false);
-        cbCliente.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbClienteItemStateChanged(evt);
-            }
-        });
-        cbCliente.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                cbClienteFocusGained(evt);
-            }
-        });
-        getContentPane().add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 280, -1));
 
         btCancelar.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         btCancelar.setForeground(new java.awt.Color(255, 255, 255));
@@ -492,6 +683,26 @@ public class IncluirMovimento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 550, 100, 80));
+
+        btPesquisarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/lupa.png"))); // NOI18N
+        btPesquisarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarClienteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btPesquisarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 169, 20, 28));
+
+        cbCliente.setBackground(new java.awt.Color(0, 0, 0));
+        cbCliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cbCliente.setForeground(new java.awt.Color(255, 255, 255));
+        cbCliente.setLightWeightPopupEnabled(false);
+        cbCliente.setOpaque(false);
+        cbCliente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbClienteItemStateChanged(evt);
+            }
+        });
+        getContentPane().add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 270, -1));
 
         jLabel5.setFont(new java.awt.Font("Verdana", 1, 25)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -644,11 +855,6 @@ public class IncluirMovimento extends javax.swing.JFrame {
         cbFuncionario.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbFuncionarioItemStateChanged(evt);
-            }
-        });
-        cbFuncionario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbFuncionarioActionPerformed(evt);
             }
         });
         getContentPane().add(cbFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 170, 150, -1));
@@ -804,6 +1010,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
     private void btAdicionarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarProdActionPerformed
         //BuscarProdutoMovimentacao tela = new BuscarProdutoMovimentacao();
         //tela.setVisible(true);
+        PesquisaProduto.setModal(true);
         PesquisaProduto.setLocationRelativeTo(null);
         PesquisaProduto.setVisible(true);
     }//GEN-LAST:event_btAdicionarProdActionPerformed
@@ -826,26 +1033,26 @@ public class IncluirMovimento extends javax.swing.JFrame {
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
         int codigo;
         
-        if (txtCodigoBusca.getText().equals("")){
+        if (txtCodigoBuscaProduto.getText().equals("")){
             codigo=0;
         }else{
-            codigo = Integer.parseInt(txtCodigoBusca.getText());
+            codigo = Integer.parseInt(txtCodigoBuscaProduto.getText());
         }
 
         String Descricao = txtDescricao.getText();
         Servico servico = new Servico(codigo,Descricao);
 
-        DefaultTableModel modelo = (DefaultTableModel) gridBusca.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) gridBuscaProduto.getModel();
         modelo.setNumRows(0);
-        TableColumnModel modeltable2 = gridBusca.getColumnModel();
+        TableColumnModel modeltable2 = gridBuscaProduto.getColumnModel();
         modeltable2.getColumn(0).setPreferredWidth(45);
         modeltable2.getColumn(1).setPreferredWidth(200);
         modeltable2.getColumn(2).setPreferredWidth(80);
         
         
-        centralizar(gridBusca,0);
-        centralizar(gridBusca,1);
-        centralizar(gridBusca,2);
+        centralizar(gridBuscaProduto,0);
+        centralizar(gridBuscaProduto,1);
+        centralizar(gridBuscaProduto,2);
         
         try {
             servico.selectFilter(servico, "99999");
@@ -882,15 +1089,15 @@ public class IncluirMovimento extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescricaoActionPerformed
 
-    private void txtCodigoBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoBuscaActionPerformed
+    private void txtCodigoBuscaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoBuscaProdutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoBuscaActionPerformed
+    }//GEN-LAST:event_txtCodigoBuscaProdutoActionPerformed
 
-    private void gridBuscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridBuscaMouseClicked
+    private void gridBuscaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridBuscaProdutoMouseClicked
         if(evt.getClickCount() == 2){
-            int codigo= Integer.parseInt(String.valueOf(gridBusca.getValueAt(gridBusca.getSelectedRow(),0)));
-            String descricao= String.valueOf(gridBusca.getValueAt(gridBusca.getSelectedRow(),1));
-            double valor= Double.valueOf(String.valueOf(gridBusca.getValueAt(gridBusca.getSelectedRow(),2)).replace(",", "."));
+            int codigo= Integer.parseInt(String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(),0)));
+            String descricao= String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(),1));
+            double valor= Double.valueOf(String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(),2)).replace(",", "."));
             Servico servico = new Servico(codigo,descricao,valor);
             IncluirProduto.setLocationRelativeTo(null);
             valorUnitario=servico.getPreco();
@@ -899,9 +1106,11 @@ public class IncluirMovimento extends javax.swing.JFrame {
             setMask();
             txtValorUni.setText(String.format("%.2f",valorUnitario));
             calculaTotal();
+            IncluirProduto.setLocationRelativeTo(null);
+            IncluirProduto.setModal(true);
             IncluirProduto.setVisible(true);
         }
-    }//GEN-LAST:event_gridBuscaMouseClicked
+    }//GEN-LAST:event_gridBuscaProdutoMouseClicked
 
     private void btCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelar1ActionPerformed
         PesquisaProduto.setVisible(false);
@@ -909,9 +1118,9 @@ public class IncluirMovimento extends javax.swing.JFrame {
 
     private void btIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncluirActionPerformed
         try{
-            int codigo= Integer.parseInt(String.valueOf(gridBusca.getValueAt(gridBusca.getSelectedRow(),0)));
-            String descricao= String.valueOf(gridBusca.getValueAt(gridBusca.getSelectedRow(),1));
-            double valor= Double.valueOf(String.valueOf(gridBusca.getValueAt(gridBusca.getSelectedRow(),2)).replace(",", "."));
+            int codigo= Integer.parseInt(String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(),0)));
+            String descricao= String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(),1));
+            double valor= Double.valueOf(String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(),2)).replace(",", "."));
             Servico servico = new Servico(codigo,descricao,valor);
             IncluirProduto.setLocationRelativeTo(null);
             valorUnitario=servico.getPreco();
@@ -920,6 +1129,8 @@ public class IncluirMovimento extends javax.swing.JFrame {
             setMask();
             txtValorUni.setText(String.format("%.2f",valorUnitario));
             calculaTotal();
+            IncluirProduto.setLocationRelativeTo(null);
+            IncluirProduto.setModal(true);
             IncluirProduto.setVisible(true);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Selecione o servico que deseja incluir");
@@ -983,6 +1194,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
             txtValorUniAlt.setText(String.format("%.2f",valor));
             txtTotalProdAlt.setText(String.format("%.2f",total));  
             
+            AlterarProduto.setModal(true);
             AlterarProduto.setLocationRelativeTo(null);
             AlterarProduto.setVisible(true);
         }catch(Exception ex){
@@ -1034,10 +1246,6 @@ public class IncluirMovimento extends javax.swing.JFrame {
         txtDescricao.setText(minuscula.toUpperCase());
     }//GEN-LAST:event_txtDescricaoFocusLost
 
-    private void cbFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFuncionarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbFuncionarioActionPerformed
-
     private void cbClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbClienteItemStateChanged
         String codigoNome=cbCliente.getSelectedItem().toString();
         setCodigoCliente(codigoNome);
@@ -1084,9 +1292,121 @@ public class IncluirMovimento extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorTotalVendaActionPerformed
 
-    private void cbClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbClienteFocusGained
+    private void btPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarClienteActionPerformed
+        PesquisarCliente.setLocationRelativeTo(null);
+        PesquisarCliente.setModal(true);
+        PesquisarCliente.setVisible(true);
+    }//GEN-LAST:event_btPesquisarClienteActionPerformed
 
-    }//GEN-LAST:event_cbClienteFocusGained
+    private void btBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscar1ActionPerformed
+        int codigo;
+        
+        if (txtBuscaCodigoCliente.getText().equals("")){
+            codigo=0;
+        }else{
+            codigo = Integer.parseInt(txtBuscaCodigoCliente.getText());
+        }
+        String nome = txtBuscaNomeCliente.getText();
+        String cpf = txtBuscaCPFCliente.getText();
+        String rg = txtBuscaRGCliente.getText();
+        
+        Cliente cliente = new Cliente(codigo, nome, cpf, rg, "");
+
+        DefaultTableModel modelo = (DefaultTableModel) gridBuscaCliente.getModel();
+        modelo.setNumRows(0);
+        TableColumnModel modeltable2 = gridBuscaCliente.getColumnModel();
+        modeltable2.getColumn(0).setPreferredWidth(45);
+        modeltable2.getColumn(1).setPreferredWidth(170);
+        modeltable2.getColumn(2).setPreferredWidth(100);
+        modeltable2.getColumn(3).setPreferredWidth(100);
+        modeltable2.getColumn(4).setPreferredWidth(5);
+        
+        centralizar(gridBuscaCliente,0);
+        centralizar(gridBuscaCliente,1);
+        centralizar(gridBuscaCliente,2);
+        centralizar(gridBuscaCliente,3);
+        
+        try {
+            cliente.selectnoFilter(cliente, "999999");
+        } catch (SQLException ex) {
+            Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        try {
+            String lenlist;
+            List<Cliente> listagem = cliente.getResultselect();
+            lenlist=String.valueOf(listagem.size());
+            for (Cliente cli : listagem) {
+                String codigoformat;
+                codigoformat=String.valueOf(cli.getCodigo());
+                modelo.addRow(new Object[]{codigoformat,cli.getNome(),cli.getCPF(),cli.getRG()});
+            }
+            if(lenlist.equals("1")){
+                lbQtdeResultCliente.setText(lenlist+" registro");
+            }else{
+                lbQtdeResultCliente.setText(lenlist+" registros");
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao buscar os clientes, contate o suporte técnico");
+        }
+
+    }//GEN-LAST:event_btBuscar1ActionPerformed
+
+    private void txtBuscaNomeClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscaNomeClienteFocusLost
+        String minuscula = txtBuscaNomeCliente.getText();
+        txtBuscaNomeCliente.setText(minuscula.toUpperCase());
+    }//GEN-LAST:event_txtBuscaNomeClienteFocusLost
+
+    private void txtBuscaNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaNomeClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscaNomeClienteActionPerformed
+
+    private void txtBuscaCodigoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaCodigoClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscaCodigoClienteActionPerformed
+
+    private void gridBuscaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridBuscaClienteMouseClicked
+        if(evt.getClickCount() == 2){
+            String codigo= String.valueOf(gridBuscaCliente.getValueAt(gridBuscaCliente.getSelectedRow(),0));
+            String nome= String.valueOf(gridBuscaCliente.getValueAt(gridBuscaCliente.getSelectedRow(),1));
+            int codigoformat=Integer.parseInt(codigo);
+            cbCliente.setSelectedItem(codigo+" | "+nome);
+            PesquisarCliente.dispose();
+        }
+    }//GEN-LAST:event_gridBuscaClienteMouseClicked
+
+    private void btCancelar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelar2ActionPerformed
+        PesquisarCliente.dispose();
+    }//GEN-LAST:event_btCancelar2ActionPerformed
+
+    private void btBuscaEscolherClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscaEscolherClienteActionPerformed
+        String codigo= gridBuscaCliente.getValueAt(gridBuscaCliente.getSelectedRow(),0).toString();
+        String nome= gridBuscaCliente.getValueAt(gridBuscaCliente.getSelectedRow(),1).toString();
+        cbCliente.setSelectedItem(codigo+" | "+nome);
+        PesquisarCliente.dispose();      
+    }//GEN-LAST:event_btBuscaEscolherClienteActionPerformed
+
+    private void txtBuscaRGClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaRGClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscaRGClienteActionPerformed
+
+    private void btLimparBuscaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparBuscaClienteActionPerformed
+        txtBuscaCPFCliente.setFormatterFactory(Mascara.cleanMak());
+        txtBuscaRGCliente.setFormatterFactory(Mascara.cleanMak());
+        txtBuscaCodigoCliente.setText("");
+        txtBuscaNomeCliente.setText("");
+    }//GEN-LAST:event_btLimparBuscaClienteActionPerformed
+
+    private void txtBuscaCPFClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscaCPFClienteFocusGained
+        txtBuscaCPFCliente.setFormatterFactory(Mascara.getCpfMask()); 
+    }//GEN-LAST:event_txtBuscaCPFClienteFocusGained
+
+    private void txtBuscaRGClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscaRGClienteFocusGained
+        txtBuscaRGCliente.setFormatterFactory(Mascara.getRgMask());
+    }//GEN-LAST:event_txtBuscaRGClienteFocusGained
     private static void centralizar(JTable table, int column) {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -1273,24 +1593,33 @@ public class IncluirMovimento extends javax.swing.JFrame {
     private javax.swing.JDialog AlterarProduto;
     private javax.swing.JDialog IncluirProduto;
     private javax.swing.JDialog PesquisaProduto;
+    private javax.swing.JDialog PesquisarCliente;
     private javax.swing.JButton btAdicionarProd;
     private javax.swing.JButton btAlterar;
+    private javax.swing.JButton btBuscaEscolherCliente;
     private javax.swing.JButton btBuscar;
+    private javax.swing.JButton btBuscar1;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btCancelar1;
+    private javax.swing.JButton btCancelar2;
     private javax.swing.JButton btCancelarAlt;
     private javax.swing.JButton btCancelarInc;
     private javax.swing.JButton btEfetivar;
     private javax.swing.JButton btEfetivarAlt;
     private javax.swing.JButton btIncluir;
+    private javax.swing.JButton btLimparBuscaCliente;
+    private javax.swing.JButton btPesquisarCliente;
     private javax.swing.JButton btRemoverProd;
     private javax.swing.JButton btSalvarMovimento;
     private javax.swing.JComboBox<String> cbCliente;
     private javax.swing.JComboBox<String> cbFuncionario;
     private javax.swing.JTextField cod_movimentacao;
     private javax.swing.JTable grid;
-    private javax.swing.JTable gridBusca;
+    private javax.swing.JTable gridBuscaCliente;
+    private javax.swing.JTable gridBuscaProduto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1299,21 +1628,29 @@ public class IncluirMovimento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lbCPF;
+    private javax.swing.JLabel lbCPF1;
     private javax.swing.JLabel lbCodigo;
     private javax.swing.JLabel lbCodigo1;
     private javax.swing.JLabel lbCodigo2;
+    private javax.swing.JLabel lbCodigo3;
     private javax.swing.JLabel lbDescricao;
     private javax.swing.JLabel lbDescricao1;
     private javax.swing.JLabel lbDescricao2;
+    private javax.swing.JLabel lbDescricao3;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbNome1;
     private javax.swing.JLabel lbQtde;
     private javax.swing.JLabel lbQtde1;
     private javax.swing.JLabel lbQtdeResult;
+    private javax.swing.JLabel lbQtdeResultCliente;
     private javax.swing.JLabel lbTitulo;
+    private javax.swing.JLabel lbTitulo1;
     private javax.swing.JLabel lbTotal;
     private javax.swing.JLabel lbTotal1;
     private javax.swing.JLabel lbValor;
@@ -1321,8 +1658,12 @@ public class IncluirMovimento extends javax.swing.JFrame {
     private javax.swing.JLabel lbValorTotalVenda;
     private javax.swing.JLabel lbcodigo;
     private javax.swing.JTextField txtAltQtde;
+    private javax.swing.JFormattedTextField txtBuscaCPFCliente;
+    private javax.swing.JTextField txtBuscaCodigoCliente;
+    private javax.swing.JTextField txtBuscaNomeCliente;
+    private javax.swing.JFormattedTextField txtBuscaRGCliente;
     private javax.swing.JTextField txtCodigoAltProd;
-    private javax.swing.JTextField txtCodigoBusca;
+    private javax.swing.JTextField txtCodigoBuscaProduto;
     private javax.swing.JTextField txtCodigoCliente;
     private javax.swing.JTextField txtCodigoFuncionario;
     private javax.swing.JTextField txtCodigoProd;
