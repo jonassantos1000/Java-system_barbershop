@@ -1,0 +1,3 @@
+colocar a tela de validação para quando for excluir uma movimentação
+colocar opção de inativar serviços - ok
+criar tela de usuario
