@@ -26,7 +26,6 @@ public class connectionFactory {
         teste=null;
         try(BufferedReader br = new BufferedReader(new FileReader(path))){
             String line=null;
-            String line2=null;
             line = br.readLine();
             return line;
         } catch (FileNotFoundException ex) {
