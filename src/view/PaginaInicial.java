@@ -436,7 +436,7 @@ public class PaginaInicial extends javax.swing.JFrame {
                 
                 String senhaBanco=usuario.selectall(usuario).getSenha();
                 String gerencia = usuario.selectall(usuario).getGerencia();
-                setPermissao(gerencia);        
+                setPermissao(gerencia, login);        
                 if (senhaBanco.equals(senhaCrip)==true){
                     btLogar.setText("Sair");
                     btLogar.setSelected(true);

@@ -20,11 +20,16 @@ import javax.swing.JOptionPane;
  * @author jonas
  */
 public class User {
-    public static void setPermissao(String login){
+    public static void setPermissao(String gerencia, String login){
         try{
+            FileWriter permission = new FileWriter("C:\\conatus\\parameters\\permission.txt");
+            PrintWriter gravaTexto = new PrintWriter(permission);
+            gravaTexto.printf(gerencia);
+            permission.close();
+            
             FileWriter user = new FileWriter("C:\\conatus\\parameters\\user.txt");
-            PrintWriter gravaTexto = new PrintWriter(user);
-            gravaTexto.printf(login);
+            PrintWriter gravaUsuario = new PrintWriter(user);
+            gravaUsuario.printf(login);
             user.close();
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null,"A instalação do sistema esta com problemas, contate o suporte técnico !");
@@ -34,7 +39,7 @@ public class User {
     }
     
     public static String getPermissao(){
-        String path = "C:\\conatus\\parameters\\user.txt";
+        String path = "C:\\conatus\\parameters\\permission.txt";
         String teste=null;
         try(BufferedReader br = new BufferedReader(new FileReader(path))){
             String line=null;
