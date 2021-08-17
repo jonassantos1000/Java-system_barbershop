@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Servico;
+import model.Usuarios;
 
 /**
  *
@@ -25,10 +26,16 @@ public class IncluirServico extends javax.swing.JFrame {
     /**
      * Creates new form IncluirServico
      */
-    public IncluirServico() {
+    Usuarios user;
+    public IncluirServico(Usuarios usuarios) {
         initComponents();
+        user=usuarios;
         setCodigo();
         setMask();
+    }
+
+    private IncluirServico() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -243,7 +250,7 @@ public class IncluirServico extends javax.swing.JFrame {
                 Logger.getLogger(IncluirServico.class.getName()).log(Level.SEVERE, null, ex);
             }
             String observacao= coalesce(txtObservacoes.getText());
-            String usuario=null;
+            String usuario=user.getUsuario();
             try {
                 //gravacliente(codigo, nome, CPF, RG, endereco, CEP);
                 Servico incluirServico = new Servico(codigo,descricao,preco,data,usuario,observacao,cbInativo);

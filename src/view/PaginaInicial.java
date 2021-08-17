@@ -7,7 +7,6 @@ package view;
 
 import Util.Criptografia;
 import static Util.Criptografia.criptografar;
-import static Util.User.setPermissao;
 import view.Clientes.ClientePrincipal;
 import java.awt.Color;
 import java.awt.Font;
@@ -29,6 +28,8 @@ public class PaginaInicial extends javax.swing.JFrame {
      */
     
     private boolean status=false;
+    String usuario;
+    Usuarios user;
     public PaginaInicial() {
         initComponents();
         bloquearAcesso();
@@ -412,7 +413,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btFuncionarioActionPerformed
 
     private void btMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMovimentacaoActionPerformed
-        MovimentacaoPrincipal tela = new MovimentacaoPrincipal();
+        MovimentacaoPrincipal tela = new MovimentacaoPrincipal(user);
         tela.setVisible(true);
     }//GEN-LAST:event_btMovimentacaoActionPerformed
 
@@ -421,8 +422,6 @@ public class PaginaInicial extends javax.swing.JFrame {
             String login = txtLogin.getText();
             String senha= new String(txtSenha.getPassword());
             //System.out.println("login:"+login+"senha:"+senha);
-            
-
             if(status==true){
                 txtLogin.setText("");
                 txtSenha.setText("");
@@ -433,13 +432,13 @@ public class PaginaInicial extends javax.swing.JFrame {
             }else if(status==false){            
                 String senhaCrip = (criptografar(senha));
                 Usuarios usuario = new Usuarios(login);
-                
                 String senhaBanco=usuario.selectall(usuario).getSenha();
-                String gerencia = usuario.selectall(usuario).getGerencia();
-                setPermissao(gerencia, login);        
+                usuario.setGerencia(usuario.selectall(usuario).getGerencia());
+                user=usuario;
                 if (senhaBanco.equals(senhaCrip)==true){
                     btLogar.setText("Sair");
                     btLogar.setSelected(true);
+                    this.usuario=login;
                     liberaAcesso();
                     status=true;
                 }
@@ -457,7 +456,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btLogarActionPerformed
 
     private void btServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btServicoActionPerformed
-        ServicoPrincipal tela = new ServicoPrincipal();
+        ServicoPrincipal tela = new ServicoPrincipal(user);
         tela.setVisible(true);
     }//GEN-LAST:event_btServicoActionPerformed
 

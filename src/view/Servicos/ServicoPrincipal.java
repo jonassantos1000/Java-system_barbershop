@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.Servico;
+import model.Usuarios;
 
 /**
  *
@@ -29,8 +30,10 @@ public class ServicoPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form ServicoPrincipal
      */
-    public ServicoPrincipal() {
+    Usuarios user;
+    public ServicoPrincipal(Usuarios usuario) {
         initComponents();
+        user=usuario;
         TableColumnModel modeltable = grid.getColumnModel();
         modeltable.getColumn(0).setPreferredWidth(70);
         modeltable.getColumn(1).setPreferredWidth(250);
@@ -39,6 +42,10 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         modeltable.getColumn(4).setPreferredWidth(150);
         modeltable.getColumn(5).setPreferredWidth(150); 
         txtCodigo.setDocument(new ValidaNumeros());
+    }
+
+    private ServicoPrincipal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -308,7 +315,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         try{
             Object obj= grid.getValueAt(grid.getSelectedRow(),0);
             AlterarServico alterar;
-            alterar = new AlterarServico(obj.toString());
+            alterar = new AlterarServico(obj.toString(),user);
             alterar.setVisible(true);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Selecione o registro que deseja alterar");
@@ -316,7 +323,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncluirActionPerformed
-        IncluirServico incluir = new IncluirServico();
+        IncluirServico incluir = new IncluirServico(user);
         incluir.setVisible(true);
     }//GEN-LAST:event_btIncluirActionPerformed
 
@@ -381,7 +388,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         if(evt.getClickCount() == 2){
             Object obj= grid.getValueAt(grid.getSelectedRow(),0);
             AlterarServico alterar;
-            alterar = new AlterarServico(obj.toString());
+            alterar = new AlterarServico(obj.toString(),user);
             alterar.setVisible(true);
         }
     }//GEN-LAST:event_gridMouseClicked

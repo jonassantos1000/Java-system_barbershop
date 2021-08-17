@@ -14,44 +14,22 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Usuarios;
 
 /**
  *
  * @author jonas
  */
 public class User {
-    public static void setPermissao(String gerencia, String login){
+  
+    public static String getPermissao(String usuario){
         try{
-            FileWriter permission = new FileWriter("C:\\conatus\\parameters\\permission.txt");
-            PrintWriter gravaTexto = new PrintWriter(permission);
-            gravaTexto.printf(gerencia);
-            permission.close();
-            
-            FileWriter user = new FileWriter("C:\\conatus\\parameters\\user.txt");
-            PrintWriter gravaUsuario = new PrintWriter(user);
-            gravaUsuario.printf(login);
-            user.close();
+            Usuarios user = new Usuarios(usuario);            
+            String permissao=user.selectall(user).getGerencia();
+            return permissao;
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(null,"A instalação do sistema esta com problemas, contate o suporte técnico !");
-            System.exit(0);
             ex.printStackTrace();
+            return null;
         }
-    }
-    
-    public static String getPermissao(){
-        String path = "C:\\conatus\\parameters\\permission.txt";
-        String teste=null;
-        try(BufferedReader br = new BufferedReader(new FileReader(path))){
-            String line=null;
-            line = br.readLine();
-            return line;
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null,"A instalação do sistema esta com problemas, contate o suporte técnico !");
-            System.exit(0);
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,"A instalação do sistema esta com problemas, contate o suporte técnico !");
-            System.exit(0);
-        }
-        return null;
     }
 }

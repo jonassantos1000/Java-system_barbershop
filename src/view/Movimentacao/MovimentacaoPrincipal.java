@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.Cliente;
 import model.Movimentacao;
+import model.Usuarios;
 
 /**
  *
@@ -33,8 +34,11 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MovimentacaoPrincipal
      */
-    public MovimentacaoPrincipal() {
+    
+    Usuarios user;
+    public MovimentacaoPrincipal(Usuarios usuario) {
         initComponents();
+        user=usuario;
         TableColumnModel modeltable = grid.getColumnModel();
         modeltable.getColumn(0).setPreferredWidth(80);
         modeltable.getColumn(1).setPreferredWidth(80);
@@ -49,6 +53,10 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
         txtCodigoCliente.setDocument(new ValidaNumeros());
         setDate();
         
+    }
+
+    private MovimentacaoPrincipal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -492,8 +500,8 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        try{
-            String permissao = getPermissao();
+        try{          
+            String permissao = user.getGerencia();
             if(permissao.equals("T")){
                 String codMovimentacaoSelecionado= grid.getValueAt(grid.getSelectedRow(),0).toString();
                 String descMovCliente= grid.getValueAt(grid.getSelectedRow(),2).toString();

@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Servico;
+import model.Usuarios;
 
 /**
  *
@@ -26,8 +27,10 @@ public class AlterarServico extends javax.swing.JFrame {
      * Creates new form AlteraServico
      */
     String codigo;
-    public AlterarServico(String ID) {
+    Usuarios user;
+    public AlterarServico(String ID,Usuarios usuarios) {
         codigo=ID;
+        user=usuarios;
         initComponents();
         setMask();
         setValue();    
@@ -261,7 +264,7 @@ public class AlterarServico extends javax.swing.JFrame {
                 Logger.getLogger(AlterarServico.class.getName()).log(Level.SEVERE, null, ex);
             }
             String observacao= coalesce(txtObservacoes.getText());
-            String usuario=null;
+            String usuario=user.getUsuario();
             try {
                 //gravacliente(codigo, nome, CPF, RG, endereco, CEP);
                 Servico alterarServico = new Servico(codigo,descricao,preco,data,usuario,observacao,cbInativo);
