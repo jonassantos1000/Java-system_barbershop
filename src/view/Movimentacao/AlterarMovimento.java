@@ -976,7 +976,7 @@ public class AlterarMovimento extends javax.swing.JFrame {
         try{
             int indice;
             indice=grid.getSelectedRow();
-            listProduto.remove(indice);
+            listProd.remove(indice);
             carregaGrid();
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Selecione o produto que deseja remover !");

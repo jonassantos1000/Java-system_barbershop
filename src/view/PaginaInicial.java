@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import model.Usuarios;
 import view.Funcionarios.FuncionarioPrincipal;
 import view.Movimentacao.MovimentacaoPrincipal;
+import view.Relatorios.RelatoriosPrincipal;
 import view.Servicos.ServicoPrincipal;
 /**
  *
@@ -196,6 +197,11 @@ public class PaginaInicial extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btRelatorioMouseExited(evt);
+            }
+        });
+        btRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRelatorioActionPerformed(evt);
             }
         });
         pnMenu.add(btRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 236, 220, 50));
@@ -471,8 +477,12 @@ public class PaginaInicial extends javax.swing.JFrame {
            btLogar.doClick();
         }
     }//GEN-LAST:event_txtSenhaKeyPressed
-        
-    
+
+    private void btRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorioActionPerformed
+        RelatoriosPrincipal tela = new RelatoriosPrincipal();
+        tela.setVisible(true);
+    }//GEN-LAST:event_btRelatorioActionPerformed
+           
     private static void setButton(JButton botao){
         botao.setBackground(new Color(58,58,58));
         botao.setFont(new Font("Trebuchet MS",1,19));
