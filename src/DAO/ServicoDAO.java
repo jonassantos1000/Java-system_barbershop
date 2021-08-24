@@ -44,7 +44,7 @@ public class ServicoDAO {
                     limite="9999999"; 
                 }
 
-                SQLSELECTALL="SELECT FIRST "+limite+" COD_SERVICO,DESCRICAO,PRECO,DATA_CADASTRO,DATA_ALTERACAO,USUARIO FROM SERVICOS as s ";
+                SQLSELECTALL="SELECT FIRST "+limite+" COD_SERVICO,DESCRICAO,PRECO,DATA_CADASTRO,DATA_ALTERACAO,USUARIO,OBSERVACAO,INATIVO FROM SERVICOS as s ";
                 int contador=0;
                 //Campo codigo
                 if (!"0".equals(String.valueOf(servico.getCodigo()))) {
@@ -77,7 +77,7 @@ public class ServicoDAO {
                 List<Servico> listServico = new ArrayList<Servico>();
 
                 while (rs.next()){
-                    Servico select = new Servico(rs.getInt("COD_SERVICO"),rs.getString("DESCRICAO"),rs.getDouble("PRECO"),rs.getString("DATA_CADASTRO"),rs.getString("DATA_ALTERACAO"),rs.getString("USUARIO"),"","");
+                    Servico select = new Servico(rs.getInt("COD_SERVICO"),rs.getString("DESCRICAO"),rs.getDouble("PRECO"),rs.getString("DATA_CADASTRO"),rs.getString("DATA_ALTERACAO"),rs.getString("USUARIO"),rs.getString("OBSERVACAO"),rs.getString("INATIVO"));
                     listServico.add(select);
                 }
                 return listServico;

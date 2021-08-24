@@ -75,7 +75,7 @@ FROM "CLIENTES"]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA["src/Reports/logoConatus.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Program Files (x86)\\Conatus\\Reports\\logo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="210" y="50" width="170" height="30" uuid="aef1aae6-eded-4250-aa0a-5dc1ed8ecc32"/>

@@ -6,14 +6,36 @@
 
 package view.Relatorios;
 
-import javax.swing.JDialog;
+import java.awt.Color;
+import java.awt.Font;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import model.Cliente;
+import model.Relatorio;
+import model.Servico;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import static net.sf.jasperreports.view.JasperViewer.viewReport;
 
 /**
  *
@@ -22,8 +44,18 @@ import net.sf.jasperreports.view.JasperViewer;
 public class RelatoriosPrincipal extends javax.swing.JFrame {
 
     /** Creates new form PrincipalRelatorios */
+    List <Relatorio> listRelatorios= new ArrayList<Relatorio>();
+    Relatorio relatorio;
+    String limite="99999999";
     public RelatoriosPrincipal() {
         initComponents();
+        Relatorio relatorio = new Relatorio("Todos");
+        buscaRelatorios(relatorio);
+        TableColumnModel modeltable = grid.getColumnModel();
+        modeltable.getColumn(0).setPreferredWidth(100);
+        modeltable.getColumn(1).setPreferredWidth(300);
+        modeltable.getColumn(2).setPreferredWidth(200);
+        modeltable.getColumn(3).setPreferredWidth(3);
     }
 
     /** This method is called from within the constructor to
@@ -35,52 +67,598 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
+        FiltroServicos = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtCodigoServico = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtDescricaoServico = new javax.swing.JTextField();
+        ckListaInativo = new javax.swing.JCheckBox();
+        jLabel7 = new javax.swing.JLabel();
+        btFecharServico = new javax.swing.JButton();
+        btProcessarServicos = new javax.swing.JButton();
+        FiltroClientes = new javax.swing.JDialog();
+        pnTitulo = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        pnMenu = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btTodos = new javax.swing.JButton();
+        btCliente = new javax.swing.JButton();
+        btServico = new javax.swing.JButton();
+        btFuncionario = new javax.swing.JButton();
+        btMovimentacao = new javax.swing.JButton();
+        pnDireito = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        grid = new javax.swing.JTable();
+        pnInferior = new javax.swing.JPanel();
+        btCancelar = new javax.swing.JButton();
+        btProcessar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        FiltroServicos.setMinimumSize(new java.awt.Dimension(528, 338));
+        FiltroServicos.setUndecorated(true);
+        FiltroServicos.setPreferredSize(new java.awt.Dimension(528, 338));
+        FiltroServicos.setResizable(false);
+        FiltroServicos.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setText("Gerar relatorio");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setOpaque(true);
+        jLabel8.setPreferredSize(new java.awt.Dimension(400, 2));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 440, 2));
+
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel5.setText("Codigo");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, -1, -1));
+        jPanel1.add(txtCodigoServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 156, -1));
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setText("Descrição");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, -1));
+        jPanel1.add(txtDescricaoServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 156, -1));
+
+        ckListaInativo.setBackground(new java.awt.Color(255, 255, 255));
+        ckListaInativo.setText("Listar Inativos");
+        jPanel1.add(ckListaInativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Filtros");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 15, 520, 40));
+
+        btFecharServico.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btFecharServico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
+        btFecharServico.setText("Fechar");
+        btFecharServico.setToolTipText("");
+        btFecharServico.setBorderPainted(false);
+        btFecharServico.setContentAreaFilled(false);
+        btFecharServico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btFecharServico.setRequestFocusEnabled(false);
+        btFecharServico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btFecharServicoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btFecharServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 110, 40));
+
+        btProcessarServicos.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btProcessarServicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btProcessarServicos.setText("Processar");
+        btProcessarServicos.setToolTipText("");
+        btProcessarServicos.setBorderPainted(false);
+        btProcessarServicos.setContentAreaFilled(false);
+        btProcessarServicos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btProcessarServicos.setRequestFocusEnabled(false);
+        btProcessarServicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProcessarServicosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btProcessarServicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 110, 40));
+
+        FiltroServicos.getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 310));
+
+        javax.swing.GroupLayout FiltroClientesLayout = new javax.swing.GroupLayout(FiltroClientes.getContentPane());
+        FiltroClientes.getContentPane().setLayout(FiltroClientesLayout);
+        FiltroClientesLayout.setHorizontalGroup(
+            FiltroClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        FiltroClientesLayout.setVerticalGroup(
+            FiltroClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(803, 494));
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnTitulo.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Central de relatórios");
+
+        javax.swing.GroupLayout pnTituloLayout = new javax.swing.GroupLayout(pnTitulo);
+        pnTitulo.setLayout(pnTituloLayout);
+        pnTituloLayout.setHorizontalGroup(
+            pnTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnTituloLayout.createSequentialGroup()
+                .addContainerGap(152, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        pnTituloLayout.setVerticalGroup(
+            pnTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnTituloLayout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(pnTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 50));
+
+        pnMenu.setBackground(new java.awt.Color(0, 0, 0));
+        pnMenu.setForeground(new java.awt.Color(51, 51, 51));
+        pnMenu.setMaximumSize(new java.awt.Dimension(380, 344));
+        pnMenu.setPreferredSize(new java.awt.Dimension(220, 300));
+        pnMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel1.setMaximumSize(new java.awt.Dimension(80, 2));
+        jLabel1.setMinimumSize(new java.awt.Dimension(80, 2));
+        jLabel1.setOpaque(true);
+        jLabel1.setPreferredSize(new java.awt.Dimension(80, 1));
+        pnMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 91, 140, -1));
+
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Categorias");
+        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 180, 30));
+
+        jLabel3.setText("  ");
+        pnMenu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, -1, -1));
+
+        btTodos.setBackground(new java.awt.Color(0, 0, 0));
+        btTodos.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btTodos.setForeground(new java.awt.Color(255, 255, 255));
+        btTodos.setText("Todos");
+        btTodos.setToolTipText("");
+        btTodos.setBorderPainted(false);
+        btTodos.setContentAreaFilled(false);
+        btTodos.setFocusPainted(false);
+        btTodos.setMaximumSize(new java.awt.Dimension(230, 50));
+        btTodos.setMinimumSize(new java.awt.Dimension(120, 45));
+        btTodos.setOpaque(true);
+        btTodos.setPreferredSize(new java.awt.Dimension(180, 50));
+        btTodos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btTodosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btTodosMouseExited(evt);
+            }
+        });
+        btTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTodosActionPerformed(evt);
+            }
+        });
+        pnMenu.add(btTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 180, -1));
+
+        btCliente.setBackground(new java.awt.Color(0, 0, 0));
+        btCliente.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btCliente.setText("Clientes");
+        btCliente.setToolTipText("");
+        btCliente.setBorderPainted(false);
+        btCliente.setContentAreaFilled(false);
+        btCliente.setFocusPainted(false);
+        btCliente.setMaximumSize(new java.awt.Dimension(230, 50));
+        btCliente.setMinimumSize(new java.awt.Dimension(120, 45));
+        btCliente.setOpaque(true);
+        btCliente.setPreferredSize(new java.awt.Dimension(180, 50));
+        btCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btClienteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btClienteMouseExited(evt);
+            }
+        });
+        btCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btClienteActionPerformed(evt);
+            }
+        });
+        pnMenu.add(btCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, -1));
+
+        btServico.setBackground(new java.awt.Color(0, 0, 0));
+        btServico.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btServico.setForeground(new java.awt.Color(255, 255, 255));
+        btServico.setText("Serviços");
+        btServico.setToolTipText("");
+        btServico.setBorderPainted(false);
+        btServico.setContentAreaFilled(false);
+        btServico.setFocusPainted(false);
+        btServico.setMaximumSize(new java.awt.Dimension(230, 50));
+        btServico.setMinimumSize(new java.awt.Dimension(120, 45));
+        btServico.setOpaque(true);
+        btServico.setPreferredSize(new java.awt.Dimension(180, 45));
+        btServico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btServicoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btServicoMouseExited(evt);
+            }
+        });
+        btServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btServicoActionPerformed(evt);
+            }
+        });
+        pnMenu.add(btServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 180, 50));
+
+        btFuncionario.setBackground(new java.awt.Color(0, 0, 0));
+        btFuncionario.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btFuncionario.setForeground(new java.awt.Color(255, 255, 255));
+        btFuncionario.setText("Funcionarios");
+        btFuncionario.setToolTipText("");
+        btFuncionario.setBorderPainted(false);
+        btFuncionario.setContentAreaFilled(false);
+        btFuncionario.setFocusPainted(false);
+        btFuncionario.setMaximumSize(new java.awt.Dimension(230, 50));
+        btFuncionario.setMinimumSize(new java.awt.Dimension(120, 45));
+        btFuncionario.setOpaque(true);
+        btFuncionario.setPreferredSize(new java.awt.Dimension(180, 45));
+        btFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btFuncionarioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btFuncionarioMouseExited(evt);
+            }
+        });
+        btFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFuncionarioActionPerformed(evt);
+            }
+        });
+        pnMenu.add(btFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, -1, 50));
+
+        btMovimentacao.setBackground(new java.awt.Color(0, 0, 0));
+        btMovimentacao.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btMovimentacao.setForeground(new java.awt.Color(255, 255, 255));
+        btMovimentacao.setText("Movimentação");
+        btMovimentacao.setToolTipText("");
+        btMovimentacao.setBorderPainted(false);
+        btMovimentacao.setContentAreaFilled(false);
+        btMovimentacao.setFocusPainted(false);
+        btMovimentacao.setMaximumSize(new java.awt.Dimension(230, 50));
+        btMovimentacao.setMinimumSize(new java.awt.Dimension(120, 45));
+        btMovimentacao.setOpaque(true);
+        btMovimentacao.setPreferredSize(new java.awt.Dimension(180, 45));
+        btMovimentacao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btMovimentacaoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btMovimentacaoMouseExited(evt);
+            }
+        });
+        btMovimentacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMovimentacaoActionPerformed(evt);
+            }
+        });
+        pnMenu.add(btMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 180, 50));
+
+        getContentPane().add(pnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 490));
+
+        pnDireito.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout pnDireitoLayout = new javax.swing.GroupLayout(pnDireito);
+        pnDireito.setLayout(pnDireitoLayout);
+        pnDireitoLayout.setHorizontalGroup(
+            pnDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+        pnDireitoLayout.setVerticalGroup(
+            pnDireitoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 410, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(pnDireito, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 40, 410));
+
+        grid.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Codigo", "Descrição", "Categoria", ""
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        grid.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        grid.setShowHorizontalLines(false);
+        jScrollPane1.setViewportView(grid);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 590, 390));
+
+        pnInferior.setBackground(new java.awt.Color(0, 0, 0));
+
+        btCancelar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
+        btCancelar.setText("Fechar");
+        btCancelar.setToolTipText("");
+        btCancelar.setBorderPainted(false);
+        btCancelar.setContentAreaFilled(false);
+        btCancelar.setFocusPainted(false);
+        btCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(154, 154, 154)
-                .addComponent(jButton2)
-                .addContainerGap(144, Short.MAX_VALUE))
+        btProcessar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btProcessar.setForeground(new java.awt.Color(255, 255, 255));
+        btProcessar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btProcessar.setText("Processar");
+        btProcessar.setBorderPainted(false);
+        btProcessar.setContentAreaFilled(false);
+        btProcessar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btProcessar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProcessarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnInferiorLayout = new javax.swing.GroupLayout(pnInferior);
+        pnInferior.setLayout(pnInferiorLayout);
+        pnInferiorLayout.setHorizontalGroup(
+            pnInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnInferiorLayout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btProcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(252, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(236, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(41, 41, 41))
+        pnInferiorLayout.setVerticalGroup(
+            pnInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnInferiorLayout.createSequentialGroup()
+                .addGap(0, 10, Short.MAX_VALUE)
+                .addGroup(pnInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btProcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        pack();
+        getContentPane().add(pnInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 440, 630, 50));
+
+        setSize(new java.awt.Dimension(803, 494));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            Cliente cliente = new Cliente(0);
-            cliente.selectnoFilter(cliente, "999999");
-            JasperReport relatorioCompilado= JasperCompileManager.compileReport("src\\Reports\\Clientes.jrxml");
-            
-            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, null,new JRBeanCollectionDataSource(cliente.getResultselect()));
-            
-            JasperViewer.viewReport(relatorioPreenchido,true);
-      
-        } catch (Exception ex2) {
-            ex2.printStackTrace();
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btClienteMouseEntered
+        setButton(btCliente);
+    }//GEN-LAST:event_btClienteMouseEntered
 
+    private void btClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btClienteMouseExited
+        resetButton(btCliente);
+    }//GEN-LAST:event_btClienteMouseExited
+
+    private void btClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClienteActionPerformed
+        List<Relatorio> clientes = new ArrayList<Relatorio>();
+        for (Relatorio rel : listRelatorios){
+            if (rel.getCategoria().equals("CLIENTES")){
+                    clientes.add(rel);
+            }
+        }
+        listaRelatorios(clientes);
+        
+    }//GEN-LAST:event_btClienteActionPerformed
+
+    private void btServicoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btServicoMouseEntered
+        setButton(btServico);
+    }//GEN-LAST:event_btServicoMouseEntered
+
+    private void btServicoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btServicoMouseExited
+        resetButton(btServico);
+    }//GEN-LAST:event_btServicoMouseExited
+
+    private void btServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btServicoActionPerformed
+        List<Relatorio> servicos = new ArrayList<Relatorio>();
+        for (Relatorio rel : listRelatorios){
+            if (rel.getCategoria().equals("SERVICOS")){
+                    servicos.add(rel);
+            }
+        }
+        listaRelatorios(servicos);
+    }//GEN-LAST:event_btServicoActionPerformed
+
+    private void btFuncionarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btFuncionarioMouseEntered
+        setButton(btFuncionario);
+    }//GEN-LAST:event_btFuncionarioMouseEntered
+
+    private void btFuncionarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btFuncionarioMouseExited
+        resetButton(btFuncionario);
+    }//GEN-LAST:event_btFuncionarioMouseExited
+
+    private void btFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFuncionarioActionPerformed
+        
+        
+    }//GEN-LAST:event_btFuncionarioActionPerformed
+
+    private void btMovimentacaoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btMovimentacaoMouseEntered
+        setButton(btMovimentacao);
+    }//GEN-LAST:event_btMovimentacaoMouseEntered
+
+    private void btMovimentacaoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btMovimentacaoMouseExited
+        resetButton(btMovimentacao);
+    }//GEN-LAST:event_btMovimentacaoMouseExited
+
+    private void btMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMovimentacaoActionPerformed
+
+    }//GEN-LAST:event_btMovimentacaoActionPerformed
+
+    private void btProcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessarActionPerformed
+    try{       
+        Relatorio relatorio=getRelatorioSelecionado();    
+            switch(relatorio.getCategoria()){
+                case "CLIENTES":
+                Cliente cliente = new Cliente(0);
+                cliente.selectnoFilter(cliente, limite);
+                JasperReport relatorioCompilado= JasperCompileManager.compileReport(relatorio.getDiretorio());
+                JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, null,new JRBeanCollectionDataSource(cliente.getResultselect()));
+                JasperViewer.viewReport(relatorioPreenchido,false);
+                break;
+                
+                case "SERVICOS":
+                FiltroServicos.setModal(true);
+                FiltroServicos.setLocationRelativeTo(null);
+                FiltroServicos.setVisible(true);               
+                break;
+                
+                
+            }
+        
+        } catch (JRException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatoriosPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }//GEN-LAST:event_btProcessarActionPerformed
+
+    private void btTodosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btTodosMouseEntered
+        setButton(btTodos);
+    }//GEN-LAST:event_btTodosMouseEntered
+
+    private void btTodosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btTodosMouseExited
+        resetButton(btTodos);
+    }//GEN-LAST:event_btTodosMouseExited
+
+    private void btTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTodosActionPerformed
+        listaRelatorios(listRelatorios);
+    }//GEN-LAST:event_btTodosActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void btFecharServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharServicoActionPerformed
+        FiltroServicos.setVisible(false);
+    }//GEN-LAST:event_btFecharServicoActionPerformed
+
+    private void btProcessarServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessarServicosActionPerformed
+        try {
+            int codigo = txtCodigoServico.getText().equals("") ? 0 : Integer.parseInt(txtCodigoServico.getText());           
+            String cbInativo = ckListaInativo.isSelected()==false ? "F" : "T";
+            
+            Servico servicos = new Servico(codigo,txtDescricaoServico.getText(),cbInativo);
+            servicos.selectFilter(servicos, limite);
+            
+            JasperReport relatorioCompilado= JasperCompileManager.compileReport(relatorio.getDiretorio());
+            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, null,new JRBeanCollectionDataSource(servicos.getSelectFilter()));
+            JasperViewer.viewReport(relatorioPreenchido,false); 
+            FiltroServicos.setVisible(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatoriosPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException ex) {
+            Logger.getLogger(RelatoriosPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btProcessarServicosActionPerformed
+    
+    private static void setButton(JButton botao){
+        botao.setBackground(new Color(58,58,58));
+        botao.setFont(new Font("Trebuchet MS",1,19));
+    }
+    
+    private static void resetButton(JButton botao){
+        botao.setBackground(new Color(0,0,0));
+        botao.setFont(new Font("Trebuchet MS",1,18));
+    }
+    
+    private void buscaRelatorios(Relatorio relatorio){
+        try{
+            List <Relatorio> rel = new ArrayList<Relatorio>();
+            rel=relatorio.select(relatorio);
+            listRelatorios=rel;
+            listaRelatorios(rel);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void listaRelatorios(List <Relatorio> relatorio){
+        DefaultTableModel modelo = (DefaultTableModel) grid.getModel();
+        modelo.setNumRows(0);
+        
+        centralizar(grid,0);
+        centralizar(grid,1);
+        centralizar(grid,2);
+        try{
+            List<Relatorio> listagem = relatorio;         
+            for (Relatorio rel : listagem) {
+                modelo.addRow(new Object[]{rel.getCodigo(),rel.getDescricao(),rel.getCategoria()});
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    private static void centralizar(JTable table, int column) {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.getColumnModel().getColumn(column).setCellRenderer(centerRenderer);
+    }
+    
+    private Relatorio getRelatorioSelecionado(){
+        try{
+            int codigo= Integer.parseInt(grid.getValueAt(grid.getSelectedRow(),0).toString());
+            String categoria= grid.getValueAt(grid.getSelectedRow(),2).toString();
+            Relatorio relatorio = new Relatorio("");
+            
+            for (Relatorio rel : listRelatorios){
+                if (rel.getCodigo()==codigo){
+                    relatorio=rel;  
+                }
+            }
+            this.relatorio=relatorio;
+            return relatorio;
+        }catch(ArrayIndexOutOfBoundsException ex){
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Escolha o relatorio que deseja processar");
+            return null;
+        }
+    }
+    
+        
+    
     /**
      * @param args the command line arguments
      */
@@ -118,7 +696,35 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JDialog FiltroClientes;
+    private javax.swing.JDialog FiltroServicos;
+    private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btCliente;
+    private javax.swing.JButton btFecharServico;
+    private javax.swing.JButton btFuncionario;
+    private javax.swing.JButton btMovimentacao;
+    private javax.swing.JButton btProcessar;
+    private javax.swing.JButton btProcessarServicos;
+    private javax.swing.JButton btServico;
+    private javax.swing.JButton btTodos;
+    private javax.swing.JCheckBox ckListaInativo;
+    private javax.swing.JTable grid;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel pnDireito;
+    private javax.swing.JPanel pnInferior;
+    private javax.swing.JPanel pnMenu;
+    private javax.swing.JPanel pnTitulo;
+    private javax.swing.JTextField txtCodigoServico;
+    private javax.swing.JTextField txtDescricaoServico;
     // End of variables declaration//GEN-END:variables
 
 }

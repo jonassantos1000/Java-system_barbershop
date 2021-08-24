@@ -471,7 +471,6 @@ public class IncluirMovimento extends javax.swing.JFrame {
 
         PesquisarCliente.setMinimumSize(new java.awt.Dimension(666, 425));
         PesquisarCliente.setUndecorated(true);
-        PesquisarCliente.setPreferredSize(new java.awt.Dimension(666, 425));
         PesquisarCliente.setResizable(false);
         PesquisarCliente.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
