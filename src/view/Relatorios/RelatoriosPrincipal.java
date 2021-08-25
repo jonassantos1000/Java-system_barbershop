@@ -99,7 +99,6 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
 
         FiltroServicos.setMinimumSize(new java.awt.Dimension(528, 338));
         FiltroServicos.setUndecorated(true);
-        FiltroServicos.setPreferredSize(new java.awt.Dimension(528, 338));
         FiltroServicos.setResizable(false);
         FiltroServicos.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -123,8 +122,8 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         jPanel1.add(txtDescricaoServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 156, -1));
 
         ckListaInativo.setBackground(new java.awt.Color(255, 255, 255));
-        ckListaInativo.setText("Listar Inativos");
-        jPanel1.add(ckListaInativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, -1, -1));
+        ckListaInativo.setText("Incluir Inativos na Consulta");
+        jPanel1.add(ckListaInativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 170, -1));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -578,13 +577,23 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         try {
             int codigo = txtCodigoServico.getText().equals("") ? 0 : Integer.parseInt(txtCodigoServico.getText());           
             String cbInativo = ckListaInativo.isSelected()==false ? "F" : "T";
-            
+            //criando objeto com os filtros fornecidos pelo usuario, para consultar no banco
             Servico servicos = new Servico(codigo,txtDescricaoServico.getText(),cbInativo);
             servicos.selectFilter(servicos, limite);
             
+            //parametros do relatorio, colocando dentro de um map para passar ao jasper preencher os paramatros do relatorio
+            cbInativo = cbInativo.equals("F") ? "Não" : "Sim";
+            Map parameters = new HashMap();
+            parameters.put("Codigo",codigo);
+            parameters.put("Descricao",txtDescricaoServico.getText());
+            parameters.put("Lista Inativo", cbInativo);
+            
+            //criando objeto do jasper para posteriormente exibir o relatorio na tela
             JasperReport relatorioCompilado= JasperCompileManager.compileReport(relatorio.getDiretorio());
-            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, null,new JRBeanCollectionDataSource(servicos.getSelectFilter()));
+            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, parameters,new JRBeanCollectionDataSource(servicos.getSelectFilter()));
             JasperViewer.viewReport(relatorioPreenchido,false); 
+            
+            //fecha a tela de filtros após processar o relatorio
             FiltroServicos.setVisible(false);
         } catch (SQLException ex) {
             Logger.getLogger(RelatoriosPrincipal.class.getName()).log(Level.SEVERE, null, ex);
