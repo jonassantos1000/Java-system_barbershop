@@ -6,6 +6,7 @@
 
 package view.Relatorios;
 
+import Util.Mascara;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.SQLException;
@@ -79,6 +80,19 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         btFecharServico = new javax.swing.JButton();
         btProcessarServicos = new javax.swing.JButton();
         FiltroClientes = new javax.swing.JDialog();
+        pnFiltrosCliente = new javax.swing.JPanel();
+        txtCPFCliente = new javax.swing.JFormattedTextField();
+        lbCPFCliente = new javax.swing.JLabel();
+        lbRGCliente = new javax.swing.JLabel();
+        txtRGCliente = new javax.swing.JFormattedTextField();
+        jLabel9 = new javax.swing.JLabel();
+        lbCodigoCliente = new javax.swing.JLabel();
+        txtCodigoCliente = new javax.swing.JTextField();
+        lbNomeCliente = new javax.swing.JLabel();
+        txtNomeCliente = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        btFecharCliente = new javax.swing.JButton();
+        btProcessarCliente = new javax.swing.JButton();
         pnTitulo = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         pnMenu = new javax.swing.JPanel();
@@ -97,7 +111,7 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         btCancelar = new javax.swing.JButton();
         btProcessar = new javax.swing.JButton();
 
-        FiltroServicos.setMinimumSize(new java.awt.Dimension(528, 338));
+        FiltroServicos.setMinimumSize(new java.awt.Dimension(520, 310));
         FiltroServicos.setUndecorated(true);
         FiltroServicos.setResizable(false);
         FiltroServicos.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -123,7 +137,7 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
 
         ckListaInativo.setBackground(new java.awt.Color(255, 255, 255));
         ckListaInativo.setText("Incluir Inativos na Consulta");
-        jPanel1.add(ckListaInativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 170, -1));
+        jPanel1.add(ckListaInativo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 200, -1));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -162,20 +176,93 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
 
         FiltroServicos.getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 310));
 
-        javax.swing.GroupLayout FiltroClientesLayout = new javax.swing.GroupLayout(FiltroClientes.getContentPane());
-        FiltroClientes.getContentPane().setLayout(FiltroClientesLayout);
-        FiltroClientesLayout.setHorizontalGroup(
-            FiltroClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        FiltroClientesLayout.setVerticalGroup(
-            FiltroClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        FiltroClientes.setMinimumSize(new java.awt.Dimension(520, 310));
+        FiltroClientes.setPreferredSize(new java.awt.Dimension(520, 310));
+        FiltroClientes.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnFiltrosCliente.setBackground(new java.awt.Color(255, 255, 255));
+        pnFiltrosCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtCPFCliente.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtCPFCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCPFClienteFocusGained(evt);
+            }
+        });
+        pnFiltrosCliente.add(txtCPFCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 156, -1));
+
+        lbCPFCliente.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        lbCPFCliente.setText("CPF");
+        pnFiltrosCliente.add(lbCPFCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, -1, 20));
+
+        lbRGCliente.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        lbRGCliente.setText("RG");
+        pnFiltrosCliente.add(lbRGCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, 20));
+
+        txtRGCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtRGClienteFocusGained(evt);
+            }
+        });
+        pnFiltrosCliente.add(txtRGCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 120, -1));
+
+        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setOpaque(true);
+        jLabel9.setPreferredSize(new java.awt.Dimension(400, 2));
+        pnFiltrosCliente.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 440, 2));
+
+        lbCodigoCliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbCodigoCliente.setText("Codigo");
+        pnFiltrosCliente.add(lbCodigoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
+        pnFiltrosCliente.add(txtCodigoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 120, -1));
+
+        lbNomeCliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbNomeCliente.setText("Nome");
+        pnFiltrosCliente.add(lbNomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, -1, -1));
+        pnFiltrosCliente.add(txtNomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 156, -1));
+
+        jLabel12.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Filtros");
+        pnFiltrosCliente.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 15, 520, 40));
+
+        btFecharCliente.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btFecharCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
+        btFecharCliente.setText("Fechar");
+        btFecharCliente.setToolTipText("");
+        btFecharCliente.setBorderPainted(false);
+        btFecharCliente.setContentAreaFilled(false);
+        btFecharCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btFecharCliente.setRequestFocusEnabled(false);
+        btFecharCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFecharClienteActionPerformed(evt);
+            }
+        });
+        pnFiltrosCliente.add(btFecharCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 110, 40));
+
+        btProcessarCliente.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btProcessarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btProcessarCliente.setText("Processar");
+        btProcessarCliente.setToolTipText("");
+        btProcessarCliente.setBorderPainted(false);
+        btProcessarCliente.setContentAreaFilled(false);
+        btProcessarCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btProcessarCliente.setRequestFocusEnabled(false);
+        btProcessarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProcessarClienteActionPerformed(evt);
+            }
+        });
+        pnFiltrosCliente.add(btProcessarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 110, 40));
+
+        FiltroClientes.getContentPane().add(pnFiltrosCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 310));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(803, 494));
+        setMinimumSize(new java.awt.Dimension(803, 489));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(803, 489));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnTitulo.setBackground(new java.awt.Color(0, 0, 0));
@@ -441,24 +528,21 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         pnInferiorLayout.setHorizontalGroup(
             pnInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnInferiorLayout.createSequentialGroup()
-                .addGap(110, 110, 110)
+                .addGap(159, 159, 159)
                 .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(39, 39, 39)
                 .addComponent(btProcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(252, Short.MAX_VALUE))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
         pnInferiorLayout.setVerticalGroup(
             pnInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnInferiorLayout.createSequentialGroup()
-                .addGap(0, 10, Short.MAX_VALUE)
-                .addGroup(pnInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btProcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
+            .addComponent(btProcessar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         getContentPane().add(pnInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 440, 630, 50));
 
-        setSize(new java.awt.Dimension(803, 494));
+        setSize(new java.awt.Dimension(803, 489));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -525,32 +609,21 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btMovimentacaoActionPerformed
 
     private void btProcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessarActionPerformed
-    try{       
-        Relatorio relatorio=getRelatorioSelecionado();    
-            switch(relatorio.getCategoria()){
-                case "CLIENTES":
-                Cliente cliente = new Cliente(0);
-                cliente.selectnoFilter(cliente, limite);
-                JasperReport relatorioCompilado= JasperCompileManager.compileReport(relatorio.getDiretorio());
-                JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, null,new JRBeanCollectionDataSource(cliente.getResultselect()));
-                JasperViewer.viewReport(relatorioPreenchido,false);
+        Relatorio relatorio = getRelatorioSelecionado();
+        switch (relatorio.getCategoria()) {
+            case "CLIENTES":
+                FiltroClientes.setModal(true);
+                FiltroClientes.setLocationRelativeTo(null);
+                FiltroClientes.setVisible(true);
                 break;
-                
-                case "SERVICOS":
+
+            case "SERVICOS":
                 FiltroServicos.setModal(true);
                 FiltroServicos.setLocationRelativeTo(null);
-                FiltroServicos.setVisible(true);               
+                FiltroServicos.setVisible(true);
                 break;
-                
-                
-            }
-        
-        } catch (JRException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(RelatoriosPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+
+        }
     }//GEN-LAST:event_btProcessarActionPerformed
 
     private void btTodosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btTodosMouseEntered
@@ -601,6 +674,44 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
             Logger.getLogger(RelatoriosPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btProcessarServicosActionPerformed
+
+    private void btFecharClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharClienteActionPerformed
+        FiltroClientes.setVisible(false);
+    }//GEN-LAST:event_btFecharClienteActionPerformed
+
+    private void btProcessarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessarClienteActionPerformed
+        try{
+            int codigo = txtCodigoCliente.getText().equals("") ? 0 : Integer.parseInt(txtCodigoCliente.getText());           
+          
+            Cliente cliente = new Cliente(codigo,txtNomeCliente.getText(),txtCPFCliente.getText(),txtRGCliente.getText(),"");
+            cliente.selectnoFilter(cliente, limite);
+            
+            Map parameters = new HashMap();            
+            parameters.put("codigo", codigo);
+            parameters.put("nome", txtNomeCliente.getText());
+            parameters.put("cpf", txtCPFCliente.getText());
+            parameters.put("rg", txtRGCliente.getText());
+            
+            JasperReport relatorioCompilado= JasperCompileManager.compileReport(relatorio.getDiretorio());
+            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, parameters,new JRBeanCollectionDataSource(cliente.getResultselect()));
+            JasperViewer.viewReport(relatorioPreenchido,false);
+            
+            FiltroClientes.setVisible(false);
+        } catch (SQLException ex) {
+            ex.printStackTrace();           
+        } catch (JRException ex) {
+            ex.printStackTrace();
+        }         
+        
+    }//GEN-LAST:event_btProcessarClienteActionPerformed
+
+    private void txtCPFClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFClienteFocusGained
+        txtCPFCliente.setFormatterFactory(Mascara.getCpfMask());
+    }//GEN-LAST:event_txtCPFClienteFocusGained
+
+    private void txtRGClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRGClienteFocusGained
+        txtRGCliente.setFormatterFactory(Mascara.getRgMask());
+    }//GEN-LAST:event_txtRGClienteFocusGained
     
     private static void setButton(JButton botao){
         botao.setBackground(new Color(58,58,58));
@@ -709,16 +820,19 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     private javax.swing.JDialog FiltroServicos;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btCliente;
+    private javax.swing.JButton btFecharCliente;
     private javax.swing.JButton btFecharServico;
     private javax.swing.JButton btFuncionario;
     private javax.swing.JButton btMovimentacao;
     private javax.swing.JButton btProcessar;
+    private javax.swing.JButton btProcessarCliente;
     private javax.swing.JButton btProcessarServicos;
     private javax.swing.JButton btServico;
     private javax.swing.JButton btTodos;
     private javax.swing.JCheckBox ckListaInativo;
     private javax.swing.JTable grid;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -726,14 +840,24 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbCPFCliente;
+    private javax.swing.JLabel lbCodigoCliente;
+    private javax.swing.JLabel lbNomeCliente;
+    private javax.swing.JLabel lbRGCliente;
     private javax.swing.JPanel pnDireito;
+    private javax.swing.JPanel pnFiltrosCliente;
     private javax.swing.JPanel pnInferior;
     private javax.swing.JPanel pnMenu;
     private javax.swing.JPanel pnTitulo;
+    private javax.swing.JFormattedTextField txtCPFCliente;
+    private javax.swing.JTextField txtCodigoCliente;
     private javax.swing.JTextField txtCodigoServico;
     private javax.swing.JTextField txtDescricaoServico;
+    private javax.swing.JTextField txtNomeCliente;
+    private javax.swing.JFormattedTextField txtRGCliente;
     // End of variables declaration//GEN-END:variables
 
 }
