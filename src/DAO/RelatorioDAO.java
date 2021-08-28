@@ -25,7 +25,7 @@ public class RelatorioDAO {
     
     public List<Relatorio> selectRelatorios() throws SQLException{
         try{
-            String SQLSELECT="SELECT * FROM RELATORIOS";
+            String SQLSELECT="SELECT * FROM RELATORIOS r ORDER BY r.COD_RELATORIO,r.CATEGORIA";
             PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLSELECT);
             ResultSet rs = pst.executeQuery();
             List<Relatorio> listRelatorios = new ArrayList<Relatorio>();
