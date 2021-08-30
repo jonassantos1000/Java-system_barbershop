@@ -99,8 +99,8 @@ public class Mascara {
     public static DefaultFormatterFactory getDataMask(){
         MaskFormatter mask = null;
         try{
-            mask = new MaskFormatter("####-##-## ##:##:##");
-            mask.setPlaceholderCharacter('_');
+            mask = new MaskFormatter("##/##/####");
+            
         }catch (ParseException ex){
             return null;
         }

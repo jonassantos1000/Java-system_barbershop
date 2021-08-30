@@ -50,7 +50,7 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     List<Relatorio> servicos = new ArrayList<Relatorio>();
     List<Relatorio> clientes = new ArrayList<Relatorio>();
     List<Relatorio> funcionarios = new ArrayList<Relatorio>();
-    
+    List<Relatorio> movimentacoes = new ArrayList<Relatorio>();
     Relatorio relatorio;
     String limite="99999999";
     
@@ -115,6 +115,31 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         btFecharFuncionario = new javax.swing.JButton();
         btProcessarFuncionario = new javax.swing.JButton();
+        FiltroListaDeMovimentacoes = new javax.swing.JDialog();
+        pnFiltrosMovimentacoes = new javax.swing.JPanel();
+        txtCPFClienteMovimentacao = new javax.swing.JFormattedTextField();
+        lbCPFClienteMovimentacao = new javax.swing.JLabel();
+        lbRGClienteMovimentacao = new javax.swing.JLabel();
+        txtRGClienteMovimentacao = new javax.swing.JFormattedTextField();
+        jLabel11 = new javax.swing.JLabel();
+        lbCodigoMovimentacao = new javax.swing.JLabel();
+        txtCodigoMovimentacao = new javax.swing.JTextField();
+        lbCliente = new javax.swing.JLabel();
+        txtCodigoClienteMovimentacao = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        btProcessarMovimentacao = new javax.swing.JButton();
+        btFecharMovimentacao = new javax.swing.JButton();
+        lbCodigoClienteMovimentacao = new javax.swing.JLabel();
+        txtNomeClienteMovimentacao = new javax.swing.JTextField();
+        txtDataInicial = new javax.swing.JFormattedTextField();
+        txtDataFinal = new javax.swing.JFormattedTextField();
+        lbDataFinal = new javax.swing.JLabel();
+        lbDataInicial = new javax.swing.JLabel();
+        txtNomeFuncionarioMovimentacao = new javax.swing.JTextField();
+        lbFuncionario = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        btProcessarMovimentacao1 = new javax.swing.JButton();
         pnTitulo = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         pnMenu = new javax.swing.JPanel();
@@ -282,7 +307,6 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
 
         FiltroListaDeFuncionarios.setMinimumSize(new java.awt.Dimension(520, 310));
         FiltroListaDeFuncionarios.setUndecorated(true);
-        FiltroListaDeFuncionarios.setPreferredSize(new java.awt.Dimension(520, 310));
         FiltroListaDeFuncionarios.setResizable(false);
         FiltroListaDeFuncionarios.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -364,6 +388,167 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         pnFiltrosFuncionarios.add(btProcessarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 110, 40));
 
         FiltroListaDeFuncionarios.getContentPane().add(pnFiltrosFuncionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 310));
+
+        FiltroListaDeMovimentacoes.setMinimumSize(new java.awt.Dimension(691, 400));
+        FiltroListaDeMovimentacoes.setUndecorated(true);
+        FiltroListaDeMovimentacoes.setPreferredSize(new java.awt.Dimension(691, 400));
+        FiltroListaDeMovimentacoes.setResizable(false);
+        FiltroListaDeMovimentacoes.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnFiltrosMovimentacoes.setBackground(new java.awt.Color(255, 255, 255));
+        pnFiltrosMovimentacoes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtCPFClienteMovimentacao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCPFClienteMovimentacao.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtCPFClienteMovimentacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCPFClienteMovimentacaoFocusGained(evt);
+            }
+        });
+        pnFiltrosMovimentacoes.add(txtCPFClienteMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, 150, -1));
+
+        lbCPFClienteMovimentacao.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        lbCPFClienteMovimentacao.setText("CPF");
+        pnFiltrosMovimentacoes.add(lbCPFClienteMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 150, -1, 20));
+
+        lbRGClienteMovimentacao.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        lbRGClienteMovimentacao.setText("RG");
+        pnFiltrosMovimentacoes.add(lbRGClienteMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 190, -1, 20));
+
+        txtRGClienteMovimentacao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtRGClienteMovimentacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtRGClienteMovimentacaoFocusGained(evt);
+            }
+        });
+        pnFiltrosMovimentacoes.add(txtRGClienteMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 150, -1));
+
+        jLabel11.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setOpaque(true);
+        jLabel11.setPreferredSize(new java.awt.Dimension(400, 2));
+        pnFiltrosMovimentacoes.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 610, 2));
+
+        lbCodigoMovimentacao.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbCodigoMovimentacao.setText("Movimentacao");
+        pnFiltrosMovimentacoes.add(lbCodigoMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
+
+        txtCodigoMovimentacao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnFiltrosMovimentacoes.add(txtCodigoMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 140, -1));
+
+        lbCliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbCliente.setText("Cliente");
+        pnFiltrosMovimentacoes.add(lbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, -1, -1));
+
+        txtCodigoClienteMovimentacao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnFiltrosMovimentacoes.add(txtCodigoClienteMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 140, -1));
+
+        jLabel14.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Filtros");
+        pnFiltrosMovimentacoes.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 15, 690, 40));
+
+        btProcessarMovimentacao.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btProcessarMovimentacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btProcessarMovimentacao.setText("Limpar");
+        btProcessarMovimentacao.setToolTipText("");
+        btProcessarMovimentacao.setBorderPainted(false);
+        btProcessarMovimentacao.setContentAreaFilled(false);
+        btProcessarMovimentacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btProcessarMovimentacao.setRequestFocusEnabled(false);
+        btProcessarMovimentacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProcessarMovimentacaoActionPerformed(evt);
+            }
+        });
+        pnFiltrosMovimentacoes.add(btProcessarMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, 110, 40));
+
+        btFecharMovimentacao.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btFecharMovimentacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
+        btFecharMovimentacao.setText("Fechar");
+        btFecharMovimentacao.setToolTipText("");
+        btFecharMovimentacao.setBorderPainted(false);
+        btFecharMovimentacao.setContentAreaFilled(false);
+        btFecharMovimentacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btFecharMovimentacao.setRequestFocusEnabled(false);
+        btFecharMovimentacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFecharMovimentacaoActionPerformed(evt);
+            }
+        });
+        pnFiltrosMovimentacoes.add(btFecharMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 110, 40));
+
+        lbCodigoClienteMovimentacao.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbCodigoClienteMovimentacao.setText("Cod. Cliente");
+        pnFiltrosMovimentacoes.add(lbCodigoClienteMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
+
+        txtNomeClienteMovimentacao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnFiltrosMovimentacoes.add(txtNomeClienteMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 140, -1));
+
+        txtDataInicial.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDataInicial.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtDataInicial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDataInicialFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDataInicialFocusLost(evt);
+            }
+        });
+        pnFiltrosMovimentacoes.add(txtDataInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 120, -1));
+
+        txtDataFinal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDataFinal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtDataFinal.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDataFinalFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDataFinalFocusLost(evt);
+            }
+        });
+        pnFiltrosMovimentacoes.add(txtDataFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 120, -1));
+
+        lbDataFinal.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbDataFinal.setText("Data Final");
+        lbDataFinal.setPreferredSize(new java.awt.Dimension(76, 17));
+        pnFiltrosMovimentacoes.add(lbDataFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 230, 80, -1));
+
+        lbDataInicial.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbDataInicial.setText("Data Inicial");
+        pnFiltrosMovimentacoes.add(lbDataInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, -1, -1));
+
+        txtNomeFuncionarioMovimentacao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pnFiltrosMovimentacoes.add(txtNomeFuncionarioMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, 110, -1));
+
+        lbFuncionario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbFuncionario.setText("Cabeleireiro");
+        pnFiltrosMovimentacoes.add(lbFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, -1, -1));
+
+        jLabel15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel15.setText("De");
+        pnFiltrosMovimentacoes.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel16.setText("Até");
+        pnFiltrosMovimentacoes.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, -1, -1));
+
+        btProcessarMovimentacao1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btProcessarMovimentacao1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btProcessarMovimentacao1.setText("Processar");
+        btProcessarMovimentacao1.setToolTipText("");
+        btProcessarMovimentacao1.setBorderPainted(false);
+        btProcessarMovimentacao1.setContentAreaFilled(false);
+        btProcessarMovimentacao1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btProcessarMovimentacao1.setRequestFocusEnabled(false);
+        btProcessarMovimentacao1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProcessarMovimentacao1ActionPerformed(evt);
+            }
+        });
+        pnFiltrosMovimentacoes.add(btProcessarMovimentacao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 320, 110, 40));
+
+        FiltroListaDeMovimentacoes.getContentPane().add(pnFiltrosMovimentacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 400));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(803, 489));
@@ -697,7 +882,7 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btMovimentacaoMouseExited
 
     private void btMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMovimentacaoActionPerformed
-
+        listaRelatorios(movimentacoes);
     }//GEN-LAST:event_btMovimentacaoActionPerformed
 
     private void btProcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessarActionPerformed
@@ -716,9 +901,13 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
                 break;
             
             case "FUNCIONARIOS":
-                FiltroListaDeFuncionarios.setModal(true);
-                FiltroListaDeFuncionarios.setLocationRelativeTo(null);
-                FiltroListaDeFuncionarios.setVisible(true);
+                FiltroListaDeMovimentacoes.setModal(true);
+                FiltroListaDeMovimentacoes.setLocationRelativeTo(null);
+                FiltroListaDeMovimentacoes.setVisible(true);
+            case "MOVIMENTACOES":
+                FiltroListaDeMovimentacoes.setModal(true);
+                FiltroListaDeMovimentacoes.setLocationRelativeTo(null);
+                FiltroListaDeMovimentacoes.setVisible(true);
         }
     }//GEN-LAST:event_btProcessarActionPerformed
 
@@ -847,6 +1036,56 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         }         
         
     }//GEN-LAST:event_btProcessarFuncionarioActionPerformed
+
+    private void txtCPFClienteMovimentacaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFClienteMovimentacaoFocusGained
+        txtCPFClienteMovimentacao.setFormatterFactory(Mascara.getCpfMask());
+    }//GEN-LAST:event_txtCPFClienteMovimentacaoFocusGained
+
+    private void txtRGClienteMovimentacaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRGClienteMovimentacaoFocusGained
+         txtRGClienteMovimentacao.setFormatterFactory(Mascara.getRgMask());
+    }//GEN-LAST:event_txtRGClienteMovimentacaoFocusGained
+
+    private void btFecharMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharMovimentacaoActionPerformed
+        FiltroListaDeMovimentacoes.setVisible(false);
+    }//GEN-LAST:event_btFecharMovimentacaoActionPerformed
+
+    private void btProcessarMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessarMovimentacaoActionPerformed
+        txtDataInicial.setFormatterFactory(Util.Mascara.cleanMak());
+        txtDataFinal.setFormatterFactory(Util.Mascara.cleanMak());
+        txtRGClienteMovimentacao.setFormatterFactory(Util.Mascara.cleanMak());
+        txtCPFClienteMovimentacao.setFormatterFactory(Util.Mascara.cleanMak());
+        txtCodigoMovimentacao.setText("");
+        txtCodigoClienteMovimentacao.setText("");
+        txtNomeClienteMovimentacao.setText("");
+        txtNomeFuncionarioMovimentacao.setText("");
+    }//GEN-LAST:event_btProcessarMovimentacaoActionPerformed
+
+    private void txtDataInicialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataInicialFocusGained
+        txtDataInicial.setFormatterFactory(Util.Mascara.getDataMask());
+    }//GEN-LAST:event_txtDataInicialFocusGained
+
+    private void txtDataFinalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataFinalFocusGained
+        txtDataFinal.setFormatterFactory(Util.Mascara.getDataMask());
+    }//GEN-LAST:event_txtDataFinalFocusGained
+
+    private void txtDataInicialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataInicialFocusLost
+        if(txtDataInicial.getText().equals("  /  /    ")){
+            txtDataInicial.setText("  /  /    ");
+            txtDataInicial.setFormatterFactory(Util.Mascara.cleanMak());
+            txtDataFinal.setFormatterFactory(Util.Mascara.cleanMak());
+        }
+    }//GEN-LAST:event_txtDataInicialFocusLost
+
+    private void txtDataFinalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataFinalFocusLost
+        if(txtDataFinal.getText().equals("  /  /    ")){
+            txtDataInicial.setFormatterFactory(Util.Mascara.cleanMak());
+            txtDataFinal.setFormatterFactory(Util.Mascara.cleanMak());
+        }
+    }//GEN-LAST:event_txtDataFinalFocusLost
+
+    private void btProcessarMovimentacao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessarMovimentacao1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btProcessarMovimentacao1ActionPerformed
     
     private static void setButton(JButton botao){
         botao.setBackground(new Color(58,58,58));
@@ -920,7 +1159,9 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
                 clientes.add(rel);
             }else if(rel.getCategoria().equals("FUNCIONARIOS")){
                 funcionarios.add(rel);
-            }         
+            }else if(rel.getCategoria().equals("MOVIMENTACOES")){
+                movimentacoes.add(rel);
+            }          
         }
         
     }    
@@ -964,17 +1205,21 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog FiltroListaDeClientes;
     private javax.swing.JDialog FiltroListaDeFuncionarios;
+    private javax.swing.JDialog FiltroListaDeMovimentacoes;
     private javax.swing.JDialog FiltroListaDeServicos;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btCliente;
     private javax.swing.JButton btFecharCliente;
     private javax.swing.JButton btFecharFuncionario;
+    private javax.swing.JButton btFecharMovimentacao;
     private javax.swing.JButton btFecharServico;
     private javax.swing.JButton btFuncionario;
     private javax.swing.JButton btMovimentacao;
     private javax.swing.JButton btProcessar;
     private javax.swing.JButton btProcessarCliente;
     private javax.swing.JButton btProcessarFuncionario;
+    private javax.swing.JButton btProcessarMovimentacao;
+    private javax.swing.JButton btProcessarMovimentacao1;
     private javax.swing.JButton btProcessarServicos;
     private javax.swing.JButton btServico;
     private javax.swing.JButton btTodos;
@@ -982,8 +1227,12 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable grid;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -995,28 +1244,45 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCPFCliente;
+    private javax.swing.JLabel lbCPFClienteMovimentacao;
     private javax.swing.JLabel lbCPFFuncionario;
+    private javax.swing.JLabel lbCliente;
     private javax.swing.JLabel lbCodigoCliente;
+    private javax.swing.JLabel lbCodigoClienteMovimentacao;
     private javax.swing.JLabel lbCodigoFuncionario;
+    private javax.swing.JLabel lbCodigoMovimentacao;
+    private javax.swing.JLabel lbDataFinal;
+    private javax.swing.JLabel lbDataInicial;
+    private javax.swing.JLabel lbFuncionario;
     private javax.swing.JLabel lbNomeCliente;
     private javax.swing.JLabel lbNomeFuncionario;
     private javax.swing.JLabel lbRGCliente;
+    private javax.swing.JLabel lbRGClienteMovimentacao;
     private javax.swing.JLabel lbRGFuncionario;
     private javax.swing.JPanel pnDireito;
     private javax.swing.JPanel pnFiltrosCliente;
     private javax.swing.JPanel pnFiltrosFuncionarios;
+    private javax.swing.JPanel pnFiltrosMovimentacoes;
     private javax.swing.JPanel pnInferior;
     private javax.swing.JPanel pnMenu;
     private javax.swing.JPanel pnTitulo;
     private javax.swing.JFormattedTextField txtCPFCliente;
+    private javax.swing.JFormattedTextField txtCPFClienteMovimentacao;
     private javax.swing.JFormattedTextField txtCPFFuncionario;
     private javax.swing.JTextField txtCodigoCliente;
+    private javax.swing.JTextField txtCodigoClienteMovimentacao;
     private javax.swing.JTextField txtCodigoFuncionario;
+    private javax.swing.JTextField txtCodigoMovimentacao;
     private javax.swing.JTextField txtCodigoServico;
+    private javax.swing.JFormattedTextField txtDataFinal;
+    private javax.swing.JFormattedTextField txtDataInicial;
     private javax.swing.JTextField txtDescricaoServico;
     private javax.swing.JTextField txtNomeCliente;
+    private javax.swing.JTextField txtNomeClienteMovimentacao;
     private javax.swing.JTextField txtNomeFuncionario;
+    private javax.swing.JTextField txtNomeFuncionarioMovimentacao;
     private javax.swing.JFormattedTextField txtRGCliente;
+    private javax.swing.JFormattedTextField txtRGClienteMovimentacao;
     private javax.swing.JFormattedTextField txtRGFuncionario;
     // End of variables declaration//GEN-END:variables
 

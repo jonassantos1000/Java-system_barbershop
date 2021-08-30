@@ -34,6 +34,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     public PaginaInicial() {
         initComponents();
         bloquearAcesso();
+        txtLogin.requestFocus(true);
     }
   
     /**
