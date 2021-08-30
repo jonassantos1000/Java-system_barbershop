@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.Cliente;
 import model.Funcionario;
+import model.Movimentacao;
 import model.Relatorio;
 import model.Servico;
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -127,7 +128,7 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         lbCliente = new javax.swing.JLabel();
         txtCodigoClienteMovimentacao = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        btProcessarMovimentacao = new javax.swing.JButton();
+        btLimparMovimentacao = new javax.swing.JButton();
         btFecharMovimentacao = new javax.swing.JButton();
         lbCodigoClienteMovimentacao = new javax.swing.JLabel();
         txtNomeClienteMovimentacao = new javax.swing.JTextField();
@@ -139,7 +140,7 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         lbFuncionario = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        btProcessarMovimentacao1 = new javax.swing.JButton();
+        btProcessarMovimentacao = new javax.swing.JButton();
         pnTitulo = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         pnMenu = new javax.swing.JPanel();
@@ -448,20 +449,20 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         jLabel14.setText("Filtros");
         pnFiltrosMovimentacoes.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 15, 690, 40));
 
-        btProcessarMovimentacao.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        btProcessarMovimentacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
-        btProcessarMovimentacao.setText("Limpar");
-        btProcessarMovimentacao.setToolTipText("");
-        btProcessarMovimentacao.setBorderPainted(false);
-        btProcessarMovimentacao.setContentAreaFilled(false);
-        btProcessarMovimentacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btProcessarMovimentacao.setRequestFocusEnabled(false);
-        btProcessarMovimentacao.addActionListener(new java.awt.event.ActionListener() {
+        btLimparMovimentacao.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btLimparMovimentacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btLimparMovimentacao.setText("Limpar");
+        btLimparMovimentacao.setToolTipText("");
+        btLimparMovimentacao.setBorderPainted(false);
+        btLimparMovimentacao.setContentAreaFilled(false);
+        btLimparMovimentacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btLimparMovimentacao.setRequestFocusEnabled(false);
+        btLimparMovimentacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btProcessarMovimentacaoActionPerformed(evt);
+                btLimparMovimentacaoActionPerformed(evt);
             }
         });
-        pnFiltrosMovimentacoes.add(btProcessarMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, 110, 40));
+        pnFiltrosMovimentacoes.add(btLimparMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, 110, 40));
 
         btFecharMovimentacao.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btFecharMovimentacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
@@ -533,20 +534,20 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         jLabel16.setText("Até");
         pnFiltrosMovimentacoes.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, -1, -1));
 
-        btProcessarMovimentacao1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        btProcessarMovimentacao1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
-        btProcessarMovimentacao1.setText("Processar");
-        btProcessarMovimentacao1.setToolTipText("");
-        btProcessarMovimentacao1.setBorderPainted(false);
-        btProcessarMovimentacao1.setContentAreaFilled(false);
-        btProcessarMovimentacao1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btProcessarMovimentacao1.setRequestFocusEnabled(false);
-        btProcessarMovimentacao1.addActionListener(new java.awt.event.ActionListener() {
+        btProcessarMovimentacao.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btProcessarMovimentacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btProcessarMovimentacao.setText("Processar");
+        btProcessarMovimentacao.setToolTipText("");
+        btProcessarMovimentacao.setBorderPainted(false);
+        btProcessarMovimentacao.setContentAreaFilled(false);
+        btProcessarMovimentacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btProcessarMovimentacao.setRequestFocusEnabled(false);
+        btProcessarMovimentacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btProcessarMovimentacao1ActionPerformed(evt);
+                btProcessarMovimentacaoActionPerformed(evt);
             }
         });
-        pnFiltrosMovimentacoes.add(btProcessarMovimentacao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 320, 110, 40));
+        pnFiltrosMovimentacoes.add(btProcessarMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 320, 110, 40));
 
         FiltroListaDeMovimentacoes.getContentPane().add(pnFiltrosMovimentacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 400));
 
@@ -1049,7 +1050,7 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         FiltroListaDeMovimentacoes.setVisible(false);
     }//GEN-LAST:event_btFecharMovimentacaoActionPerformed
 
-    private void btProcessarMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessarMovimentacaoActionPerformed
+    private void btLimparMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparMovimentacaoActionPerformed
         txtDataInicial.setFormatterFactory(Util.Mascara.cleanMak());
         txtDataFinal.setFormatterFactory(Util.Mascara.cleanMak());
         txtRGClienteMovimentacao.setFormatterFactory(Util.Mascara.cleanMak());
@@ -1058,7 +1059,7 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         txtCodigoClienteMovimentacao.setText("");
         txtNomeClienteMovimentacao.setText("");
         txtNomeFuncionarioMovimentacao.setText("");
-    }//GEN-LAST:event_btProcessarMovimentacaoActionPerformed
+    }//GEN-LAST:event_btLimparMovimentacaoActionPerformed
 
     private void txtDataInicialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataInicialFocusGained
         txtDataInicial.setFormatterFactory(Util.Mascara.getDataMask());
@@ -1083,9 +1084,41 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtDataFinalFocusLost
 
-    private void btProcessarMovimentacao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessarMovimentacao1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btProcessarMovimentacao1ActionPerformed
+    private void btProcessarMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessarMovimentacaoActionPerformed
+        try{
+            int codigoMovimentacao = txtCodigoMovimentacao.getText().equals("") ? 0 : Integer.parseInt(txtCodigoMovimentacao.getText());           
+            int codigoCliente = txtCodigoClienteMovimentacao.getText().equals("") ? 0 : Integer.parseInt(txtCodigoClienteMovimentacao.getText());           
+            String dataConcatenada= txtDataInicial.getText()+";"+txtDataFinal.getText();
+            
+            Funcionario funcionario = new Funcionario(0,txtNomeFuncionarioMovimentacao.getText());
+            Cliente cliente = new Cliente(codigoCliente,txtNomeClienteMovimentacao.getText(),txtCPFClienteMovimentacao.getText(),txtRGClienteMovimentacao.getText(),"");
+            Movimentacao movimentacao = new Movimentacao(codigoMovimentacao,dataConcatenada.replace("/", "."),cliente,funcionario);
+
+            Map parameters = new HashMap();            
+            
+            parameters.put("movimentacao", txtCodigoMovimentacao.getText());
+            parameters.put("codCliente", txtCodigoClienteMovimentacao.getText());
+            parameters.put("cliente", txtNomeClienteMovimentacao.getText());
+            parameters.put("cabeleireiro", txtNomeFuncionarioMovimentacao.getText());
+            parameters.put("cpf", txtCPFClienteMovimentacao.getText());
+            parameters.put("rg", txtRGClienteMovimentacao.getText());
+            parameters.put("dataInicial", txtDataInicial.getText());
+            parameters.put("dataFinal", txtDataFinal.getText());
+            
+            FiltroListaDeMovimentacoes.setVisible(false);
+            btLimparMovimentacao.doClick();
+            
+            JasperReport relatorioCompilado= JasperCompileManager.compileReport(relatorio.getDiretorio());
+            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, parameters,new JRBeanCollectionDataSource(movimentacao.consultarMovimentacao(movimentacao, limite)));
+            JasperViewer.viewReport(relatorioPreenchido,false);
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();           
+        } catch (JRException ex) {
+            ex.printStackTrace();
+        }         
+        
+    }//GEN-LAST:event_btProcessarMovimentacaoActionPerformed
     
     private static void setButton(JButton botao){
         botao.setBackground(new Color(58,58,58));
@@ -1214,12 +1247,12 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btFecharMovimentacao;
     private javax.swing.JButton btFecharServico;
     private javax.swing.JButton btFuncionario;
+    private javax.swing.JButton btLimparMovimentacao;
     private javax.swing.JButton btMovimentacao;
     private javax.swing.JButton btProcessar;
     private javax.swing.JButton btProcessarCliente;
     private javax.swing.JButton btProcessarFuncionario;
     private javax.swing.JButton btProcessarMovimentacao;
-    private javax.swing.JButton btProcessarMovimentacao1;
     private javax.swing.JButton btProcessarServicos;
     private javax.swing.JButton btServico;
     private javax.swing.JButton btTodos;

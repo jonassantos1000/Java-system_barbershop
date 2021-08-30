@@ -39,6 +39,11 @@ public class Movimentacao {
         this(codigo,0.0,data,cliente,null,null,"");
     }
     
+    public Movimentacao(int codigo, String data, Cliente cliente,Funcionario funcionario){
+        //utilizado para gerar o relatorio de movimentacoes
+        this(codigo,0.0,data,cliente,null,funcionario,"");
+    }
+    
     public Movimentacao(int codigo,double valor, String data, Cliente cliente, Funcionario funcionario){
         //UTILIZADO PARA CONSULTA NA VIEW
         this(codigo,valor,data,cliente,null,funcionario,"");

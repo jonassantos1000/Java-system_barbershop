@@ -90,6 +90,14 @@ public class MovimentacaoDAO {
                 SQLSELECTALL=SQLSELECTALL+"and m.RGCLIENTE LIKE '"+movimentacao.getCliente().getRG()+"' ";
                 }
             }
+            if (!"".equals(movimentacao.getFuncionario().getNome()) && movimentacao.getFuncionario().getNome()!=null) {
+                if (contador==0){
+                    SQLSELECTALL=SQLSELECTALL+"WHERE m.NOMEFUNCIONARIO LIKE '"+movimentacao.getFuncionario().getNome()+"' ";
+                    contador++;
+                }else{
+                SQLSELECTALL=SQLSELECTALL+"and m.NOMEFUNCIONARIO LIKE '"+movimentacao.getFuncionario().getNome()+"' ";
+                }
+            }
             if (!"".equals(movimentacao.getData())) {
                 String desmembraData[]=movimentacao.getData().split(";");
                 String dataInicial= desmembraData[0];
