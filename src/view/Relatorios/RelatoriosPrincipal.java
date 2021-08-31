@@ -1096,8 +1096,8 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
 
             Map parameters = new HashMap();            
             
-            parameters.put("movimentacao", txtCodigoMovimentacao.getText());
-            parameters.put("codCliente", txtCodigoClienteMovimentacao.getText());
+            parameters.put("movimentacao", codigoMovimentacao);
+            parameters.put("codCliente", codigoCliente);
             parameters.put("cliente", txtNomeClienteMovimentacao.getText());
             parameters.put("cabeleireiro", txtNomeFuncionarioMovimentacao.getText());
             parameters.put("cpf", txtCPFClienteMovimentacao.getText());

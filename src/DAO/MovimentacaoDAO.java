@@ -90,15 +90,19 @@ public class MovimentacaoDAO {
                 SQLSELECTALL=SQLSELECTALL+"and m.RGCLIENTE LIKE '"+movimentacao.getCliente().getRG()+"' ";
                 }
             }
-            if (!"".equals(movimentacao.getFuncionario().getNome()) && movimentacao.getFuncionario().getNome()!=null) {
-                if (contador==0){
-                    SQLSELECTALL=SQLSELECTALL+"WHERE m.NOMEFUNCIONARIO LIKE '"+movimentacao.getFuncionario().getNome()+"' ";
-                    contador++;
-                }else{
-                SQLSELECTALL=SQLSELECTALL+"and m.NOMEFUNCIONARIO LIKE '"+movimentacao.getFuncionario().getNome()+"' ";
+            if (movimentacao.getFuncionario()==null) {
+            }else{
+                if(!"".equals(movimentacao.getFuncionario().getNome())){
+                    if (contador==0){
+                        SQLSELECTALL=SQLSELECTALL+"WHERE nm.NOMEFUNCIONARIO LIKE '"+movimentacao.getFuncionario().getNome()+"' ";
+                        contador++;
+                    }else{
+                    SQLSELECTALL=SQLSELECTALL+"and nm.NOMEFUNCIONARIO LIKE '"+movimentacao.getFuncionario().getNome()+"' ";
+                    }
                 }
             }
-            if (!"".equals(movimentacao.getData())) {
+            
+            if (!"".equals(movimentacao.getData()) && !";".equals(movimentacao.getData())) {
                 String desmembraData[]=movimentacao.getData().split(";");
                 String dataInicial= desmembraData[0];
                 
@@ -108,6 +112,7 @@ public class MovimentacaoDAO {
                     contador++;
                 }
             }
+            SQLSELECTALL=SQLSELECTALL+" ORDER BY m.COD_VENDA";
             PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLSELECTALL);
             ResultSet rs = pst.executeQuery();
             List<Movimentacao> listMovimentacao = new ArrayList<Movimentacao>();
@@ -128,7 +133,7 @@ public class MovimentacaoDAO {
                 
                 Cliente consultaCliente = new Cliente(rs.getInt("COD_CLIENTE"),rs.getString("NOMECLIENTE"),rs.getString("CPFCLIENTE"),rs.getString("RGCLIENTE"),"");
                 Funcionario funcionario = new Funcionario(rs.getInt("COD_FUNCIONARIO"),rs.getString("NOMEFUNCIONARIO"),"","","");
-                Movimentacao select = new Movimentacao(rs.getInt("COD_VENDA"),rs.getDouble("VL_TOTAL_VENDA"),rs.getString("DT_VENDA"),consultaCliente,funcionario);
+                Movimentacao select = new Movimentacao(rs.getInt("COD_VENDA"),rs.getDouble("VL_TOTAL_VENDA"),Util.data.formataDataRelatorio(rs.getString("DT_VENDA")),consultaCliente,funcionario);
                 listMovimentacao.add(select);
             }
             return listMovimentacao;

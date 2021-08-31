@@ -56,6 +56,20 @@ public class data {
            return "";    
         }
    }
+   
+    public static String formataDataRelatorio(String data){
+       try{
+        SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+        String result = out.format(in.parse(data.toString()));
+        
+        return result;
+        
+       }catch(Exception ex){
+           return "";    
+        }
+   }
+   
     public static String formataDataFiltro(String data){
         try{
             SimpleDateFormat in = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");

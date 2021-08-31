@@ -46,7 +46,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
         modeltable.getColumn(3).setPreferredWidth(80);
         modeltable.getColumn(4).setPreferredWidth(150);
         modeltable.getColumn(5).setPreferredWidth(130);
-        modeltable.getColumn(6).setPreferredWidth(180);
+        modeltable.getColumn(6).setPreferredWidth(140);
         modeltable.getColumn(7).setPreferredWidth(80);
         modeltable.getColumn(8).setPreferredWidth(120);
         txtCodigoMovimentacao.setDocument(new ValidaNumeros());
@@ -453,7 +453,7 @@ public class MovimentacaoPrincipal extends javax.swing.JFrame {
                 codigoformat=String.valueOf(mov.getCodigo());
                 precoformat=String.format("%.2f",mov.getValor());
                 modelo.addRow(new Object[]{codigoformat,mov.getCliente().getCodigo(),mov.getCliente().getNome(),precoformat,mov.getCliente().getCPF(),mov.getCliente().getRG(),
-                    data.formataDataBD(mov.getData()),mov.getFuncionario().getCodigo(),mov.getFuncionario().getNome()});
+                    mov.getData(),mov.getFuncionario().getCodigo(),mov.getFuncionario().getNome()});
 
             }
             if(lenlist.equals("1")){
