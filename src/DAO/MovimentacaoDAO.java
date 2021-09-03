@@ -42,13 +42,14 @@ public class MovimentacaoDAO {
     
         public List<Movimentacao> selectall(Movimentacao movimentacao, String limite) throws SQLException{
         try{
-            SQLSELECTALL="SELECT FIRST "+limite+" * FROM VWMOVIMENTACAO m ";
+            
             int contador=0;
             
             if (limite.equals("0") || limite.isEmpty()){
                 limite="99999999"; 
             }
-
+            
+            SQLSELECTALL="SELECT FIRST "+limite+" * FROM VWMOVIMENTACAO m ";
             //Campo codigo
             if (!"0".equals(String.valueOf(movimentacao.getCodigo()))) {
                 if (contador==0){ 
@@ -59,10 +60,10 @@ public class MovimentacaoDAO {
             
             if (!"0".equals(String.valueOf(movimentacao.getCliente().getCodigo()))){
                 if (contador==0){
-                    SQLSELECTALL=SQLSELECTALL+"WHERE m.COD_CLIENTE LIKE '%"+movimentacao.getCliente().getNome()+"%' ";
+                    SQLSELECTALL=SQLSELECTALL+"WHERE m.COD_CLIENTE LIKE '%"+movimentacao.getCliente().getCodigo()+"%' ";
                     contador++;
                 }else{
-                    SQLSELECTALL=SQLSELECTALL+"and m.COD_CLIENTE LIKE '%"+movimentacao.getCliente().getNome()+"%' ";  
+                    SQLSELECTALL=SQLSELECTALL+"and m.COD_CLIENTE LIKE '%"+movimentacao.getCliente().getCodigo()+"%' ";  
                 }
             }    
             
@@ -110,6 +111,8 @@ public class MovimentacaoDAO {
                 if (contador==0){
                     SQLSELECTALL=SQLSELECTALL+"WHERE CAST(m.DT_VENDA AS date) BETWEEN '"+dataInicial+"' AND '"+dataFinal+"' ";
                     contador++;
+                }else if (movimentacao.getFuncionario()!=null){
+                    SQLSELECTALL=SQLSELECTALL+"AND CAST(m.DT_VENDA AS date) BETWEEN '"+dataInicial+"' AND '"+dataFinal+"' ";
                 }
             }
             SQLSELECTALL=SQLSELECTALL+" ORDER BY m.COD_VENDA";
