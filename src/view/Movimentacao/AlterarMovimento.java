@@ -467,7 +467,6 @@ public class AlterarMovimento extends javax.swing.JFrame {
 
         PesquisarCliente.setMinimumSize(new java.awt.Dimension(666, 425));
         PesquisarCliente.setUndecorated(true);
-        PesquisarCliente.setPreferredSize(new java.awt.Dimension(666, 425));
         PesquisarCliente.setResizable(false);
         PesquisarCliente.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -927,6 +926,7 @@ public class AlterarMovimento extends javax.swing.JFrame {
         btSalvarMovimento.setText(" Efetivar");
         btSalvarMovimento.setBorderPainted(false);
         btSalvarMovimento.setContentAreaFilled(false);
+        btSalvarMovimento.setFocusPainted(false);
         btSalvarMovimento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btSalvarMovimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -844,6 +844,7 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         btProcessar.setText("Processar");
         btProcessar.setBorderPainted(false);
         btProcessar.setContentAreaFilled(false);
+        btProcessar.setFocusPainted(false);
         btProcessar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btProcessar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1153,9 +1154,13 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
             JasperViewer.viewReport(relatorioPreenchido,false);
             
         } catch (SQLException ex) {
-            ex.printStackTrace();           
-        } catch (JRException ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, ex);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            ex.printStackTrace();
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex);
         }         
         
     }//GEN-LAST:event_btProcessarMovimentacaoActionPerformed

@@ -5,7 +5,6 @@
  */
 package view;
 
-import Util.Criptografia;
 import static Util.Criptografia.criptografar;
 import view.Clientes.ClientePrincipal;
 import java.awt.Color;
@@ -18,6 +17,7 @@ import view.Funcionarios.FuncionarioPrincipal;
 import view.Movimentacao.MovimentacaoPrincipal;
 import view.Relatorios.RelatoriosPrincipal;
 import view.Servicos.ServicoPrincipal;
+
 /**
  *
  * @author Jonas Santos

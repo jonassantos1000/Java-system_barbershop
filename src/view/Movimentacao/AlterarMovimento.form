@@ -1488,6 +1488,7 @@
         <Property name="text" type="java.lang.String" value=" Efetivar"/>
         <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
+        <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
       <Events>

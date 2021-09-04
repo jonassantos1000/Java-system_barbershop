@@ -148,6 +148,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         btAlterar.setToolTipText("");
         btAlterar.setBorderPainted(false);
         btAlterar.setContentAreaFilled(false);
+        btAlterar.setFocusPainted(false);
         btAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,6 +164,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         btIncluir.setToolTipText("");
         btIncluir.setBorderPainted(false);
         btIncluir.setContentAreaFilled(false);
+        btIncluir.setFocusPainted(false);
         btIncluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,6 +180,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         btCancelar.setToolTipText("");
         btCancelar.setBorderPainted(false);
         btCancelar.setContentAreaFilled(false);
+        btCancelar.setFocusPainted(false);
         btCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,6 +196,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         btCancelar1.setToolTipText("");
         btCancelar1.setBorderPainted(false);
         btCancelar1.setContentAreaFilled(false);
+        btCancelar1.setFocusPainted(false);
         btCancelar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btCancelar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,6 +212,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         btPesquisar.setToolTipText("");
         btPesquisar.setBorderPainted(false);
         btPesquisar.setContentAreaFilled(false);
+        btPesquisar.setFocusPainted(false);
         btPesquisar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,6 +298,7 @@ public class FuncionarioPrincipal extends javax.swing.JFrame {
         btLimpar.setToolTipText("");
         btLimpar.setBorderPainted(false);
         btLimpar.setContentAreaFilled(false);
+        btLimpar.setFocusPainted(false);
         btLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

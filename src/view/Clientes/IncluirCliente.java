@@ -269,6 +269,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         btSalvar.setText(" Efetivar");
         btSalvar.setBorderPainted(false);
         btSalvar.setContentAreaFilled(false);
+        btSalvar.setFocusPainted(false);
         btSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -151,6 +151,7 @@ public class ClientePrincipal extends javax.swing.JFrame {
         btAlterar.setToolTipText("");
         btAlterar.setBorderPainted(false);
         btAlterar.setContentAreaFilled(false);
+        btAlterar.setFocusPainted(false);
         btAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +167,7 @@ public class ClientePrincipal extends javax.swing.JFrame {
         btIncluir.setToolTipText("");
         btIncluir.setBorderPainted(false);
         btIncluir.setContentAreaFilled(false);
+        btIncluir.setFocusPainted(false);
         btIncluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,6 +183,7 @@ public class ClientePrincipal extends javax.swing.JFrame {
         btCancelar.setToolTipText("");
         btCancelar.setBorderPainted(false);
         btCancelar.setContentAreaFilled(false);
+        btCancelar.setFocusPainted(false);
         btCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,6 +199,7 @@ public class ClientePrincipal extends javax.swing.JFrame {
         btExcluir.setToolTipText("");
         btExcluir.setBorderPainted(false);
         btExcluir.setContentAreaFilled(false);
+        btExcluir.setFocusPainted(false);
         btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,6 +215,7 @@ public class ClientePrincipal extends javax.swing.JFrame {
         btPesquisar.setToolTipText("");
         btPesquisar.setBorderPainted(false);
         btPesquisar.setContentAreaFilled(false);
+        btPesquisar.setFocusPainted(false);
         btPesquisar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,6 +298,7 @@ public class ClientePrincipal extends javax.swing.JFrame {
         btLimpar.setToolTipText("");
         btLimpar.setBorderPainted(false);
         btLimpar.setContentAreaFilled(false);
+        btLimpar.setFocusPainted(false);
         btLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -68,7 +68,6 @@ public class IncluirServico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1019, 670));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -160,6 +159,7 @@ public class IncluirServico extends javax.swing.JFrame {
         btSalvar.setText(" Efetivar");
         btSalvar.setBorderPainted(false);
         btSalvar.setContentAreaFilled(false);
+        btSalvar.setFocusPainted(false);
         btSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

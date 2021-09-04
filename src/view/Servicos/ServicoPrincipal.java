@@ -130,6 +130,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         btAlterar.setToolTipText("");
         btAlterar.setBorderPainted(false);
         btAlterar.setContentAreaFilled(false);
+        btAlterar.setFocusPainted(false);
         btAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btAlterar.setRequestFocusEnabled(false);
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -146,6 +147,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         btIncluir.setToolTipText("");
         btIncluir.setBorderPainted(false);
         btIncluir.setContentAreaFilled(false);
+        btIncluir.setFocusPainted(false);
         btIncluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btIncluir.setRequestFocusEnabled(false);
         btIncluir.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +164,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         btFechar.setToolTipText("");
         btFechar.setBorderPainted(false);
         btFechar.setContentAreaFilled(false);
+        btFechar.setFocusPainted(false);
         btFechar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btFechar.setRequestFocusEnabled(false);
         btFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -178,6 +181,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         btExcluir.setToolTipText("");
         btExcluir.setBorderPainted(false);
         btExcluir.setContentAreaFilled(false);
+        btExcluir.setFocusPainted(false);
         btExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btExcluir.setRequestFocusEnabled(false);
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -194,6 +198,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         btPesquisar.setToolTipText("");
         btPesquisar.setBorderPainted(false);
         btPesquisar.setContentAreaFilled(false);
+        btPesquisar.setFocusPainted(false);
         btPesquisar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btPesquisar.setRequestFocusEnabled(false);
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -262,6 +267,7 @@ public class ServicoPrincipal extends javax.swing.JFrame {
         btLimpar.setToolTipText("");
         btLimpar.setBorderPainted(false);
         btLimpar.setContentAreaFilled(false);
+        btLimpar.setFocusPainted(false);
         btLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
