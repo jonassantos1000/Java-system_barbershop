@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="423951e5-5dbd-4897-9cf0-242050f93fe3">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[IkZVTkNJT05BUklPIiAsMTUsMTUsODIzNTIzNDEtOTBiNy00ZDQxLThmZjItMzJjOGRjYTUwMDY0
+Ow==]]>
+	</property>
+	<parameter name="rg" class="java.lang.String"/>
+	<parameter name="nome" class="java.lang.String"/>
+	<parameter name="cpf" class="java.lang.String"/>
+	<parameter name="codigo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT "COD_FUNCIONARIO",
+	"NOME",
+	"ENDERECO",
+	"CELULAR",
+	"EMAIL"
+FROM "FUNCIONARIO"]]>
+	</queryString>
+	<field name="COD_FUNCIONARIO" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="COD_FUNCIONARIO"/>
+		<property name="com.jaspersoft.studio.field.label" value="COD_FUNCIONARIO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="FUNCIONARIO"/>
+		<fieldDescription><![CDATA[codigo]]></fieldDescription>
+	</field>
+	<field name="NOME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NOME"/>
+		<property name="com.jaspersoft.studio.field.label" value="NOME"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="FUNCIONARIO"/>
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<field name="ENDERECO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ENDERECO"/>
+		<property name="com.jaspersoft.studio.field.label" value="ENDERECO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="FUNCIONARIO"/>
+		<fieldDescription><![CDATA[endereco]]></fieldDescription>
+	</field>
+	<field name="CELULAR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CELULAR"/>
+		<property name="com.jaspersoft.studio.field.label" value="CELULAR"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="FUNCIONARIO"/>
+		<fieldDescription><![CDATA[celular]]></fieldDescription>
+	</field>
+	<field name="EMAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMAIL"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMAIL"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="FUNCIONARIO"/>
+		<fieldDescription><![CDATA[email]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="113" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="390" y="0" width="140" height="20" uuid="1a88e6f0-b7f8-403e-8456-d14392e5250b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Emitido em: "+new java.text.SimpleDateFormat("dd/MM/yyyy").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="520" y="0" width="85" height="30" uuid="6fd5828c-1df0-4e2c-a010-36914e26a909"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="10" y="10" width="150" height="85" uuid="3d21b035-3796-437f-b576-5530c51a9e60">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["C:/Program Files (x86)/Conatus/Reports/logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="190" y="60" width="200" height="30" uuid="ba78b623-7d53-4b63-a4fd-939a353b9eb9"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Lista de Funcionarios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="10" width="129" height="30" uuid="823aa9c1-0e5c-408e-9435-092a6c5fdcfe"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Relatório]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="33" width="40" height="15" uuid="4a2bc2bc-f8ff-44ee-96c0-b8709203c9a7"/>
+				<text><![CDATA[Filtros:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="437" y="50" width="107" height="15" uuid="6f44b6f3-f697-443a-b42f-08c76c60fc2d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{codigo} != 0 ? "Codigo= "+$P{codigo}: ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="95" width="107" height="15" uuid="f1594296-ada3-45dc-8a06-1d1551c1af2d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{rg} .equals("__.___.___-_") || $P{rg} .equals("")   ? " " : "RG= "+$P{rg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="65" width="107" height="15" uuid="4b381407-0aec-427f-bc95-95ce9f512718"/>
+				<textFieldExpression><![CDATA[$P{nome} .equals("") ? " " : "Nome= "+$P{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="80" width="107" height="15" uuid="165e1ff0-5460-4ab6-b77a-4f0617cc22bb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{cpf} .equals("___.___.___-__")  || $P{cpf} .equals("")  ? " " : "CPF= "+$P{cpf}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="90" height="30" uuid="8dc7e927-e816-4522-821a-44f6956631f8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="230fc246-8fa3-4268-99de-e85fa0f98f96"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="0" width="132" height="30" uuid="786c57b6-90dd-45f9-97ef-612b9d05110f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7962e782-2994-4518-aef9-49381a712955"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NOME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="128" height="30" uuid="e7e6f283-01dc-4594-a642-88524910324e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="64ca1e81-f1f1-486f-86a5-f32634fbcec9"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ENDERECO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="0" width="100" height="30" uuid="caf47617-1054-426e-835a-e387bd4b9a9c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d675e539-13cb-4e3a-959f-07630485b190"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CELULAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="0" width="105" height="30" uuid="04aba78b-f72a-4cb9-9261-401f8eeb519f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b994ecb5-463c-48e7-a13e-a9ce474c89e2"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[EMAIL]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="30" width="555" height="1" uuid="bb1ddcb3-4921-4f1b-9bda-8be293b7115b"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="f96934a3-b43a-4d9c-a40c-39b752310169"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="90" height="30" uuid="8e68ff93-d7ab-4127-adc0-c849d664423f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="230fc246-8fa3-4268-99de-e85fa0f98f96"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{COD_FUNCIONARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="0" width="132" height="30" uuid="553dc60a-0338-4222-b3e9-511f10775211">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7962e782-2994-4518-aef9-49381a712955"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="128" height="30" uuid="f4e07a90-7135-4a05-b2d0-ea0c5ac7755e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="64ca1e81-f1f1-486f-86a5-f32634fbcec9"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{ENDERECO} !=null ? $F{ENDERECO} : "-"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="0" width="100" height="30" uuid="6c206b0c-4884-4252-9fb6-48844e0aab0f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d675e539-13cb-4e3a-959f-07630485b190"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{CELULAR}!=null ? $F{CELULAR}: "-"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="105" height="30" uuid="37f45082-bedf-4b3a-a9b2-4766356cc8cf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b994ecb5-463c-48e7-a13e-a9ce474c89e2"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{EMAIL}!=null ? $F{EMAIL} : "-"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="180" y="10" width="100" height="30" uuid="15d7fe6c-c124-4af0-84ab-86611be87f1a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="280" y="10" width="100" height="30" uuid="bb24ed78-f92a-46b6-8ca3-43a6da319314"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="17" splitType="Stretch"/>
+	</summary>
+</jasperReport>
