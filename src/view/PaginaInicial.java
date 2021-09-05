@@ -46,6 +46,19 @@ public class PaginaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Suporte = new javax.swing.JDialog();
+        pnSuporte = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         pnTitulo = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         pnMenu = new javax.swing.JPanel();
@@ -59,6 +72,7 @@ public class PaginaInicial extends javax.swing.JFrame {
         btFuncionario = new javax.swing.JButton();
         btMovimentacao = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
+        btSuporte = new javax.swing.JButton();
         pnCentral = new javax.swing.JPanel();
         painelImagemFundo1 = new view.painelImagemFundo();
         jLabel6 = new javax.swing.JLabel();
@@ -68,6 +82,64 @@ public class PaginaInicial extends javax.swing.JFrame {
         txtLogin = new javax.swing.JTextField();
         txtSenha = new javax.swing.JPasswordField();
         btLogar = new javax.swing.JToggleButton();
+
+        Suporte.setMinimumSize(new java.awt.Dimension(390, 210));
+        Suporte.setPreferredSize(new java.awt.Dimension(390, 210));
+        Suporte.setResizable(false);
+
+        pnSuporte.setBackground(new java.awt.Color(255, 255, 255));
+        pnSuporte.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel10.setOpaque(true);
+        pnSuporte.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 360, 2));
+
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Suporte ");
+        pnSuporte.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -2, 390, 30));
+
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel8.setText("WhatsApp:");
+        pnSuporte.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, -1, -1));
+
+        jLabel9.setText("(11) 986778840 ");
+        pnSuporte.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, -1, 17));
+
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Suporte.png"))); // NOI18N
+        pnSuporte.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, -1, 130));
+
+        jLabel13.setText("suporteconatus@gmail.com");
+        pnSuporte.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, -1, 17));
+
+        jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel14.setText("E-mail:");
+        pnSuporte.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
+
+        jLabel15.setText("Para solicitar customizações, ajustes de bug's");
+        pnSuporte.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
+
+        jLabel16.setText("ou auxilio para tirar dúvidas nos contate ");
+        pnSuporte.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
+
+        jLabel17.setText("através dos nossos canais de atendimento:");
+        pnSuporte.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
+
+        javax.swing.GroupLayout SuporteLayout = new javax.swing.GroupLayout(Suporte.getContentPane());
+        Suporte.getContentPane().setLayout(SuporteLayout);
+        SuporteLayout.setHorizontalGroup(
+            SuporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnSuporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        SuporteLayout.setVerticalGroup(
+            SuporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnSuporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jLabel12.setText("jLabel12");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(803, 494));
@@ -286,7 +358,34 @@ public class PaginaInicial extends javax.swing.JFrame {
                 btSairActionPerformed(evt);
             }
         });
-        pnMenu.add(btSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 386, 220, 50));
+        pnMenu.add(btSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 220, 50));
+
+        btSuporte.setBackground(new java.awt.Color(0, 0, 0));
+        btSuporte.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btSuporte.setForeground(new java.awt.Color(255, 255, 255));
+        btSuporte.setText("Suporte");
+        btSuporte.setToolTipText("");
+        btSuporte.setBorderPainted(false);
+        btSuporte.setContentAreaFilled(false);
+        btSuporte.setFocusPainted(false);
+        btSuporte.setMaximumSize(new java.awt.Dimension(230, 50));
+        btSuporte.setMinimumSize(new java.awt.Dimension(120, 45));
+        btSuporte.setOpaque(true);
+        btSuporte.setPreferredSize(new java.awt.Dimension(180, 45));
+        btSuporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btSuporteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btSuporteMouseExited(evt);
+            }
+        });
+        btSuporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSuporteActionPerformed(evt);
+            }
+        });
+        pnMenu.add(btSuporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 220, 50));
 
         getContentPane().add(pnMenu, java.awt.BorderLayout.LINE_START);
 
@@ -483,6 +582,20 @@ public class PaginaInicial extends javax.swing.JFrame {
         RelatoriosPrincipal tela = new RelatoriosPrincipal();
         tela.setVisible(true);
     }//GEN-LAST:event_btRelatorioActionPerformed
+
+    private void btSuporteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSuporteMouseEntered
+        setButton(btSuporte);
+    }//GEN-LAST:event_btSuporteMouseEntered
+
+    private void btSuporteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSuporteMouseExited
+        resetButton(btSuporte);
+    }//GEN-LAST:event_btSuporteMouseExited
+
+    private void btSuporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuporteActionPerformed
+        Suporte.setLocationRelativeTo(null);
+        Suporte.setModal(true);
+        Suporte.setVisible(true);
+    }//GEN-LAST:event_btSuporteActionPerformed
            
     private static void setButton(JButton botao){
         botao.setBackground(new Color(58,58,58));
@@ -549,6 +662,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Suporte;
     private javax.swing.JButton btCliente;
     private javax.swing.JButton btFuncionario;
     private javax.swing.JToggleButton btLogar;
@@ -556,18 +670,31 @@ public class PaginaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btRelatorio;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btServico;
+    private javax.swing.JButton btSuporte;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lbLogin;
     private javax.swing.JLabel lbMenu;
     private javax.swing.JLabel lbSenha;
     private view.painelImagemFundo painelImagemFundo1;
     private javax.swing.JPanel pnCentral;
     private javax.swing.JPanel pnMenu;
+    private javax.swing.JPanel pnSuporte;
     private javax.swing.JPanel pnTitulo;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtSenha;
