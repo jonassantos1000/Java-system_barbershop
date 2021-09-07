@@ -711,7 +711,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
 
         lbNome.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbNome.setForeground(new java.awt.Color(255, 255, 255));
-        lbNome.setText("Cabeleireiro");
+        lbNome.setText("Funcionario");
         getContentPane().add(lbNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 90, 20));
 
         lbValorTotalVenda.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N

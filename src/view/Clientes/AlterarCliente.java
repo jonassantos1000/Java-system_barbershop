@@ -33,7 +33,9 @@ public class AlterarCliente extends javax.swing.JFrame {
         cod_cliente.setText(ID);
         setMask();
         setValue();
-       
+        lbNotificacao.setVisible(false);
+        rbSim.setVisible(false);
+        rbNao.setVisible(false);
     }
 
     private AlterarCliente() {
@@ -83,7 +85,7 @@ public class AlterarCliente extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lbNotificacao = new javax.swing.JLabel();
         rbSim = new javax.swing.JRadioButton();
         rbNao = new javax.swing.JRadioButton();
         txtTelefone = new javax.swing.JFormattedTextField();
@@ -322,10 +324,10 @@ public class AlterarCliente extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Celular");
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Notificação via WhatsApp");
+        lbNotificacao.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbNotificacao.setForeground(new java.awt.Color(255, 255, 255));
+        lbNotificacao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbNotificacao.setText("Notificação via WhatsApp");
 
         buttonGroup1.add(rbSim);
         rbSim.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -362,7 +364,7 @@ public class AlterarCliente extends javax.swing.JFrame {
         jLayeredPane1.setLayer(txtEmail, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(lbNotificacao, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(rbSim, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(rbNao, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtTelefone, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -374,7 +376,7 @@ public class AlterarCliente extends javax.swing.JFrame {
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbNotificacao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(rbSim)
@@ -416,15 +418,15 @@ public class AlterarCliente extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel10)
+                .addComponent(lbNotificacao)
                 .addGap(11, 11, 11)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbSim)
                     .addComponent(rbNao))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 360, 250));
+        getContentPane().add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 360, 210));
 
         jLayeredPane3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jLayeredPane3.setForeground(new java.awt.Color(255, 255, 255));
@@ -633,7 +635,6 @@ public class AlterarCliente extends javax.swing.JFrame {
     private javax.swing.JButton btSalvar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField cod_cliente;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
@@ -651,6 +652,7 @@ public class AlterarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lbComplemento;
     private javax.swing.JLabel lbData_cadastro;
     private javax.swing.JLabel lbNome;
+    private javax.swing.JLabel lbNotificacao;
     private javax.swing.JLabel lbRG;
     private javax.swing.JLabel lbcodigo;
     private javax.swing.JLabel lbfundo;

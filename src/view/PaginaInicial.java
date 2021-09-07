@@ -83,8 +83,8 @@ public class PaginaInicial extends javax.swing.JFrame {
         txtSenha = new javax.swing.JPasswordField();
         btLogar = new javax.swing.JToggleButton();
 
-        Suporte.setMinimumSize(new java.awt.Dimension(390, 210));
-        Suporte.setPreferredSize(new java.awt.Dimension(390, 210));
+        Suporte.setMinimumSize(new java.awt.Dimension(398, 210));
+        Suporte.setPreferredSize(new java.awt.Dimension(398, 210));
         Suporte.setResizable(false);
 
         pnSuporte.setBackground(new java.awt.Color(255, 255, 255));
