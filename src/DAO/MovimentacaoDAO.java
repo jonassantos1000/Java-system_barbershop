@@ -95,10 +95,10 @@ public class MovimentacaoDAO {
             }else{
                 if(!"".equals(movimentacao.getFuncionario().getNome())){
                     if (contador==0){
-                        SQLSELECTALL=SQLSELECTALL+"WHERE nm.NOMEFUNCIONARIO LIKE '"+movimentacao.getFuncionario().getNome()+"' ";
+                        SQLSELECTALL=SQLSELECTALL+"WHERE m.NOMEFUNCIONARIO LIKE '"+movimentacao.getFuncionario().getNome()+"' ";
                         contador++;
                     }else{
-                    SQLSELECTALL=SQLSELECTALL+"and nm.NOMEFUNCIONARIO LIKE '"+movimentacao.getFuncionario().getNome()+"' ";
+                    SQLSELECTALL=SQLSELECTALL+"and m.NOMEFUNCIONARIO LIKE '"+movimentacao.getFuncionario().getNome()+"' ";
                     }
                 }
             }

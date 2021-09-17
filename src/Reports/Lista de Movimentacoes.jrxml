@@ -97,13 +97,13 @@ ORDER BY "VWMOVIMENTACAO"."COD_VENDA" DESC]]>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="460" y="80" width="90" height="15" uuid="2557a6f7-a428-46ee-8a16-66718b06073b">
+				<reportElement x="130" y="100" width="110" height="15" uuid="2557a6f7-a428-46ee-8a16-66718b06073b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$P{cabeleireiro}.equals("") ? " " : "Cabeleireiro= "+$P{cabeleireiro}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="40" y="100" width="90" height="15" uuid="690362bb-f229-403e-9ec6-751ad7ed52fa">
+				<reportElement x="30" y="100" width="90" height="15" uuid="690362bb-f229-403e-9ec6-751ad7ed52fa">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$P{movimentacao} != 0 ? "Movimentação= "+$P{movimentacao}: ""]]></textFieldExpression>
@@ -123,19 +123,19 @@ ORDER BY "VWMOVIMENTACAO"."COD_VENDA" DESC]]>
 				<textFieldExpression><![CDATA[$P{dataFinal}.equals("") ? " " : "Data Final= "+$P{dataFinal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="272" y="80" width="83" height="14" uuid="4fce1f56-806e-4163-87f1-0b30f22c485a"/>
+				<reportElement x="272" y="80" width="108" height="14" uuid="4fce1f56-806e-4163-87f1-0b30f22c485a"/>
 				<textFieldExpression><![CDATA[$P{codCliente} != 0 ? "Cod. cliente= "+$P{codCliente}: ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="80" width="90" height="14" uuid="51ae3ab7-312b-4c55-80c5-1ed810ac3a39"/>
+				<reportElement x="410" y="80" width="120" height="14" uuid="51ae3ab7-312b-4c55-80c5-1ed810ac3a39"/>
 				<textFieldExpression><![CDATA[$P{cliente}.equals("") ? " " : "Cliente= "+$P{cliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="250" y="100" width="83" height="15" uuid="a2d02a11-c778-4da9-b247-8b627d3b154d"/>
+				<reportElement x="360" y="100" width="83" height="15" uuid="a2d02a11-c778-4da9-b247-8b627d3b154d"/>
 				<textFieldExpression><![CDATA[$P{rg}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="140" y="100" width="100" height="15" uuid="c7ab8e69-dde0-4c3b-b868-ef79d6c4e9ac"/>
+				<reportElement x="250" y="100" width="100" height="15" uuid="c7ab8e69-dde0-4c3b-b868-ef79d6c4e9ac"/>
 				<textFieldExpression><![CDATA[$P{cpf}]]></textFieldExpression>
 			</textField>
 		</band>

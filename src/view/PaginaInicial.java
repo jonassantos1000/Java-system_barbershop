@@ -34,7 +34,6 @@ public class PaginaInicial extends javax.swing.JFrame {
     public PaginaInicial() {
         initComponents();
         bloquearAcesso();
-        txtLogin.requestFocus(true);
     }
   
     /**
@@ -84,7 +83,6 @@ public class PaginaInicial extends javax.swing.JFrame {
         btLogar = new javax.swing.JToggleButton();
 
         Suporte.setMinimumSize(new java.awt.Dimension(398, 210));
-        Suporte.setPreferredSize(new java.awt.Dimension(398, 210));
         Suporte.setResizable(false);
 
         pnSuporte.setBackground(new java.awt.Color(255, 255, 255));
@@ -608,15 +606,20 @@ public class PaginaInicial extends javax.swing.JFrame {
     }
     
     private void bloquearAcesso(){
+        txtLogin.setEnabled(true);
+        txtSenha.setEnabled(true);      
         btCliente.setEnabled(false);
         btFuncionario.setEnabled(false);
         btServico.setEnabled(false);
         btRelatorio.setEnabled(false);
         btMovimentacao.setEnabled(false);
         btLogar.setSelected(false);
+        txtLogin.requestFocus(true);
     }
     
     private void liberaAcesso(){
+        txtLogin.setEnabled(false);
+        txtSenha.setEnabled(false);
         btCliente.setEnabled(true);
         btFuncionario.setEnabled(true);
         btServico.setEnabled(true);
