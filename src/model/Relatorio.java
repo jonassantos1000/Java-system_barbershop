@@ -25,11 +25,54 @@ public class Relatorio {
         this(0,"","",categoria);
     }
     
+    public Relatorio(String mes,int ano, int atendimentos, double total) {
+        this.ano = ano;
+        this.mes = mes;
+        this.atendimentos = atendimentos;
+        this.total = total;
+    }
+
+    public String getMes() {
+        return mes;
+    }
+
+    public void setMes(String mes) {
+        this.mes = mes;
+    }
+
+    public int getAtendimentos() {
+        return atendimentos;
+    }
+
+    public void setAtendimentos(int atendimentos) {
+        this.atendimentos = atendimentos;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
     private int codigo;
     private String descricao;
     private String diretorio;
     private String categoria;
+    private int ano;
+    private String mes;
+    private int atendimentos;   
+    private double total;
+            
+    public int getAno() {
+        return ano;
+    }
 
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+    
     public String getCategoria() {
         return categoria;
     }
@@ -67,4 +110,8 @@ public class Relatorio {
         return dao.selectRelatorios();
     }
     
+    public List<Relatorio> pesquisarTotalizadorMes(Relatorio relatorio) {
+        RelatorioDAO dao = new RelatorioDAO(this);
+        return dao.SelectTotalizadorMes();
+    }
 }

@@ -145,6 +145,14 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         btProcessarMovimentacao = new javax.swing.JButton();
+        FiltroTotalizadorPorMes = new javax.swing.JDialog();
+        pnFiltrosMovimentacoes1 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        btFecharFiltroTotalizadorMes = new javax.swing.JButton();
+        btProcessarFiltroTotalizadorMes = new javax.swing.JButton();
+        lbAnoReferenciaTotalizadorPorMes = new javax.swing.JLabel();
+        txtAnoTotalizadorPorMes = new javax.swing.JTextField();
         pnTitulo = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         pnMenu = new javax.swing.JPanel();
@@ -588,6 +596,63 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
 
         FiltroListaDeMovimentacoes.getContentPane().add(pnFiltrosMovimentacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 400));
 
+        FiltroTotalizadorPorMes.setMinimumSize(new java.awt.Dimension(528, 230));
+        FiltroTotalizadorPorMes.setUndecorated(true);
+        FiltroTotalizadorPorMes.setPreferredSize(new java.awt.Dimension(528, 230));
+        FiltroTotalizadorPorMes.setResizable(false);
+        FiltroTotalizadorPorMes.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnFiltrosMovimentacoes1.setBackground(new java.awt.Color(255, 255, 255));
+        pnFiltrosMovimentacoes1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel17.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setOpaque(true);
+        jLabel17.setPreferredSize(new java.awt.Dimension(400, 2));
+        pnFiltrosMovimentacoes1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 450, 2));
+
+        jLabel18.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("Filtros | Totalizador por Mes");
+        pnFiltrosMovimentacoes1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 15, 530, 40));
+
+        btFecharFiltroTotalizadorMes.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btFecharFiltroTotalizadorMes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaocancelar6.png"))); // NOI18N
+        btFecharFiltroTotalizadorMes.setText("Fechar");
+        btFecharFiltroTotalizadorMes.setToolTipText("");
+        btFecharFiltroTotalizadorMes.setBorderPainted(false);
+        btFecharFiltroTotalizadorMes.setContentAreaFilled(false);
+        btFecharFiltroTotalizadorMes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btFecharFiltroTotalizadorMes.setRequestFocusEnabled(false);
+        btFecharFiltroTotalizadorMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFecharFiltroTotalizadorMesActionPerformed(evt);
+            }
+        });
+        pnFiltrosMovimentacoes1.add(btFecharFiltroTotalizadorMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 110, 40));
+
+        btProcessarFiltroTotalizadorMes.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btProcessarFiltroTotalizadorMes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/botaoefetivar5.png"))); // NOI18N
+        btProcessarFiltroTotalizadorMes.setText("Processar");
+        btProcessarFiltroTotalizadorMes.setToolTipText("");
+        btProcessarFiltroTotalizadorMes.setBorderPainted(false);
+        btProcessarFiltroTotalizadorMes.setContentAreaFilled(false);
+        btProcessarFiltroTotalizadorMes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btProcessarFiltroTotalizadorMes.setRequestFocusEnabled(false);
+        btProcessarFiltroTotalizadorMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProcessarFiltroTotalizadorMesActionPerformed(evt);
+            }
+        });
+        pnFiltrosMovimentacoes1.add(btProcessarFiltroTotalizadorMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 110, 40));
+
+        lbAnoReferenciaTotalizadorPorMes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lbAnoReferenciaTotalizadorPorMes.setText("Ano de Referencia");
+        pnFiltrosMovimentacoes1.add(lbAnoReferenciaTotalizadorPorMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, -1, 20));
+        pnFiltrosMovimentacoes1.add(txtAnoTotalizadorPorMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 90, -1));
+
+        FiltroTotalizadorPorMes.getContentPane().add(pnFiltrosMovimentacoes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 230));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(803, 489));
         setUndecorated(true);
@@ -944,10 +1009,19 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
                 FiltroListaDeFuncionarios.setLocationRelativeTo(null);
                 FiltroListaDeFuncionarios.setVisible(true);
                 break;
-            case "MOVIMENTACOES":
-                FiltroListaDeMovimentacoes.setModal(true);
-                FiltroListaDeMovimentacoes.setLocationRelativeTo(null);
-                FiltroListaDeMovimentacoes.setVisible(true);
+            case "MOVIMENTACAO":
+                if (relatorio.getCodigo()==4){                              
+                    FiltroListaDeMovimentacoes.setModal(true);
+                    FiltroListaDeMovimentacoes.setLocationRelativeTo(null);
+                    FiltroListaDeMovimentacoes.setVisible(true);
+                }else if(relatorio.getCodigo()==5){
+                    FiltroTotalizadorPorMes.setModal(true);
+                    FiltroTotalizadorPorMes.setLocationRelativeTo(null);
+                    FiltroTotalizadorPorMes.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Filtro não encontrado para esse relatorio");
+                }
+                
                 break;
         }
     }//GEN-LAST:event_btProcessarActionPerformed
@@ -1203,6 +1277,34 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
            txtRGClienteMovimentacao.setFormatterFactory(Util.Mascara.cleanMak());
         }
     }//GEN-LAST:event_txtRGClienteMovimentacaoFocusLost
+
+    private void btFecharFiltroTotalizadorMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharFiltroTotalizadorMesActionPerformed
+        FiltroTotalizadorPorMes.setVisible(false);
+    }//GEN-LAST:event_btFecharFiltroTotalizadorMesActionPerformed
+
+    private void btProcessarFiltroTotalizadorMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessarFiltroTotalizadorMesActionPerformed
+        try{
+            int ano=txtAnoTotalizadorPorMes.getText().equals("") ? 0 : Integer.parseInt(txtAnoTotalizadorPorMes.getText());
+            Relatorio relatorio = new Relatorio("",ano,0,0);
+
+            Map parameters = new HashMap();            
+            parameters.put("Ano", ano);
+
+            FiltroTotalizadorPorMes.setVisible(false);
+            txtAnoTotalizadorPorMes.setText("");
+            
+            JasperReport relatorioCompilado= JasperCompileManager.compileReport(this.relatorio.getDiretorio());
+            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, parameters,new JRBeanCollectionDataSource(relatorio.pesquisarTotalizadorMes(relatorio)));
+            JasperViewer.viewReport(relatorioPreenchido,false);
+            
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            ex.printStackTrace();
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        
+    }//GEN-LAST:event_btProcessarFiltroTotalizadorMesActionPerformed
     
     private static void setButton(JButton botao){
         botao.setBackground(new Color(58,58,58));
@@ -1276,7 +1378,7 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
                 clientes.add(rel);
             }else if(rel.getCategoria().equals("FUNCIONARIOS")){
                 funcionarios.add(rel);
-            }else if(rel.getCategoria().equals("MOVIMENTACOES")){
+            }else if(rel.getCategoria().equals("MOVIMENTACAO")){
                 movimentacoes.add(rel);
             }          
         }
@@ -1324,9 +1426,11 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     private javax.swing.JDialog FiltroListaDeFuncionarios;
     private javax.swing.JDialog FiltroListaDeMovimentacoes;
     private javax.swing.JDialog FiltroListaDeServicos;
+    private javax.swing.JDialog FiltroTotalizadorPorMes;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btCliente;
     private javax.swing.JButton btFecharCliente;
+    private javax.swing.JButton btFecharFiltroTotalizadorMes;
     private javax.swing.JButton btFecharFuncionario;
     private javax.swing.JButton btFecharMovimentacao;
     private javax.swing.JButton btFecharServico;
@@ -1335,6 +1439,7 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btMovimentacao;
     private javax.swing.JButton btProcessar;
     private javax.swing.JButton btProcessarCliente;
+    private javax.swing.JButton btProcessarFiltroTotalizadorMes;
     private javax.swing.JButton btProcessarFuncionario;
     private javax.swing.JButton btProcessarMovimentacao;
     private javax.swing.JButton btProcessarServicos;
@@ -1350,6 +1455,8 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1360,6 +1467,7 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbAnoReferenciaTotalizadorPorMes;
     private javax.swing.JLabel lbCPFCliente;
     private javax.swing.JLabel lbCPFClienteMovimentacao;
     private javax.swing.JLabel lbCPFFuncionario;
@@ -1380,9 +1488,11 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel pnFiltrosCliente;
     private javax.swing.JPanel pnFiltrosFuncionarios;
     private javax.swing.JPanel pnFiltrosMovimentacoes;
+    private javax.swing.JPanel pnFiltrosMovimentacoes1;
     private javax.swing.JPanel pnInferior;
     private javax.swing.JPanel pnMenu;
     private javax.swing.JPanel pnTitulo;
+    private javax.swing.JTextField txtAnoTotalizadorPorMes;
     private javax.swing.JFormattedTextField txtCPFCliente;
     private javax.swing.JFormattedTextField txtCPFClienteMovimentacao;
     private javax.swing.JFormattedTextField txtCPFFuncionario;

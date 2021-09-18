@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Mensais" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f8edb02f-3670-48b5-83dd-b264800d5fc9">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="Ano" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT  
+EXTRACT (MONTH FROM v.DT_VENDA) AS MES,
+EXTRACT (YEAR FROM v.DT_VENDA) AS ANO,
+count(CAST (v.DT_VENDA AS date )) AS atendimentos,
+sum(v.vl_total_venda) AS TOTAL
+FROM 
+vendas v
+WHERE EXTRACT (YEAR FROM v.DT_VENDA) BETWEEN '2020' AND '2021'
+GROUP BY 1,2
+ORDER BY 2,1]]>
+	</queryString>
+	<field name="MES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EXTRACT"/>
+		<property name="com.jaspersoft.studio.field.label" value="MES"/>
+		<fieldDescription><![CDATA[mes]]></fieldDescription>
+	</field>
+	<field name="ANO" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="EXTRACT"/>
+		<property name="com.jaspersoft.studio.field.label" value="ANO"/>
+		<fieldDescription><![CDATA[ano]]></fieldDescription>
+	</field>
+	<field name="ATENDIMENTOS" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="COUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="ATENDIMENTOS"/>
+		<fieldDescription><![CDATA[atendimentos]]></fieldDescription>
+	</field>
+	<field name="TOTAL" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="SUM"/>
+		<property name="com.jaspersoft.studio.field.label" value="TOTAL"/>
+		<fieldDescription><![CDATA[total]]></fieldDescription>
+	</field>
+	<variable name="total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="121" splitType="Stretch">
+			<image>
+				<reportElement x="5" y="7" width="150" height="80" uuid="d73d1fb7-ed52-43ce-a706-08fd1d78ff68">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["C:/Program Files (x86)/Conatus/Reports/logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="191" y="45" width="181" height="30" uuid="99ce2669-547c-4923-81df-b8f8960ad8ee"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Totalizador por Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="7" width="129" height="30" uuid="554b8623-5bc5-4670-99df-dee95efa5ec0"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Relatório]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="395" y="7" width="140" height="20" uuid="667d7d93-67af-4d90-99c9-c0ba2ab21dd4"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Emitido em: "+new java.text.SimpleDateFormat("dd/MM/yyyy").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="525" y="7" width="85" height="30" uuid="7d7829b3-8a22-4d7c-881e-62e374adae16"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="85" width="40" height="15" uuid="5cf19052-b9bf-4599-abee-365b526b27a7"/>
+				<text><![CDATA[Filtros:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="85" width="135" height="15" uuid="274c5019-a0e0-4cb8-aa97-26319ea75bb0"/>
+				<textFieldExpression><![CDATA[ $P{Ano} != 0 ? "Ano= "+$P{Ano} : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="ecf3caa5-c591-418e-8941-7f3639105588"/>
+			</line>
+			<line>
+				<reportElement x="0" y="31" width="555" height="1" uuid="aa266d39-ca0a-450b-b3b8-48b1f7b30eeb"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="0" width="141" height="30" uuid="5172c16c-5c30-4f81-a8e4-0fb35dd9fb31">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b7e5af71-22fb-4da3-bf9f-e8e2d8cdbbff"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[MES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="0" width="138" height="30" uuid="bec5cffe-4407-46f8-be5c-0a51e836c368">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="74ac9640-cc7b-4544-bc20-7a572236494d"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ANO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="0" width="138" height="30" uuid="df577510-987b-448c-ab1c-a8c26747c692">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2df4f21e-07e2-4bf1-a7d3-a4dfba31ea87"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ATENDIMENTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="0" width="138" height="30" uuid="237a9205-3557-4c27-bb0c-4996510849a3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="003107f5-a1da-462b-987d-2ce38fd5d7d8"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TOTAL MENSAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="141" height="30" uuid="93c310c4-e847-46a7-8da2-2bc7f220abc2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b7e5af71-22fb-4da3-bf9f-e8e2d8cdbbff"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{MES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="0" width="138" height="30" uuid="0ac95022-d5df-4652-9c08-f1a46259a45a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="74ac9640-cc7b-4544-bc20-7a572236494d"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ANO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="0" width="138" height="30" uuid="02ae7495-0303-44da-832a-4bd35d7ede76">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2df4f21e-07e2-4bf1-a7d3-a4dfba31ea87"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ATENDIMENTOS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="417" y="0" width="138" height="30" uuid="1cacd853-7b29-4e3e-b46c-54982d2e78fb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="003107f5-a1da-462b-987d-2ce38fd5d7d8"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,##0.00").format($F{TOTAL}.doubleValue())]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="185" y="5" width="100" height="30" uuid="96235b94-a827-4484-9b2b-4ba870393a9e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="285" y="5" width="100" height="30" uuid="779f2c07-2638-4453-bbbb-9be070b9bc11"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="34" splitType="Stretch">
+			<textField>
+				<reportElement x="405" y="0" width="161" height="30" uuid="cda5428d-85e5-4734-82f8-87e0d85b6867">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total: "+new DecimalFormat("#,##0.00").format($V{total}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="4cdd21b2-e36c-41a7-bc80-2eeaedcc537c"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
