@@ -54,7 +54,7 @@ public class ClientesDAO {
             pst.setString(12, cliente.getTelefone());
             pst.setString(13, cliente.getCelular());
             pst.setString(14, cliente.getObservacao());
-            pst.setString(15,cliente.getNotificawhats());
+            pst.setString(15,cliente.getNotificaEmail());
             pst.executeUpdate();
             return true;
         }
@@ -81,7 +81,7 @@ public class ClientesDAO {
             pst.setString(10, cliente.getTelefone());
             pst.setString(11, cliente.getCelular());
             pst.setString(12, cliente.getObservacao());
-            pst.setString(13,cliente.getNotificawhats());
+            pst.setString(13,cliente.getNotificaEmail());
             pst.setDate(14, Util.data.getSqlDate(Util.data.formataData(Util.data.getdata())));
             pst.setInt(15, cliente.getCodigo());
             pst.executeUpdate();

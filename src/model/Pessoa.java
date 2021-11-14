@@ -23,7 +23,7 @@ public abstract class Pessoa {
     String CEP;
     String complemento;
     String telefone;
-    String notificawhats;
+    String notificaEmail;
     String observacao;
     int codigo;
     
@@ -41,7 +41,7 @@ public abstract class Pessoa {
         setNumero(numero);
         setComplemento(complemento);
         setTelefone(telefone);
-        setNotificawhats(notificawhats);
+        setNotificaEmail(notificawhats);
         setObservacao(observacao);
         setCEP(CEP);
         setData_alteracao(data_alteracao);
@@ -115,12 +115,12 @@ public abstract class Pessoa {
         this.telefone = telefone;
     }
 
-    public String getNotificawhats() {
-        return notificawhats;
+    public String getNotificaEmail() {
+        return notificaEmail;
     }
 
-    public void setNotificawhats(String notificawhats) {
-        this.notificawhats = notificawhats;
+    public void setNotificaEmail(String notificaEmail) {
+        this.notificaEmail = notificaEmail;
     }
 
     public String getObservacao() {

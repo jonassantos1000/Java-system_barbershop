@@ -663,7 +663,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Notifica&#xe7;&#xe3;o via WhatsApp"/>
+            <Property name="text" type="java.lang.String" value="Enviar comprovante por e-mail ?"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rbSim">

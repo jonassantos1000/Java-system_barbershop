@@ -10,10 +10,15 @@ import Util.ValidaNumeros;
 import static Util.VerificaDecimal.nf;
 import Util.counters;
 import Util.data;
+import static e.mail.SendEmail.send;
+import java.io.File;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -27,6 +32,12 @@ import model.Funcionario;
 import model.Movimentacao;
 import model.ProdutosMovimento;
 import model.Servico;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
  *
@@ -979,6 +990,29 @@ public class IncluirMovimento extends javax.swing.JFrame {
             } catch (ParseException ex) {
                 Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
             }
+            //Verifica se o cliente quer receber e-mail do comprovante conforme marcado no seu cadastro.
+            cliente.selectAlteraCliente(codCliente);
+            cliente=cliente.getresultalteracliente();
+            try{
+                if (cliente.getNotificaEmail().equals("T")){
+                    mov.setData("");
+                    String nomeArquivo="Comprovante_"+String.valueOf(codigoMovimentacao)+".pdf";
+                    String diretorio = "C:\\Program Files (x86)\\Conatus\\trace\\"+nomeArquivo;
+                    String assunto="Comprovante de venda - "+String.valueOf(codigoMovimentacao);
+                    JasperReport relatorioCompilado= JasperCompileManager.compileReport("C:\\Program Files (x86)\\Conatus\\Reports\\teste.jrxml");
+                    JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, null, new JRBeanCollectionDataSource(mov.consultarMovimentacao(mov, "500")));
+                    JasperExportManager.exportReportToPdfFile(relatorioPreenchido,diretorio);
+                  
+                    send(diretorio,nomeArquivo,nomeArquivo,cliente.getEmail(),assunto);
+                    File arq = new File(diretorio);
+                    arq.delete();
+                    
+                    JOptionPane.showMessageDialog(null, "Comprovante de venda enviado com sucesso para "+ cliente.getEmail());
+                    
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
             this.dispose();
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro ao incluir a movimentação !");
@@ -1432,7 +1466,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
                     valorFormat=String.format("%.2f", mov.getPreco());
                     totalFormat=String.format("%.2f", mov.getPrecoTotal());
                     modelo.addRow(new Object[]{codigoformat,mov.getServico().getDescricao(),mov.getQtde(),valorFormat,totalFormat});      
-                    //modelo.addRow(new Object[]{"1","teste"});      
+                        
                     valorTotalVenda=valorTotalVenda+Double.parseDouble(totalFormat.replace(",","."));
                 }
             
@@ -1519,6 +1553,8 @@ public class IncluirMovimento extends javax.swing.JFrame {
         }
         codigoNome=cbCliente.getSelectedItem().toString();
         setCodigoCliente(codigoNome);
+        cbCliente.setEditable(true);
+        
     }
     
     private void setOpcoesCBFuncionario(){

@@ -519,11 +519,6 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         pnFiltrosMovimentacoes.add(lbCodigoClienteMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
 
         txtNomeClienteMovimentacao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNomeClienteMovimentacao.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNomeClienteMovimentacaoFocusLost(evt);
-            }
-        });
         pnFiltrosMovimentacoes.add(txtNomeClienteMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 140, -1));
 
         txtDataInicial.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -560,11 +555,6 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         pnFiltrosMovimentacoes.add(lbDataInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, -1, -1));
 
         txtNomeFuncionarioMovimentacao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNomeFuncionarioMovimentacao.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNomeFuncionarioMovimentacaoFocusLost(evt);
-            }
-        });
         pnFiltrosMovimentacoes.add(txtNomeFuncionarioMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, 110, -1));
 
         lbFuncionario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -592,13 +582,17 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
                 btProcessarMovimentacaoActionPerformed(evt);
             }
         });
+        btProcessarMovimentacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btProcessarMovimentacaoKeyPressed(evt);
+            }
+        });
         pnFiltrosMovimentacoes.add(btProcessarMovimentacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 320, 110, 40));
 
         FiltroListaDeMovimentacoes.getContentPane().add(pnFiltrosMovimentacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 400));
 
         FiltroTotalizadorPorMes.setMinimumSize(new java.awt.Dimension(528, 230));
         FiltroTotalizadorPorMes.setUndecorated(true);
-        FiltroTotalizadorPorMes.setPreferredSize(new java.awt.Dimension(528, 230));
         FiltroTotalizadorPorMes.setResizable(false);
         FiltroTotalizadorPorMes.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1200,13 +1194,14 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDataFinalFocusLost
 
     private void btProcessarMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessarMovimentacaoActionPerformed
+        
         try{
             int codigoMovimentacao = txtCodigoMovimentacao.getText().equals("") ? 0 : Integer.parseInt(txtCodigoMovimentacao.getText());           
             int codigoCliente = txtCodigoClienteMovimentacao.getText().equals("") ? 0 : Integer.parseInt(txtCodigoClienteMovimentacao.getText());           
             String dataConcatenada= txtDataInicial.getText()+";"+txtDataFinal.getText();
             
-            Funcionario funcionario = new Funcionario(0,txtNomeFuncionarioMovimentacao.getText());
-            Cliente cliente = new Cliente(codigoCliente,txtNomeClienteMovimentacao.getText(),txtCPFClienteMovimentacao.getText(),txtRGClienteMovimentacao.getText(),"");
+            Funcionario funcionario = new Funcionario(0,txtNomeFuncionarioMovimentacao.getText().toUpperCase());
+            Cliente cliente = new Cliente(codigoCliente,txtNomeClienteMovimentacao.getText().toUpperCase(),txtCPFClienteMovimentacao.getText(),txtRGClienteMovimentacao.getText(),"");
             Movimentacao movimentacao = new Movimentacao(codigoMovimentacao,dataConcatenada.replace("/", "."),cliente,funcionario);
 
             Map parameters = new HashMap();            
@@ -1254,16 +1249,6 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         txtNomeFuncionario.setText(minuscula.toUpperCase());
     }//GEN-LAST:event_txtNomeFuncionarioFocusLost
 
-    private void txtNomeFuncionarioMovimentacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFuncionarioMovimentacaoFocusLost
-        String minuscula= txtNomeFuncionarioMovimentacao.getText();
-        txtNomeFuncionarioMovimentacao.setText(minuscula.toUpperCase());
-    }//GEN-LAST:event_txtNomeFuncionarioMovimentacaoFocusLost
-
-    private void txtNomeClienteMovimentacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeClienteMovimentacaoFocusLost
-        String minuscula= txtNomeClienteMovimentacao.getText();
-        txtNomeClienteMovimentacao.setText(minuscula.toUpperCase());
-    }//GEN-LAST:event_txtNomeClienteMovimentacaoFocusLost
-
     private void txtCPFClienteMovimentacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFClienteMovimentacaoFocusLost
         if(txtCPFClienteMovimentacao.getText().equals("___.___.___-__")){
             txtCPFClienteMovimentacao.setText("");
@@ -1305,6 +1290,12 @@ public class RelatoriosPrincipal extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btProcessarFiltroTotalizadorMesActionPerformed
+
+    private void btProcessarMovimentacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btProcessarMovimentacaoKeyPressed
+        if(evt.getKeyCode() == evt.VK_ENTER){
+            btProcessarMovimentacao.doClick();
+        }
+    }//GEN-LAST:event_btProcessarMovimentacaoKeyPressed
     
     private static void setButton(JButton botao){
         botao.setBackground(new Color(58,58,58));

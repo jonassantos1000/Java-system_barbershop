@@ -36,9 +36,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         initComponents();
         setcodigo();
         setMask();
-        lbNotificacao.setVisible(false);
-        rbSim.setVisible(false);
-        rbNao.setVisible(false);
+
         
     }
     /**
@@ -308,7 +306,7 @@ public class IncluirCliente extends javax.swing.JFrame {
         lbNotificacao.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbNotificacao.setForeground(new java.awt.Color(255, 255, 255));
         lbNotificacao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbNotificacao.setText("Notificação via WhatsApp");
+        lbNotificacao.setText("Enviar comprovante por e-mail ?");
 
         notificawhats.add(rbSim);
         rbSim.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -490,19 +488,19 @@ public class IncluirCliente extends javax.swing.JFrame {
         String telefone=coalesceMascara(txtTelefone.getText());
         String celular=coalesceMascara(txtCelular.getText());
         String observacao= coalesce(txtObservacoes.getText());
-        String notificawhats=null;
+        String notificaEmail=null;
         
         if (rbSim.isSelected()){
-            notificawhats="T";
+            notificaEmail="T";
         }
         else{
-            notificawhats="F";
+            notificaEmail="F";
         }
         
         try {
             //gravacliente(codigo, nome, CPF, RG, endereco, CEP);
-            Cliente incluirCliente = new Cliente(codigo,nome,CPF,RG,celular,email,data,endereco,bairro,numero,complemento,telefone,notificawhats,observacao, CEP);
-            incluirCliente.setNotificawhats(notificawhats);
+            Cliente incluirCliente = new Cliente(codigo,nome,CPF,RG,celular,email,data,endereco,bairro,numero,complemento,telefone,notificaEmail,observacao, CEP);
+            incluirCliente.setNotificaEmail(notificaEmail);
             incluirCliente.gravar(incluirCliente);
             JOptionPane.showMessageDialog(null,"Cadastro Salvo com sucesso !");
             this.dispose();

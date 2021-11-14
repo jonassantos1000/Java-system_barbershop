@@ -33,9 +33,6 @@ public class AlterarCliente extends javax.swing.JFrame {
         cod_cliente.setText(ID);
         setMask();
         setValue();
-        lbNotificacao.setVisible(false);
-        rbSim.setVisible(false);
-        rbNao.setVisible(false);
     }
 
     private AlterarCliente() {
@@ -327,7 +324,7 @@ public class AlterarCliente extends javax.swing.JFrame {
         lbNotificacao.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbNotificacao.setForeground(new java.awt.Color(255, 255, 255));
         lbNotificacao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbNotificacao.setText("Notificação via WhatsApp");
+        lbNotificacao.setText("Enviar comprovante por e-mail ?");
 
         buttonGroup1.add(rbSim);
         rbSim.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -528,19 +525,19 @@ public class AlterarCliente extends javax.swing.JFrame {
             String telefone=coalesceMascara(txtTelefone.getText());
             String celular=coalesceMascara(txtCelular.getText());
             String observacao= coalesce(txtObservacao.getText());
-            String notificawhats=null;
+            String notificaEmail=null;
 
             if (rbSim.isSelected()){
-                notificawhats="T";
+                notificaEmail="T";
             }
             else{
-                notificawhats="F";
+                notificaEmail="F";
             }
 
             try {
                 //gravacliente(codigo, nome, CPF, RG, endereco, CEP);
-                Cliente alterarCliente = new Cliente(codigo,nome,CPF,RG,celular,email,data,endereco,bairro,numero,complemento,telefone,notificawhats,observacao, CEP);
-                alterarCliente.setNotificawhats(notificawhats);
+                Cliente alterarCliente = new Cliente(codigo,nome,CPF,RG,celular,email,data,endereco,bairro,numero,complemento,telefone,notificaEmail,observacao, CEP);
+                alterarCliente.setNotificaEmail(notificaEmail);
                 alterarCliente.alterar(alterarCliente);
                 JOptionPane.showMessageDialog(null,"Cadastro alterado com sucesso !");
                 this.dispose();
@@ -571,7 +568,7 @@ public class AlterarCliente extends javax.swing.JFrame {
         txtObservacao.setText(resultselectaltera.getresultalteracliente().getObservacao());
         txtDataAlteracao.setText(data.formataDataBD(coalesce.coalesceData(resultselectaltera.getresultalteracliente().getData_alteracao())));
         
-        if(resultselectaltera.getresultalteracliente().getNotificawhats().equals("T")){
+        if(resultselectaltera.getresultalteracliente().getNotificaEmail().equals("T")){
             rbSim.doClick();
         }else{
             rbNao.doClick();
