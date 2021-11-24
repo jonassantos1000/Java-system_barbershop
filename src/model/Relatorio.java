@@ -14,6 +14,7 @@ import java.util.List;
  * @author faculdade
  */
 public class Relatorio {
+
     public Relatorio(int codigo, String descricao, String diretorio,String categoria){
         setCodigo(codigo);
         setDescricao(descricao);
@@ -31,7 +32,20 @@ public class Relatorio {
         this.atendimentos = atendimentos;
         this.total = total;
     }
-
+    
+    public Relatorio(){
+        
+    }
+        
+    
+    public Relatorio(int codigo, int qtde, double preco, String descricao, double subTotal){
+        this.descricao=descricao;
+        this.preco =preco;
+        this.qtde=qtde;
+        this.codigo=codigo;
+        this.subTotal=subTotal;
+    }
+    
     public String getMes() {
         return mes;
     }
@@ -57,14 +71,17 @@ public class Relatorio {
     }
 
     private int codigo;
+    private int qtde;
+    private double preco;
     private String descricao;
+    private double subTotal;
     private String diretorio;
     private String categoria;
     private int ano;
     private String mes;
     private int atendimentos;   
     private double total;
-            
+                
     public int getAno() {
         return ano;
     }
@@ -110,8 +127,37 @@ public class Relatorio {
         return dao.selectRelatorios();
     }
     
+    public List<Relatorio> selectComprovante(Relatorio relatorio){
+        RelatorioDAO dao = new RelatorioDAO(this);
+        return dao.SelectComprovante(relatorio.getCodigo());
+    }
+    
     public List<Relatorio> pesquisarTotalizadorMes(Relatorio relatorio) {
         RelatorioDAO dao = new RelatorioDAO(this);
         return dao.SelectTotalizadorMes();
+    }
+
+    public int getQtde() {
+        return qtde;
+    }
+
+    public void setQtde(int qtde) {
+        this.qtde = qtde;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
     }
 }

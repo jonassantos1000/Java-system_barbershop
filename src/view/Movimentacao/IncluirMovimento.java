@@ -31,6 +31,7 @@ import model.Cliente;
 import model.Funcionario;
 import model.Movimentacao;
 import model.ProdutosMovimento;
+import model.Relatorio;
 import model.Servico;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -71,7 +72,12 @@ public class IncluirMovimento extends javax.swing.JFrame {
         txtBuscaCodigoCliente.setDocument(new ValidaNumeros());
         setOpcoesCBFuncionario();
         txtValorTotalVenda.setFormatterFactory(Mascara.getValorMask());
-        
+        if(cbCliente.getSelectedItem().toString().equals("")){
+            this.dispose();
+        }
+        if(cbFuncionario.getSelectedItem().toString().equals("")){
+            this.dispose();
+        }
     }
     
     public IncluirMovimento(List<ProdutosMovimento> produtos){
@@ -966,7 +972,6 @@ public class IncluirMovimento extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Codigo não encontrado !");
             txtCodigoCliente.setText(codigoAtualCliente);
         }
-                
 
     }//GEN-LAST:event_txtCodigoClienteFocusLost
 
@@ -993,26 +998,41 @@ public class IncluirMovimento extends javax.swing.JFrame {
             //Verifica se o cliente quer receber e-mail do comprovante conforme marcado no seu cadastro.
             cliente.selectAlteraCliente(codCliente);
             cliente=cliente.getresultalteracliente();
-            try{
                 if (cliente.getNotificaEmail().equals("T")){
-                    mov.setData("");
-                    String nomeArquivo="Comprovante_"+String.valueOf(codigoMovimentacao)+".pdf";
-                    String diretorio = "C:\\Program Files (x86)\\Conatus\\trace\\"+nomeArquivo;
-                    String assunto="Comprovante de venda - "+String.valueOf(codigoMovimentacao);
-                    JasperReport relatorioCompilado= JasperCompileManager.compileReport("C:\\Program Files (x86)\\Conatus\\Reports\\teste.jrxml");
-                    JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, null, new JRBeanCollectionDataSource(mov.consultarMovimentacao(mov, "500")));
-                    JasperExportManager.exportReportToPdfFile(relatorioPreenchido,diretorio);
-                  
-                    send(diretorio,nomeArquivo,nomeArquivo,cliente.getEmail(),assunto);
-                    File arq = new File(diretorio);
-                    arq.delete();
-                    
-                    JOptionPane.showMessageDialog(null, "Comprovante de venda enviado com sucesso para "+ cliente.getEmail());
-                    
+                    if(!cliente.getEmail().equals("")){
+                        try{
+                            Relatorio rel = new Relatorio();
+                            String nomeArquivo="Comprovante_"+String.valueOf(codigoMovimentacao)+".pdf";
+                            String diretorio = "C:\\Program Files (x86)\\Conatus\\trace\\"+nomeArquivo;
+                            String assunto="Comprovante de venda - "+String.valueOf(codigoMovimentacao);
+                            final String email = cliente.getEmail();
+                            JasperReport relatorioCompilado= JasperCompileManager.compileReport("C:\\Program Files (x86)\\Conatus\\Reports\\Comprovante de Venda.jrxml");
+                            rel.setCodigo(codigoMovimentacao);
+                            Map parameters = new HashMap();
+                            mov.selectAlteraMovimentacao(codCliente);
+                            parameters.put("nome", mov.getCliente().getresultalteracliente().getNome());
+                            parameters.put("email", mov.getCliente().getresultalteracliente().getEmail());
+                            parameters.put("numeroCupom", codigoMovimentacao);
+                            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, parameters, new JRBeanCollectionDataSource(rel.selectComprovante(rel)));
+                            JasperExportManager.exportReportToPdfFile(relatorioPreenchido,diretorio);
+
+                            new Thread() {
+                                @Override
+                                public void run() {
+                                    send(diretorio,nomeArquivo,nomeArquivo,email,assunto);                                         
+                                    File arq = new File(diretorio);
+                                    arq.delete();
+                                }
+                              }.start();
+
+                            JOptionPane.showMessageDialog(null, "Comprovante de venda será enviado por e-mail "+ cliente.getEmail());
+                            
+                        
+                        }catch(Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }                    
                 }
-            }catch(Exception e){
-                e.printStackTrace();
-            }
             this.dispose();
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro ao incluir a movimentação !");
@@ -1545,16 +1565,21 @@ public class IncluirMovimento extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
-        List<Cliente> listagem = cliente.getResultselect();
-        listCliente=listagem;
-        for(Cliente cli : listagem){
-            codigoNome=String.valueOf(cli.getCodigo())+" | "+cli.getNome();
-            cbCliente.addItem(codigoNome);            
-        }
-        codigoNome=cbCliente.getSelectedItem().toString();
-        setCodigoCliente(codigoNome);
-        cbCliente.setEditable(true);
-        
+        try{
+            List<Cliente> listagem = cliente.getResultselect();
+            listCliente=listagem;
+            for(Cliente cli : listagem){
+                codigoNome=String.valueOf(cli.getCodigo())+" | "+cli.getNome();
+                cbCliente.addItem(codigoNome);            
+            }
+            codigoNome=cbCliente.getSelectedItem().toString();
+            setCodigoCliente(codigoNome);
+            cbCliente.setEditable(true);
+        }catch(java.lang.NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Cadastre pelo menos 1 cliente para realizar movimentações");
+            this.dispose();
+            e.printStackTrace();
+        }        
     }
     
     private void setOpcoesCBFuncionario(){
@@ -1567,15 +1592,21 @@ public class IncluirMovimento extends javax.swing.JFrame {
             Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        List<Funcionario> listagem = funcionario.getResultselect();
-        listFuncionario=listagem;
-        
-        for(Funcionario func : listagem){
-            codigoNome2=String.valueOf(func.getCodigo())+" | "+func.getNome();
-            cbFuncionario.addItem(codigoNome2);            
-        }
-        codigoNome2=cbFuncionario.getSelectedItem().toString();
-        setCodigoFuncionario(codigoNome2);
+        try{
+            List<Funcionario> listagem = funcionario.getResultselect();
+            listFuncionario=listagem;
+
+            for(Funcionario func : listagem){
+                codigoNome2=String.valueOf(func.getCodigo())+" | "+func.getNome();
+                cbFuncionario.addItem(codigoNome2);            
+            }
+            codigoNome2=cbFuncionario.getSelectedItem().toString();
+            setCodigoFuncionario(codigoNome2);
+        }catch(java.lang.NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Cadastre pelo menos 1 funcionario para realizar movimentações");
+            this.dispose();
+            e.printStackTrace();
+        }  
     }
     
     private void setCodigoFuncionario(String codigoNome){

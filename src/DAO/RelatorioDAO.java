@@ -10,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.ProdutosMovimento;
 import model.Relatorio;
+import model.Servico;
 
 /**
  *
@@ -71,4 +73,27 @@ public class RelatorioDAO {
         }
     }
     
+    public List<Relatorio> SelectComprovante(int ID){
+        try{
+            String SQLSELECT="SELECT iv.COD_SERVICO AS COD_SERVICO,s.DESCRICAO ,iv.QT_SERVICO_VENDIDO,"
+                    + "iv.VL_UNITARIO_PRODUTO_VENDIDO FROM vendas v JOIN ITENS_VENDAS iv "
+                    + "ON (v.COD_VENDA=iv.COD_VENDA) JOIN SERVICOS s ON (s.COD_SERVICO=iv.COD_SERVICO)"
+                    + " WHERE v.COD_VENDA ='"+ID+"'";
+            
+            PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLSELECT);
+            ResultSet rs = pst.executeQuery();
+            List<Relatorio> listRelatorios = new ArrayList<Relatorio>();
+            while(rs.next()){
+                int qtde = rs.getInt("QT_SERVICO_VENDIDO");
+                double valorUni=rs.getDouble("VL_UNITARIO_PRODUTO_VENDIDO");
+                double subTotal= valorUni*qtde;
+                Relatorio relatorio = new Relatorio(rs.getInt("COD_SERVICO"),qtde,valorUni,rs.getString("DESCRICAO"),subTotal);
+                listRelatorios.add(relatorio);
+            }
+            return listRelatorios;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
