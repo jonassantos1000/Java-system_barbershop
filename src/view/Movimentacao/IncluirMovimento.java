@@ -1001,7 +1001,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
                 if (cliente.getNotificaEmail().equals("T")){
                     if((cliente.getEmail()==null)){
                     } else {
-                        System.out.println(cliente.getEmail());
+                        
                         try{
                             Relatorio rel = new Relatorio();
                             String nomeArquivo="Comprovante_"+String.valueOf(codigoMovimentacao)+".pdf";
