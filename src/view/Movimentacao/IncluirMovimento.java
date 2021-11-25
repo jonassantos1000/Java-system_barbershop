@@ -999,7 +999,9 @@ public class IncluirMovimento extends javax.swing.JFrame {
             cliente.selectAlteraCliente(codCliente);
             cliente=cliente.getresultalteracliente();
                 if (cliente.getNotificaEmail().equals("T")){
-                    if(!cliente.getEmail().equals("")){
+                    if((cliente.getEmail()==null)){
+                    } else {
+                        System.out.println(cliente.getEmail());
                         try{
                             Relatorio rel = new Relatorio();
                             String nomeArquivo="Comprovante_"+String.valueOf(codigoMovimentacao)+".pdf";
@@ -1023,9 +1025,9 @@ public class IncluirMovimento extends javax.swing.JFrame {
                                     File arq = new File(diretorio);
                                     arq.delete();
                                 }
-                              }.start();
-
-                            JOptionPane.showMessageDialog(null, "Comprovante de venda será enviado por e-mail "+ cliente.getEmail());
+                            }.start();
+                            
+                            JOptionPane.showMessageDialog(null, "Comprovante de venda será enviado por e-mail ");
                             
                         
                         }catch(Exception ex){
@@ -1035,6 +1037,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
                 }
             this.dispose();
         }catch(Exception ex){
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao incluir a movimentação !");
         }
         

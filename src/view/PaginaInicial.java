@@ -7,6 +7,9 @@ package view;
 
 import static Util.Criptografia.criptografar;
 import Util.Mascara;
+import Util.ValidaNumeros;
+import static Util.coalesce.coalesce;
+import static e.mail.SendEmail.testaEnvio;
 import view.Clientes.ClientePrincipal;
 import java.awt.Color;
 import java.awt.Font;
@@ -18,6 +21,7 @@ import view.Funcionarios.FuncionarioPrincipal;
 import view.Movimentacao.MovimentacaoPrincipal;
 import view.Relatorios.RelatoriosPrincipal;
 import view.Servicos.ServicoPrincipal;
+import model.Configuracao;
 
 /**
  *
@@ -32,9 +36,10 @@ public class PaginaInicial extends javax.swing.JFrame {
     private boolean status=false;
     String usuario;
     Usuarios user;
-    public PaginaInicial() {
+    public PaginaInicial() {       
         initComponents();
         bloquearAcesso();
+        txtPortaSMTP.setDocument(new ValidaNumeros());
     }
   
     /**
@@ -61,6 +66,7 @@ public class PaginaInicial extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         ConfiguracoesGerais = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         lbInformacaoEmpresa = new javax.swing.JLabel();
         txtRazaoSocial = new javax.swing.JTextField();
@@ -169,10 +175,19 @@ public class PaginaInicial extends javax.swing.JFrame {
 
         jLabel12.setText("jLabel12");
 
-        ConfiguracoesGerais.setMinimumSize(new java.awt.Dimension(635, 495));
+        ConfiguracoesGerais.setMinimumSize(new java.awt.Dimension(645, 535));
         ConfiguracoesGerais.setUndecorated(true);
+        ConfiguracoesGerais.setPreferredSize(new java.awt.Dimension(645, 535));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("Testar Configuração");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 160, -1));
 
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jLayeredPane1.setForeground(new java.awt.Color(255, 255, 255));
@@ -328,13 +343,13 @@ public class PaginaInicial extends javax.swing.JFrame {
         lbMensagemPadraoEmail.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbMensagemPadraoEmail.setForeground(new java.awt.Color(255, 255, 255));
         lbMensagemPadraoEmail.setText("Mensagem Padrão para envio de E-mail");
-        jPanel1.add(lbMensagemPadraoEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 280, -1));
+        jPanel1.add(lbMensagemPadraoEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 280, -1));
 
         txtMensagemPadraoEmail.setColumns(20);
         txtMensagemPadraoEmail.setRows(5);
         jScrollPane1.setViewportView(txtMensagemPadraoEmail);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 490, 130));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 490, 130));
 
         btFecharConfig.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btFecharConfig.setForeground(new java.awt.Color(255, 255, 255));
@@ -349,7 +364,7 @@ public class PaginaInicial extends javax.swing.JFrame {
                 btFecharConfigActionPerformed(evt);
             }
         });
-        jPanel1.add(btFecharConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, -1, 40));
+        jPanel1.add(btFecharConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 470, -1, 30));
 
         btSalvarConfig.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btSalvarConfig.setForeground(new java.awt.Color(255, 255, 255));
@@ -359,18 +374,23 @@ public class PaginaInicial extends javax.swing.JFrame {
         btSalvarConfig.setContentAreaFilled(false);
         btSalvarConfig.setFocusPainted(false);
         btSalvarConfig.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(btSalvarConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, -1, 40));
+        btSalvarConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarConfigActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btSalvarConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 470, 130, 30));
 
         lbPainelPretoFundo.setForeground(new java.awt.Color(255, 255, 255));
         lbPainelPretoFundo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbPainelPretoFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/PainelFundo.png"))); // NOI18N
         lbPainelPretoFundo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(lbPainelPretoFundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 570, 460));
+        jPanel1.add(lbPainelPretoFundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 570, 500));
 
         lbImagemDeFundo.setForeground(new java.awt.Color(255, 255, 255));
         lbImagemDeFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/FundoTelaInicial.jpg"))); // NOI18N
         lbImagemDeFundo.setText("jLabel24");
-        jPanel1.add(lbImagemDeFundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 490));
+        jPanel1.add(lbImagemDeFundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 540));
 
         javax.swing.GroupLayout ConfiguracoesGeraisLayout = new javax.swing.GroupLayout(ConfiguracoesGerais.getContentPane());
         ConfiguracoesGerais.getContentPane().setLayout(ConfiguracoesGeraisLayout);
@@ -384,7 +404,8 @@ public class PaginaInicial extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(803, 494));
+        setMinimumSize(new java.awt.Dimension(825, 494));
+        setPreferredSize(new java.awt.Dimension(690, 303));
 
         pnTitulo.setBackground(new java.awt.Color(0, 0, 0));
         pnTitulo.setName(""); // NOI18N
@@ -776,8 +797,8 @@ public class PaginaInicial extends javax.swing.JFrame {
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addComponent(btLogar)
-                .addGap(65, 65, 65)
-                .addComponent(jLabel6)
+                .addGap(54, 54, 54)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
 
@@ -956,14 +977,69 @@ public class PaginaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btFecharConfigActionPerformed
 
     private void btConfiguracoesGeraisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfiguracoesGeraisActionPerformed
+
+        new Thread() {
+            @Override
+                public void run() {
+                    Configuracao config = new Configuracao();
+                    txtRazaoSocial.setText(config.pesquisar().getRazaoSocial());
+                    txtResponsavelLegal.setText(config.pesquisar().getResponsavelLegal());
+                    txtCNPJ.setText(config.pesquisar().getCnpj());
+                    txtEmail.setText(config.pesquisar().getEmail());
+                    txtSenhaEmail.setText(config.pesquisar().getSenha());
+                    txtSMTP.setText(config.pesquisar().getSmtp());
+                    txtPortaSMTP.setText(config.pesquisar().getPortaSMTP());
+                    txtMensagemPadraoEmail.setText(config.pesquisar().getMensagemPadrao());
+                    if(config.pesquisar().getSSL().equals("T")){
+                        cbSSL.setSelected(true);
+                    }else{
+                        cbSSL.setSelected(false); 
+                    }
+
+                    if(config.pesquisar().getTLS().equals("T")){
+                        cbTLS.setSelected(true);
+                    }else{
+                        cbTLS.setSelected(false); 
+                    }  
+                }
+        }.start();
+        
         ConfiguracoesGerais.setModal(true);
         ConfiguracoesGerais.setLocationRelativeTo(null);
         ConfiguracoesGerais.setVisible(true);
+                
     }//GEN-LAST:event_btConfiguracoesGeraisActionPerformed
 
     private void txtCNPJFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCNPJFocusGained
         txtCNPJ.setFormatterFactory(Mascara.getCpfMask());
     }//GEN-LAST:event_txtCNPJFocusGained
+
+    private void btSalvarConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarConfigActionPerformed
+        try{
+            String razaoSocial= coalesce(txtRazaoSocial.getText());
+            String responsavelLegal = coalesce(txtResponsavelLegal.getText());
+            String cnpj= coalesce(txtCNPJ.getText());
+            String email = coalesce(txtEmail.getText());
+            String senha = new String (txtSenhaEmail.getPassword());
+            String smtp = coalesce(txtSMTP.getText());
+            String portaSMTP=coalesce(txtPortaSMTP.getText());
+            String SSL= cbSSL.isSelected() == true ? "T" : "F";
+            String TLS= cbTLS.isSelected() == true ? "T" : "F";
+            String mensagemPadrao = coalesce(txtMensagemPadraoEmail.getText());
+
+            Configuracao config = new Configuracao (razaoSocial,responsavelLegal,cnpj,email,senha,smtp,portaSMTP,SSL,TLS,mensagemPadrao);
+            config.salvar();
+            JOptionPane.showMessageDialog(null, "Comando executado com sucesso !");
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro e não foi possivel salvar as alterações");
+            ex.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_btSalvarConfigActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        testaEnvio();
+    }//GEN-LAST:event_jButton1ActionPerformed
            
     private static void setButton(JButton botao){
         botao.setBackground(new Color(58,58,58));
@@ -998,8 +1074,7 @@ public class PaginaInicial extends javax.swing.JFrame {
         btRelatorio.setEnabled(true);
         btMovimentacao.setEnabled(true);
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -1052,6 +1127,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btSuporte;
     private javax.swing.JCheckBox cbSSL;
     private javax.swing.JCheckBox cbTLS;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

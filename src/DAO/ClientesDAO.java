@@ -89,6 +89,7 @@ public class ClientesDAO {
 
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace();
             return false;
         }
     }
@@ -110,6 +111,7 @@ public class ClientesDAO {
             
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex);
+            ex.printStackTrace();
             return null;
         }
     }
