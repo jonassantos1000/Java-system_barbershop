@@ -8,7 +8,6 @@ import static java.awt.SystemColor.window;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static model.Cliente.gravacliente;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -507,7 +506,8 @@ public class IncluirCliente extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null,"erro ao salvar cadastro!");
-            }
+            
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
 }
     private void txtnomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtnomeFocusLost

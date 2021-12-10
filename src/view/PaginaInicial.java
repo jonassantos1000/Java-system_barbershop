@@ -9,7 +9,7 @@ import static Util.Criptografia.criptografar;
 import Util.Mascara;
 import Util.ValidaNumeros;
 import static Util.coalesce.coalesce;
-import static e.mail.SendEmail.testaEnvio;
+import static Util.SendEmail.testaEnvio;
 import view.Clientes.ClientePrincipal;
 import java.awt.Color;
 import java.awt.Font;
@@ -177,7 +177,6 @@ public class PaginaInicial extends javax.swing.JFrame {
 
         ConfiguracoesGerais.setMinimumSize(new java.awt.Dimension(645, 535));
         ConfiguracoesGerais.setUndecorated(true);
-        ConfiguracoesGerais.setPreferredSize(new java.awt.Dimension(645, 535));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

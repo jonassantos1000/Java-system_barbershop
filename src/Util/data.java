@@ -84,6 +84,20 @@ public class data {
     
     }  
     
+    public static String formataDataLog(String data){
+        try{
+            SimpleDateFormat in = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy HH");
+            String result = out.format(in.parse(data.toString()));
+
+            return result;
+
+       }catch(Exception ex){
+           return "";    
+        }
+    
+    }  
+    
     public static String getMesExtenso(int mes){
         switch (mes){
             case 1:

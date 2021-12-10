@@ -10,8 +10,13 @@ import Util.ValidaNumeros;
 import static Util.VerificaDecimal.nf;
 import Util.counters;
 import Util.data;
-import static e.mail.SendEmail.send;
+import static Util.SendEmail.send;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -39,6 +44,8 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import java.util.logging.*;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  *
@@ -46,6 +53,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
  */
 public class IncluirMovimento extends javax.swing.JFrame {
 
+    private static final Logger LOGGER = Logger.getLogger(IncluirMovimento.class.getName());
     /**
      * Creates new form IncluiMovimento
      */
@@ -58,6 +66,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
     String codigoAtualCliente;
     String codigoAtualFuncionario;
     List<ProdutosMovimento> listProd = new ArrayList<ProdutosMovimento>();
+
     public IncluirMovimento() {
         initComponents();
         setOpcoesCBCliente();
@@ -72,18 +81,18 @@ public class IncluirMovimento extends javax.swing.JFrame {
         txtBuscaCodigoCliente.setDocument(new ValidaNumeros());
         setOpcoesCBFuncionario();
         txtValorTotalVenda.setFormatterFactory(Mascara.getValorMask());
-        if(cbCliente.getSelectedItem().toString().equals("")){
+        if (cbCliente.getSelectedItem().toString().equals("")) {
             this.dispose();
         }
-        if(cbFuncionario.getSelectedItem().toString().equals("")){
+        if (cbFuncionario.getSelectedItem().toString().equals("")) {
             this.dispose();
         }
     }
-    
-    public IncluirMovimento(List<ProdutosMovimento> produtos){
-        initComponents();      
+
+    public IncluirMovimento(List<ProdutosMovimento> produtos) {
+        initComponents();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -959,16 +968,16 @@ public class IncluirMovimento extends javax.swing.JFrame {
 
     private void txtCodigoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoClienteFocusLost
         //String codigoAtual=cod_movimentacao.getText();
-        List <Cliente> listagem = listCliente;
-        String cod= txtCodigoCliente.getText();
-            
-        for(Cliente cb : listagem){               
-            if(cod.equals(String.valueOf(cb.getCodigo()))){
-                cbCliente.setSelectedItem(cb.getCodigo()+" | "+cb.getNome());
-            }       
+        List<Cliente> listagem = listCliente;
+        String cod = txtCodigoCliente.getText();
+
+        for (Cliente cb : listagem) {
+            if (cod.equals(String.valueOf(cb.getCodigo()))) {
+                cbCliente.setSelectedItem(cb.getCodigo() + " | " + cb.getNome());
+            }
         }
-        String[] codigoFormat=String.valueOf(cbCliente.getSelectedItem().toString()).split(" ");
-        if(!codigoFormat[0].equals(cod)){
+        String[] codigoFormat = String.valueOf(cbCliente.getSelectedItem().toString()).split(" ");
+        if (!codigoFormat[0].equals(cod)) {
             JOptionPane.showMessageDialog(null, "Codigo não encontrado !");
             txtCodigoCliente.setText(codigoAtualCliente);
         }
@@ -976,84 +985,98 @@ public class IncluirMovimento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoClienteFocusLost
 
     private void btSalvarMovimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarMovimentoActionPerformed
-        try{
-            if(listProd.isEmpty()){
+        try {
+            if (listProd.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Insira pelo menos 1 serviço !");
             }
 
-            int codigoMovimentacao=Integer.parseInt(cod_movimentacao.getText());
-            String dataCadastro=txtData.getText();
+            int codigoMovimentacao = Integer.parseInt(cod_movimentacao.getText());
+            String dataCadastro = txtData.getText();
             int codCliente = Integer.parseInt(txtCodigoCliente.getText());
             int codFuncionario = Integer.parseInt(txtCodigoFuncionario.getText());
-            double totalVenda= nf(txtValorTotalVenda.getText()).doubleValue();
+            double totalVenda = nf(txtValorTotalVenda.getText()).doubleValue();
 
             Cliente cliente = new Cliente(codCliente);
-            Funcionario funcionario = new Funcionario(codFuncionario);       
-            Movimentacao mov = new Movimentacao(codigoMovimentacao,totalVenda,dataCadastro,cliente,listProduto,funcionario);
+            Funcionario funcionario = new Funcionario(codFuncionario);
+            Movimentacao mov = new Movimentacao(codigoMovimentacao, totalVenda, dataCadastro, cliente, listProduto, funcionario);
             try {
                 mov.gravar(mov);
             } catch (ParseException ex) {
-                Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
+                String trace = ExceptionUtils.getStackTrace(ex);
+                String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+                Util.Log.setLog(trace, metodo);
+                ex.printStackTrace();
             }
             //Verifica se o cliente quer receber e-mail do comprovante conforme marcado no seu cadastro.
             cliente.selectAlteraCliente(codCliente);
-            cliente=cliente.getresultalteracliente();
-                if (cliente.getNotificaEmail().equals("T")){
-                    if((cliente.getEmail()==null)){
-                    } else {
-                        
-                        try{
-                            Relatorio rel = new Relatorio();
-                            String nomeArquivo="Comprovante_"+String.valueOf(codigoMovimentacao)+".pdf";
-                            String diretorio = "C:\\Program Files (x86)\\Conatus\\trace\\"+nomeArquivo;
-                            String assunto="Comprovante de venda - "+String.valueOf(codigoMovimentacao);
-                            final String email = cliente.getEmail();
-                            JasperReport relatorioCompilado= JasperCompileManager.compileReport("C:\\Program Files (x86)\\Conatus\\Reports\\Comprovante de Venda.jrxml");
-                            rel.setCodigo(codigoMovimentacao);
-                            Map parameters = new HashMap();
-                            mov.selectAlteraMovimentacao(codCliente);
-                            parameters.put("nome", mov.getCliente().getresultalteracliente().getNome());
-                            parameters.put("email", mov.getCliente().getresultalteracliente().getEmail());
-                            parameters.put("numeroCupom", codigoMovimentacao);
-                            JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, parameters, new JRBeanCollectionDataSource(rel.selectComprovante(rel)));
-                            JasperExportManager.exportReportToPdfFile(relatorioPreenchido,diretorio);
+            cliente = cliente.getresultalteracliente();
+            if (cliente.getNotificaEmail().equals("T")) {
+                if ((cliente.getEmail() == null)) {
+                } else {
 
-                            new Thread() {
-                                @Override
-                                public void run() {
-                                    send(diretorio,nomeArquivo,nomeArquivo,email,assunto);                                         
+                    try {
+                        Relatorio rel = new Relatorio();
+                        String nomeArquivo = "Comprovante_" + String.valueOf(codigoMovimentacao) + ".pdf";
+                        String diretorio = "C:\\Program Files (x86)\\Conatus\\trace\\" + nomeArquivo;
+                        String assunto = "CUPOM DE VENDA - Nº " + String.valueOf(codigoMovimentacao);
+                        final String email = cliente.getEmail();
+                        JasperReport relatorioCompilado = JasperCompileManager.compileReport("C:\\Program Files (x86)\\Conatus\\Reports\\Comprovante de Venda.jrxml");
+                        rel.setCodigo(codigoMovimentacao);
+                        Map parameters = new HashMap();
+                        mov.selectAlteraMovimentacao(codCliente);
+                        parameters.put("nome", mov.getCliente().getresultalteracliente().getNome());
+                        parameters.put("email", mov.getCliente().getresultalteracliente().getEmail());
+                        parameters.put("numeroCupom", codigoMovimentacao);
+                        JasperPrint relatorioPreenchido = JasperFillManager.fillReport(relatorioCompilado, parameters, new JRBeanCollectionDataSource(rel.selectComprovante(rel)));
+                        JasperExportManager.exportReportToPdfFile(relatorioPreenchido, diretorio);
+
+                        new Thread() {
+                            @Override
+                            public void run() {
+                                try {
+                                    send(diretorio, nomeArquivo, nomeArquivo, email, assunto);
                                     File arq = new File(diretorio);
                                     arq.delete();
+                                } catch (Exception ex) {
+                                    String trace = ExceptionUtils.getStackTrace(ex);
+                                    String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+                                    Util.Log.setLog(trace, metodo);
                                 }
-                            }.start();
-                            
-                            JOptionPane.showMessageDialog(null, "Comprovante de venda será enviado por e-mail ");
-                            
-                        
-                        }catch(Exception ex){
-                            ex.printStackTrace();
-                        }
-                    }                    
+                            }
+                        }.start();
+
+                        JOptionPane.showMessageDialog(null, "Comprovante de venda será enviado por e-mail ");
+
+                    } catch (Exception ex) {
+                        String trace = ExceptionUtils.getStackTrace(ex);
+                        String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+                        Util.Log.setLog(trace, metodo);
+                        ex.printStackTrace();
+                    }
                 }
+            }
             this.dispose();
-        }catch(Exception ex){
+        } catch (Exception ex) {
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao incluir a movimentação !");
         }
-        
+
     }//GEN-LAST:event_btSalvarMovimentoActionPerformed
-    
+
     private void txtCodigoFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoFuncionarioFocusLost
-        List <Funcionario> listagem = listFuncionario;
-        String cod= txtCodigoFuncionario.getText();
-            
-        for(Funcionario cb : listagem){               
-            if(cod.equals(String.valueOf(cb.getCodigo()))){
-                cbFuncionario.setSelectedItem(cb.getCodigo()+" | "+cb.getNome());
-            }       
+        List<Funcionario> listagem = listFuncionario;
+        String cod = txtCodigoFuncionario.getText();
+
+        for (Funcionario cb : listagem) {
+            if (cod.equals(String.valueOf(cb.getCodigo()))) {
+                cbFuncionario.setSelectedItem(cb.getCodigo() + " | " + cb.getNome());
+            }
         }
-        String[] codigoFormat=String.valueOf(cbFuncionario.getSelectedItem().toString()).split(" ");
-        if(!codigoFormat[0].equals(cod)){
+        String[] codigoFormat = String.valueOf(cbFuncionario.getSelectedItem().toString()).split(" ");
+        if (!codigoFormat[0].equals(cod)) {
             JOptionPane.showMessageDialog(null, "Codigo não encontrado !");
             txtCodigoFuncionario.setText(codigoAtualFuncionario);
         }
@@ -1072,14 +1095,14 @@ public class IncluirMovimento extends javax.swing.JFrame {
     }//GEN-LAST:event_btAdicionarProdActionPerformed
 
     private void btRemoverProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverProdActionPerformed
-        try{
+        try {
             int indice;
-            indice=grid.getSelectedRow();
+            indice = grid.getSelectedRow();
             listProduto.remove(indice);
             carregaGrid();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Selecione o produto que deseja remover !");
-        }    
+        }
     }//GEN-LAST:event_btRemoverProdActionPerformed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
@@ -1088,15 +1111,15 @@ public class IncluirMovimento extends javax.swing.JFrame {
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
         int codigo;
-        
-        if (txtCodigoBuscaProduto.getText().equals("")){
-            codigo=0;
-        }else{
+
+        if (txtCodigoBuscaProduto.getText().equals("")) {
+            codigo = 0;
+        } else {
             codigo = Integer.parseInt(txtCodigoBuscaProduto.getText());
         }
 
         String Descricao = txtDescricao.getText();
-        Servico servico = new Servico(codigo,Descricao);
+        Servico servico = new Servico(codigo, Descricao);
 
         DefaultTableModel modelo = (DefaultTableModel) gridBuscaProduto.getModel();
         modelo.setNumRows(0);
@@ -1104,34 +1127,32 @@ public class IncluirMovimento extends javax.swing.JFrame {
         modeltable2.getColumn(0).setPreferredWidth(45);
         modeltable2.getColumn(1).setPreferredWidth(200);
         modeltable2.getColumn(2).setPreferredWidth(80);
-        
-        
-        centralizar(gridBuscaProduto,0);
-        centralizar(gridBuscaProduto,1);
-        centralizar(gridBuscaProduto,2);
-        
+
+        centralizar(gridBuscaProduto, 0);
+        centralizar(gridBuscaProduto, 1);
+        centralizar(gridBuscaProduto, 2);
+
         try {
             servico.selectFilter(servico, "99999");
         } catch (SQLException ex) {
             Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
         try {
             String lenlist;
             List<Servico> listagem = servico.getSelectFilter();
-            lenlist=String.valueOf(listagem.size());
+            lenlist = String.valueOf(listagem.size());
             for (Servico mov : listagem) {
                 String codigoformat;
                 String valorFormat;
-                codigoformat=String.valueOf(mov.getCodigo());
-                valorFormat=String.format("%.2f", mov.getPreco());
-                modelo.addRow(new Object[]{codigoformat,mov.getDescricao(),valorFormat});
+                codigoformat = String.valueOf(mov.getCodigo());
+                valorFormat = String.format("%.2f", mov.getPreco());
+                modelo.addRow(new Object[]{codigoformat, mov.getDescricao(), valorFormat});
             }
-            if(lenlist.equals("1")){
-                lbQtdeResult.setText("A pesquisa retornou "+ lenlist+" registro");
-            }else{
-                lbQtdeResult.setText("A pesquisa retornou "+lenlist+" registros");
+            if (lenlist.equals("1")) {
+                lbQtdeResult.setText("A pesquisa retornou " + lenlist + " registro");
+            } else {
+                lbQtdeResult.setText("A pesquisa retornou " + lenlist + " registros");
             }
 
         } catch (Exception ex) {
@@ -1150,17 +1171,17 @@ public class IncluirMovimento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoBuscaProdutoActionPerformed
 
     private void gridBuscaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridBuscaProdutoMouseClicked
-        if(evt.getClickCount() == 2){
-            int codigo= Integer.parseInt(String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(),0)));
-            String descricao= String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(),1));
-            double valor= Double.valueOf(String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(),2)).replace(",", "."));
-            Servico servico = new Servico(codigo,descricao,valor);
+        if (evt.getClickCount() == 2) {
+            int codigo = Integer.parseInt(String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(), 0)));
+            String descricao = String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(), 1));
+            double valor = Double.valueOf(String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(), 2)).replace(",", "."));
+            Servico servico = new Servico(codigo, descricao, valor);
             IncluirProduto.setLocationRelativeTo(null);
-            valorUnitario=servico.getPreco();
+            valorUnitario = servico.getPreco();
             txtCodigoProd.setText(String.valueOf(servico.getCodigo()));
             txtDescricaoProd.setText(servico.getDescricao());
             setMask();
-            txtValorUni.setText(String.format("%.2f",valorUnitario));
+            txtValorUni.setText(String.format("%.2f", valorUnitario));
             calculaTotal();
             IncluirProduto.setLocationRelativeTo(null);
             IncluirProduto.setModal(true);
@@ -1173,22 +1194,22 @@ public class IncluirMovimento extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelar1ActionPerformed
 
     private void btIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncluirActionPerformed
-        try{
-            int codigo= Integer.parseInt(String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(),0)));
-            String descricao= String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(),1));
-            double valor= Double.valueOf(String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(),2)).replace(",", "."));
-            Servico servico = new Servico(codigo,descricao,valor);
+        try {
+            int codigo = Integer.parseInt(String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(), 0)));
+            String descricao = String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(), 1));
+            double valor = Double.valueOf(String.valueOf(gridBuscaProduto.getValueAt(gridBuscaProduto.getSelectedRow(), 2)).replace(",", "."));
+            Servico servico = new Servico(codigo, descricao, valor);
             IncluirProduto.setLocationRelativeTo(null);
-            valorUnitario=servico.getPreco();
+            valorUnitario = servico.getPreco();
             txtCodigoProd.setText(String.valueOf(servico.getCodigo()));
             txtDescricaoProd.setText(servico.getDescricao());
             setMask();
-            txtValorUni.setText(String.format("%.2f",valorUnitario));
+            txtValorUni.setText(String.format("%.2f", valorUnitario));
             calculaTotal();
             IncluirProduto.setLocationRelativeTo(null);
             IncluirProduto.setModal(true);
             IncluirProduto.setVisible(true);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Selecione o servico que deseja incluir");
         }
     }//GEN-LAST:event_btIncluirActionPerformed
@@ -1202,23 +1223,23 @@ public class IncluirMovimento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorUniFocusLost
 
     private void btEfetivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEfetivarActionPerformed
-        try{
-            
-            int codigo;
-            codigo=Integer.parseInt(txtCodigoProd.getText());
-            int qtde = Integer.parseInt(txtQtde.getText());
-            double valorUnitario= nf(txtValorUni.getText()).doubleValue();
-            double valorTotal=nf(txtTotalProd.getText()).doubleValue();
+        try {
 
-            Servico servico = new Servico(codigo,txtDescricaoProd.getText());
-            ProdutosMovimento incluir = new ProdutosMovimento(servico,qtde,valorUnitario,valorTotal);
+            int codigo;
+            codigo = Integer.parseInt(txtCodigoProd.getText());
+            int qtde = Integer.parseInt(txtQtde.getText());
+            double valorUnitario = nf(txtValorUni.getText()).doubleValue();
+            double valorTotal = nf(txtTotalProd.getText()).doubleValue();
+
+            Servico servico = new Servico(codigo, txtDescricaoProd.getText());
+            ProdutosMovimento incluir = new ProdutosMovimento(servico, qtde, valorUnitario, valorTotal);
             listProd.add(incluir);
-            listProduto=listProd;
+            listProduto = listProd;
             carregaGrid();
             //incluir.setListaProduto(incluir);
             txtQtde.setText("1");
             IncluirProduto.setVisible(false);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao adicionar Produto!");
         }
@@ -1234,26 +1255,26 @@ public class IncluirMovimento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTotalProdFocusLost
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-        try{
-            int indice=grid.getSelectedRow();
+        try {
+            int indice = grid.getSelectedRow();
             setIndice(indice);
-            int codigo= Integer.parseInt(String.valueOf(grid.getValueAt(grid.getSelectedRow(),0)));
-            String descricao= String.valueOf(grid.getValueAt(grid.getSelectedRow(),1));
-            int qtde= Integer.parseInt(String.valueOf(grid.getValueAt(grid.getSelectedRow(),2)));
-            double valor= Double.valueOf(String.valueOf(grid.getValueAt(grid.getSelectedRow(),3)).replace(",", "."));
-            double total= Double.valueOf(String.valueOf(grid.getValueAt(grid.getSelectedRow(),4)).replace(",", "."));
-            
+            int codigo = Integer.parseInt(String.valueOf(grid.getValueAt(grid.getSelectedRow(), 0)));
+            String descricao = String.valueOf(grid.getValueAt(grid.getSelectedRow(), 1));
+            int qtde = Integer.parseInt(String.valueOf(grid.getValueAt(grid.getSelectedRow(), 2)));
+            double valor = Double.valueOf(String.valueOf(grid.getValueAt(grid.getSelectedRow(), 3)).replace(",", "."));
+            double total = Double.valueOf(String.valueOf(grid.getValueAt(grid.getSelectedRow(), 4)).replace(",", "."));
+
             txtCodigoAltProd.setText(String.valueOf(codigo));
             txtDescricaoAltProd.setText(descricao);
             txtAltQtde.setText(String.valueOf(qtde));
             setMask();
-            txtValorUniAlt.setText(String.format("%.2f",valor));
-            txtTotalProdAlt.setText(String.format("%.2f",total));  
-            
+            txtValorUniAlt.setText(String.format("%.2f", valor));
+            txtTotalProdAlt.setText(String.format("%.2f", total));
+
             AlterarProduto.setModal(true);
             AlterarProduto.setLocationRelativeTo(null);
             AlterarProduto.setVisible(true);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Selecione o registro que deseja alterar !");
         }
     }//GEN-LAST:event_btAlterarActionPerformed
@@ -1267,24 +1288,24 @@ public class IncluirMovimento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorUniAltFocusLost
 
     private void btEfetivarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEfetivarAltActionPerformed
-        try{
-            int indice=getIndice();
+        try {
+            int indice = getIndice();
             listProd.remove(indice);
 
             int codigo;
-            codigo=Integer.parseInt(txtCodigoAltProd.getText());
+            codigo = Integer.parseInt(txtCodigoAltProd.getText());
             int qtde = Integer.parseInt(txtAltQtde.getText());
-            double valorUnitario=nf(txtValorUniAlt.getText()).doubleValue();
-            double valorTotal=nf(txtTotalProdAlt.getText()).doubleValue();
+            double valorUnitario = nf(txtValorUniAlt.getText()).doubleValue();
+            double valorTotal = nf(txtTotalProdAlt.getText()).doubleValue();
 
-            Servico servico = new Servico(codigo,txtDescricaoAltProd.getText());
-            ProdutosMovimento incluir = new ProdutosMovimento(servico,qtde,valorUnitario,valorTotal);
+            Servico servico = new Servico(codigo, txtDescricaoAltProd.getText());
+            ProdutosMovimento incluir = new ProdutosMovimento(servico, qtde, valorUnitario, valorTotal);
             listProd.add(indice, incluir);
-            listProduto=listProd;
+            listProduto = listProd;
             carregaGrid();
             //incluir.setListaProduto(incluir);
             AlterarProduto.setVisible(false);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar produto !");
         }
     }//GEN-LAST:event_btEfetivarAltActionPerformed
@@ -1298,49 +1319,49 @@ public class IncluirMovimento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTotalProdAltFocusLost
 
     private void txtDescricaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescricaoFocusLost
-        String minuscula= txtDescricao.getText();
+        String minuscula = txtDescricao.getText();
         txtDescricao.setText(minuscula.toUpperCase());
     }//GEN-LAST:event_txtDescricaoFocusLost
 
     private void cbClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbClienteItemStateChanged
-        String codigoNome=cbCliente.getSelectedItem().toString();
+        String codigoNome = cbCliente.getSelectedItem().toString();
         setCodigoCliente(codigoNome);
     }//GEN-LAST:event_cbClienteItemStateChanged
 
     private void txtCodigoClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoClienteFocusGained
-        codigoAtualCliente=txtCodigoCliente.getText();
+        codigoAtualCliente = txtCodigoCliente.getText();
     }//GEN-LAST:event_txtCodigoClienteFocusGained
 
     private void txtCodigoClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoClienteKeyPressed
-        if(evt.getKeyCode() == evt.VK_ENTER){
-           cbCliente.requestFocus();
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            cbCliente.requestFocus();
         }
     }//GEN-LAST:event_txtCodigoClienteKeyPressed
 
     private void cbFuncionarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFuncionarioItemStateChanged
-        String codigoNome=cbFuncionario.getSelectedItem().toString();
-        setCodigoFuncionario(codigoNome);            
+        String codigoNome = cbFuncionario.getSelectedItem().toString();
+        setCodigoFuncionario(codigoNome);
     }//GEN-LAST:event_cbFuncionarioItemStateChanged
 
     private void txtCodigoFuncionarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoFuncionarioFocusGained
-        codigoAtualFuncionario=txtCodigoFuncionario.getText();
+        codigoAtualFuncionario = txtCodigoFuncionario.getText();
     }//GEN-LAST:event_txtCodigoFuncionarioFocusGained
 
     private void txtCodigoFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoFuncionarioKeyPressed
-        if(evt.getKeyCode() == evt.VK_ENTER){
+        if (evt.getKeyCode() == evt.VK_ENTER) {
             cbFuncionario.requestFocus();
         }
     }//GEN-LAST:event_txtCodigoFuncionarioKeyPressed
 
     private void txtQtdeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdeKeyPressed
-        if(evt.getKeyCode() == evt.VK_ENTER){
+        if (evt.getKeyCode() == evt.VK_ENTER) {
             txtCodigoProd.requestFocus();
         }
     }//GEN-LAST:event_txtQtdeKeyPressed
 
     private void txtValorUniKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorUniKeyPressed
-    if(evt.getKeyCode() == evt.VK_ENTER){
-        txtCodigoProd.requestFocus();
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            txtCodigoProd.requestFocus();
         }
     }//GEN-LAST:event_txtValorUniKeyPressed
 
@@ -1356,16 +1377,16 @@ public class IncluirMovimento extends javax.swing.JFrame {
 
     private void btBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscar1ActionPerformed
         int codigo;
-        
-        if (txtBuscaCodigoCliente.getText().equals("")){
-            codigo=0;
-        }else{
+
+        if (txtBuscaCodigoCliente.getText().equals("")) {
+            codigo = 0;
+        } else {
             codigo = Integer.parseInt(txtBuscaCodigoCliente.getText());
         }
         String nome = txtBuscaNomeCliente.getText();
         String cpf = txtBuscaCPFCliente.getText();
         String rg = txtBuscaRGCliente.getText();
-        
+
         Cliente cliente = new Cliente(codigo, nome, cpf, rg, "");
 
         DefaultTableModel modelo = (DefaultTableModel) gridBuscaCliente.getModel();
@@ -1376,32 +1397,31 @@ public class IncluirMovimento extends javax.swing.JFrame {
         modeltable2.getColumn(2).setPreferredWidth(100);
         modeltable2.getColumn(3).setPreferredWidth(100);
         modeltable2.getColumn(4).setPreferredWidth(5);
-        
-        centralizar(gridBuscaCliente,0);
-        centralizar(gridBuscaCliente,1);
-        centralizar(gridBuscaCliente,2);
-        centralizar(gridBuscaCliente,3);
-        
+
+        centralizar(gridBuscaCliente, 0);
+        centralizar(gridBuscaCliente, 1);
+        centralizar(gridBuscaCliente, 2);
+        centralizar(gridBuscaCliente, 3);
+
         try {
             cliente.selectnoFilter(cliente, "999999");
         } catch (SQLException ex) {
             Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
         try {
             String lenlist;
             List<Cliente> listagem = cliente.getResultselect();
-            lenlist=String.valueOf(listagem.size());
+            lenlist = String.valueOf(listagem.size());
             for (Cliente cli : listagem) {
                 String codigoformat;
-                codigoformat=String.valueOf(cli.getCodigo());
-                modelo.addRow(new Object[]{codigoformat,cli.getNome(),cli.getCPF(),cli.getRG()});
+                codigoformat = String.valueOf(cli.getCodigo());
+                modelo.addRow(new Object[]{codigoformat, cli.getNome(), cli.getCPF(), cli.getRG()});
             }
-            if(lenlist.equals("1")){
-                lbQtdeResultCliente.setText(lenlist+" registro");
-            }else{
-                lbQtdeResultCliente.setText(lenlist+" registros");
+            if (lenlist.equals("1")) {
+                lbQtdeResultCliente.setText(lenlist + " registro");
+            } else {
+                lbQtdeResultCliente.setText(lenlist + " registros");
             }
 
         } catch (Exception ex) {
@@ -1425,11 +1445,11 @@ public class IncluirMovimento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscaCodigoClienteActionPerformed
 
     private void gridBuscaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridBuscaClienteMouseClicked
-        if(evt.getClickCount() == 2){
-            String codigo= String.valueOf(gridBuscaCliente.getValueAt(gridBuscaCliente.getSelectedRow(),0));
-            String nome= String.valueOf(gridBuscaCliente.getValueAt(gridBuscaCliente.getSelectedRow(),1));
-            int codigoformat=Integer.parseInt(codigo);
-            cbCliente.setSelectedItem(codigo+" | "+nome);
+        if (evt.getClickCount() == 2) {
+            String codigo = String.valueOf(gridBuscaCliente.getValueAt(gridBuscaCliente.getSelectedRow(), 0));
+            String nome = String.valueOf(gridBuscaCliente.getValueAt(gridBuscaCliente.getSelectedRow(), 1));
+            int codigoformat = Integer.parseInt(codigo);
+            cbCliente.setSelectedItem(codigo + " | " + nome);
             PesquisarCliente.dispose();
         }
     }//GEN-LAST:event_gridBuscaClienteMouseClicked
@@ -1439,10 +1459,10 @@ public class IncluirMovimento extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelar2ActionPerformed
 
     private void btBuscaEscolherClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscaEscolherClienteActionPerformed
-        String codigo= gridBuscaCliente.getValueAt(gridBuscaCliente.getSelectedRow(),0).toString();
-        String nome= gridBuscaCliente.getValueAt(gridBuscaCliente.getSelectedRow(),1).toString();
-        cbCliente.setSelectedItem(codigo+" | "+nome);
-        PesquisarCliente.dispose();      
+        String codigo = gridBuscaCliente.getValueAt(gridBuscaCliente.getSelectedRow(), 0).toString();
+        String nome = gridBuscaCliente.getValueAt(gridBuscaCliente.getSelectedRow(), 1).toString();
+        cbCliente.setSelectedItem(codigo + " | " + nome);
+        PesquisarCliente.dispose();
     }//GEN-LAST:event_btBuscaEscolherClienteActionPerformed
 
     private void txtBuscaRGClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaRGClienteActionPerformed
@@ -1457,7 +1477,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
     }//GEN-LAST:event_btLimparBuscaClienteActionPerformed
 
     private void txtBuscaCPFClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscaCPFClienteFocusGained
-        txtBuscaCPFCliente.setFormatterFactory(Mascara.getCpfMask()); 
+        txtBuscaCPFCliente.setFormatterFactory(Mascara.getCpfMask());
     }//GEN-LAST:event_txtBuscaCPFClienteFocusGained
 
     private void txtBuscaRGClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscaRGClienteFocusGained
@@ -1466,162 +1486,161 @@ public class IncluirMovimento extends javax.swing.JFrame {
     private static void centralizar(JTable table, int column) {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        table.getColumnModel().getColumn(column).setCellRenderer(centerRenderer);       
+        table.getColumnModel().getColumn(column).setCellRenderer(centerRenderer);
     }
-    
-    public void carregaGrid(){
+
+    public void carregaGrid() {
         DefaultTableModel modelo = (DefaultTableModel) grid.getModel();
         modelo.setNumRows(0);
-               
-        centralizar(grid,0);
-        centralizar(grid,1);
-        centralizar(grid,2);
-        centralizar(grid,3);
-        centralizar(grid,4);
-        double valorTotalVenda=0;
-        try{
-            List<ProdutosMovimento> listagem= listProduto;
-                for (ProdutosMovimento mov : listagem) {
-                    String codigoformat;
-                    String valorFormat;
-                    String totalFormat;
-                    codigoformat=String.valueOf(mov.getServico().getCodigo());
-                    valorFormat=String.format("%.2f", mov.getPreco());
-                    totalFormat=String.format("%.2f", mov.getPrecoTotal());
-                    modelo.addRow(new Object[]{codigoformat,mov.getServico().getDescricao(),mov.getQtde(),valorFormat,totalFormat});      
-                        
-                    valorTotalVenda=valorTotalVenda+Double.parseDouble(totalFormat.replace(",","."));
-                }
-            
-            txtValorTotalVenda.setText(String.format("%.2f",valorTotalVenda));
-        }catch(Exception ex){
+
+        centralizar(grid, 0);
+        centralizar(grid, 1);
+        centralizar(grid, 2);
+        centralizar(grid, 3);
+        centralizar(grid, 4);
+        double valorTotalVenda = 0;
+        try {
+            List<ProdutosMovimento> listagem = listProduto;
+            for (ProdutosMovimento mov : listagem) {
+                String codigoformat;
+                String valorFormat;
+                String totalFormat;
+                codigoformat = String.valueOf(mov.getServico().getCodigo());
+                valorFormat = String.format("%.2f", mov.getPreco());
+                totalFormat = String.format("%.2f", mov.getPrecoTotal());
+                modelo.addRow(new Object[]{codigoformat, mov.getServico().getDescricao(), mov.getQtde(), valorFormat, totalFormat});
+
+                valorTotalVenda = valorTotalVenda + Double.parseDouble(totalFormat.replace(",", "."));
+            }
+
+            txtValorTotalVenda.setText(String.format("%.2f", valorTotalVenda));
+        } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao listar clientes, contate o suporte técnico");
         }
     }
-    
-    private void setServicoBusca(Servico servico){
-        this.servico=servico;
+
+    private void setServicoBusca(Servico servico) {
+        this.servico = servico;
     }
-    
-    private Servico getServicoBusca(){
+
+    private Servico getServicoBusca() {
         return servico;
     }
-    
-    private void setMask(){
+
+    private void setMask() {
         txtValorUni.setFormatterFactory(Mascara.getValorMask());
         txtTotalProd.setFormatterFactory(Mascara.getValorMask());
         txtValorUniAlt.setFormatterFactory(Mascara.getValorMask());
         txtTotalProdAlt.setFormatterFactory(Mascara.getValorMask());
-       // 
+        // 
     }
 
-    private void calculaTotal(){
-        int qtde=Integer.valueOf(txtQtde.getText());
+    private void calculaTotal() {
+        int qtde = Integer.valueOf(txtQtde.getText());
         double total;
         try {
-            valorUnitario=nf(txtValorUni.getText()).doubleValue();
+            valorUnitario = nf(txtValorUni.getText()).doubleValue();
         } catch (ParseException ex) {
             Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
-        total=valorUnitario*qtde;
-        txtTotalProd.setText(String.format("%.2f",total));
+        total = valorUnitario * qtde;
+        txtTotalProd.setText(String.format("%.2f", total));
     }
-    
-    private void calculaTotalAlt(){
-        int qtde=Integer.valueOf(txtAltQtde.getText());
+
+    private void calculaTotalAlt() {
+        int qtde = Integer.valueOf(txtAltQtde.getText());
         double total;
         try {
-            valorUnitario=nf(txtValorUniAlt.getText()).doubleValue();
+            valorUnitario = nf(txtValorUniAlt.getText()).doubleValue();
         } catch (ParseException ex) {
             Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
-        total=valorUnitario*qtde;
-        txtTotalProdAlt.setText(String.format("%.2f",total));
+        total = valorUnitario * qtde;
+        txtTotalProdAlt.setText(String.format("%.2f", total));
     }
-    
-    private void setIndice(int indice){
-        this.indice=indice;
+
+    private void setIndice(int indice) {
+        this.indice = indice;
     }
-    
-    private int getIndice(){
+
+    private int getIndice() {
         return indice;
     }
-    
-    
-    private void setCodigo(){
+
+    private void setCodigo() {
         String codigo;
-        String campo="COD_MOVIMENTACAO";
+        String campo = "COD_MOVIMENTACAO";
         counters countersServico = new counters();
         countersServico.setCampo(campo);
-        codigo=String.valueOf(countersServico.consultacodigo());
+        codigo = String.valueOf(countersServico.consultacodigo());
         cod_movimentacao.setText(codigo);
-        txtData.setText(data.getdata());      
+        txtData.setText(data.getdata());
     }
-    
-    private void setOpcoesCBCliente(){
-        Cliente cliente= new  Cliente(0,"","","","");
+
+    private void setOpcoesCBCliente() {
+        Cliente cliente = new Cliente(0, "", "", "", "");
         String codigoNome = null;
-        
+
         try {
             cliente.selectnoFilter(cliente, "9999999");
         } catch (SQLException ex) {
             Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try{
+        try {
             List<Cliente> listagem = cliente.getResultselect();
-            listCliente=listagem;
-            for(Cliente cli : listagem){
-                codigoNome=String.valueOf(cli.getCodigo())+" | "+cli.getNome();
-                cbCliente.addItem(codigoNome);            
+            listCliente = listagem;
+            for (Cliente cli : listagem) {
+                codigoNome = String.valueOf(cli.getCodigo()) + " | " + cli.getNome();
+                cbCliente.addItem(codigoNome);
             }
-            codigoNome=cbCliente.getSelectedItem().toString();
+            codigoNome = cbCliente.getSelectedItem().toString();
             setCodigoCliente(codigoNome);
             cbCliente.setEditable(true);
-        }catch(java.lang.NullPointerException e){
+        } catch (java.lang.NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Cadastre pelo menos 1 cliente para realizar movimentações");
             this.dispose();
             e.printStackTrace();
-        }        
+        }
     }
-    
-    private void setOpcoesCBFuncionario(){
-        Funcionario funcionario= new  Funcionario(0,"","","","");
+
+    private void setOpcoesCBFuncionario() {
+        Funcionario funcionario = new Funcionario(0, "", "", "", "");
         String codigoNome2 = null;
-        
+
         try {
             funcionario.selectnoFilter(funcionario, "9999999");
         } catch (SQLException ex) {
             Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        try{
-            List<Funcionario> listagem = funcionario.getResultselect();
-            listFuncionario=listagem;
 
-            for(Funcionario func : listagem){
-                codigoNome2=String.valueOf(func.getCodigo())+" | "+func.getNome();
-                cbFuncionario.addItem(codigoNome2);            
+        try {
+            List<Funcionario> listagem = funcionario.getResultselect();
+            listFuncionario = listagem;
+
+            for (Funcionario func : listagem) {
+                codigoNome2 = String.valueOf(func.getCodigo()) + " | " + func.getNome();
+                cbFuncionario.addItem(codigoNome2);
             }
-            codigoNome2=cbFuncionario.getSelectedItem().toString();
+            codigoNome2 = cbFuncionario.getSelectedItem().toString();
             setCodigoFuncionario(codigoNome2);
-        }catch(java.lang.NullPointerException e){
+        } catch (java.lang.NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Cadastre pelo menos 1 funcionario para realizar movimentações");
             this.dispose();
             e.printStackTrace();
-        }  
+        }
     }
-    
-    private void setCodigoFuncionario(String codigoNome){
-        String[] codigoFormat2=codigoNome.split(" ");
+
+    private void setCodigoFuncionario(String codigoNome) {
+        String[] codigoFormat2 = codigoNome.split(" ");
         txtCodigoFuncionario.setText(codigoFormat2[0]);
     }
-    
-    private void setCodigoCliente(String codigoNome){     
-        String[] codigoFormat=codigoNome.split(" ");
+
+    private void setCodigoCliente(String codigoNome) {
+        String[] codigoFormat = codigoNome.split(" ");
         txtCodigoCliente.setText(codigoFormat[0]);
     }
-        
+
     /**
      * @param args the command line arguments
      */

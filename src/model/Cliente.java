@@ -107,7 +107,7 @@ public class Cliente extends Pessoa {
     
     
     
-    public static void gravacliente(int codigo, String nome, String CPF, String RG, String endereco, String CEP) throws IOException{
+    /*public static void gravacliente(int codigo, String nome, String CPF, String RG, String endereco, String CEP) throws IOException{
         try{
             FileWriter client = new FileWriter("C:\\mtx\\client"+codigo+".txt");
             PrintWriter gravaTexto = new PrintWriter(client);
@@ -125,8 +125,6 @@ public class Cliente extends Pessoa {
         }
         
         
-    }
+    }*/
     
-
-
 }

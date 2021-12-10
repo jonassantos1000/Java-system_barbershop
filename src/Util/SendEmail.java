@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package e.mail;
+package Util;
 
 
 import javax.swing.JOptionPane;
@@ -46,7 +46,14 @@ public class SendEmail {
             email.setFrom(config.getEmail());
             
             email.setSubject(assunto); //assunto do e-mail
-            email.setMsg(config.getMensagemPadrao());
+            String msg;
+            if (config.getMensagemPadrao()==null){
+                msg = " ";
+            }
+            else{
+                msg=config.getMensagemPadrao();
+            }
+            email.setMsg(msg);
             email.addTo(emailDestinatario); // e-mail do destinatario
             
             //anexar arquivo ao e-mail
