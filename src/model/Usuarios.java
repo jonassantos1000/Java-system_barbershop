@@ -59,5 +59,5 @@ public class Usuarios {
         UsuarioDAO dao = new UsuarioDAO(this);
         return dao.selectUsuario();
     }
-    
+
 }

@@ -6,21 +6,15 @@
 package view.Movimentacao;
 
 import Util.Mascara;
+import static Util.SendEmail.send;
 import Util.ValidaNumeros;
 import static Util.VerificaDecimal.nf;
 import Util.counters;
 import Util.data;
-import static Util.SendEmail.send;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +38,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import java.util.logging.*;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
@@ -53,7 +46,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  */
 public class IncluirMovimento extends javax.swing.JFrame {
 
-    private static final Logger LOGGER = Logger.getLogger(IncluirMovimento.class.getName());
     /**
      * Creates new form IncluiMovimento
      */
@@ -68,29 +60,52 @@ public class IncluirMovimento extends javax.swing.JFrame {
     List<ProdutosMovimento> listProd = new ArrayList<ProdutosMovimento>();
 
     public IncluirMovimento() {
-        initComponents();
-        setOpcoesCBCliente();
-        setCodigo();
-        TableColumnModel modeltable = grid.getColumnModel();
-        modeltable.getColumn(0).setPreferredWidth(50);
-        modeltable.getColumn(1).setPreferredWidth(280);
-        modeltable.getColumn(2).setPreferredWidth(130);
-        modeltable.getColumn(3).setPreferredWidth(100);
-        modeltable.getColumn(4).setPreferredWidth(150);
-        txtCodigoBuscaProduto.setDocument(new ValidaNumeros());
-        txtBuscaCodigoCliente.setDocument(new ValidaNumeros());
-        setOpcoesCBFuncionario();
-        txtValorTotalVenda.setFormatterFactory(Mascara.getValorMask());
-        if (cbCliente.getSelectedItem().toString().equals("")) {
-            this.dispose();
-        }
-        if (cbFuncionario.getSelectedItem().toString().equals("")) {
+        try{           
+            initComponents();
+            setOpcoesCBCliente();
+            setCodigo();
+            TableColumnModel modeltable = grid.getColumnModel();
+            modeltable.getColumn(0).setPreferredWidth(50);
+            modeltable.getColumn(1).setPreferredWidth(280);
+            modeltable.getColumn(2).setPreferredWidth(130);
+            modeltable.getColumn(3).setPreferredWidth(100);
+            modeltable.getColumn(4).setPreferredWidth(150);
+            txtCodigoBuscaProduto.setDocument(new ValidaNumeros());
+            txtBuscaCodigoCliente.setDocument(new ValidaNumeros());
+            setOpcoesCBFuncionario();
+            txtValorTotalVenda.setFormatterFactory(Mascara.getValorMask());
+            if ("0".equals(cod_movimentacao.getText())) {
+                this.dispose();
+            }
+            
+            if (cbCliente.getSelectedItem().toString().equals("")) {
+                this.dispose();
+            }
+            
+            if (cbFuncionario.getSelectedItem().toString().equals("")) {
+                this.dispose();
+            }
+        }catch(Exception ex){
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);  
             this.dispose();
         }
     }
 
     public IncluirMovimento(List<ProdutosMovimento> produtos) {
         initComponents();
+        if ("0".equals(cod_movimentacao.getText())) {
+            this.dispose();
+        }
+            
+        if (cbCliente.getSelectedItem().toString().equals("")) {
+            this.dispose();
+        }
+            
+        if (cbFuncionario.getSelectedItem().toString().equals("")) {
+            this.dispose();
+        }
     }
 
     /**
@@ -968,18 +983,24 @@ public class IncluirMovimento extends javax.swing.JFrame {
 
     private void txtCodigoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoClienteFocusLost
         //String codigoAtual=cod_movimentacao.getText();
-        List<Cliente> listagem = listCliente;
-        String cod = txtCodigoCliente.getText();
+        try{
+            List<Cliente> listagem = listCliente;
+            String cod = txtCodigoCliente.getText();
 
-        for (Cliente cb : listagem) {
-            if (cod.equals(String.valueOf(cb.getCodigo()))) {
-                cbCliente.setSelectedItem(cb.getCodigo() + " | " + cb.getNome());
+            for (Cliente cb : listagem) {
+                if (cod.equals(String.valueOf(cb.getCodigo()))) {
+                    cbCliente.setSelectedItem(cb.getCodigo() + " | " + cb.getNome());
+                }
             }
-        }
-        String[] codigoFormat = String.valueOf(cbCliente.getSelectedItem().toString()).split(" ");
-        if (!codigoFormat[0].equals(cod)) {
-            JOptionPane.showMessageDialog(null, "Codigo não encontrado !");
-            txtCodigoCliente.setText(codigoAtualCliente);
+            String[] codigoFormat = String.valueOf(cbCliente.getSelectedItem().toString()).split(" ");
+            if (!codigoFormat[0].equals(cod)) {
+                JOptionPane.showMessageDialog(null, "Codigo não encontrado !");
+                txtCodigoCliente.setText(codigoAtualCliente);
+            }
+        }catch(Exception ex){
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
         }
 
     }//GEN-LAST:event_txtCodigoClienteFocusLost
@@ -1101,6 +1122,11 @@ public class IncluirMovimento extends javax.swing.JFrame {
             listProduto.remove(indice);
             carregaGrid();
         } catch (Exception ex) {
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
+        
             JOptionPane.showMessageDialog(null, "Selecione o produto que deseja remover !");
         }
     }//GEN-LAST:event_btRemoverProdActionPerformed
@@ -1135,7 +1161,12 @@ public class IncluirMovimento extends javax.swing.JFrame {
         try {
             servico.selectFilter(servico, "99999");
         } catch (SQLException ex) {
-            Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
+
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
+        
         }
 
         try {
@@ -1156,6 +1187,11 @@ public class IncluirMovimento extends javax.swing.JFrame {
             }
 
         } catch (Exception ex) {
+
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao buscar os produtos, contate o suporte técnico");
         }
@@ -1210,6 +1246,11 @@ public class IncluirMovimento extends javax.swing.JFrame {
             IncluirProduto.setModal(true);
             IncluirProduto.setVisible(true);
         } catch (Exception ex) {
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
+
             JOptionPane.showMessageDialog(null, "Selecione o servico que deseja incluir");
         }
     }//GEN-LAST:event_btIncluirActionPerformed
@@ -1240,6 +1281,11 @@ public class IncluirMovimento extends javax.swing.JFrame {
             txtQtde.setText("1");
             IncluirProduto.setVisible(false);
         } catch (Exception ex) {
+
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao adicionar Produto!");
         }
@@ -1275,6 +1321,11 @@ public class IncluirMovimento extends javax.swing.JFrame {
             AlterarProduto.setLocationRelativeTo(null);
             AlterarProduto.setVisible(true);
         } catch (Exception ex) {
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
+        
             JOptionPane.showMessageDialog(null, "Selecione o registro que deseja alterar !");
         }
     }//GEN-LAST:event_btAlterarActionPerformed
@@ -1306,6 +1357,12 @@ public class IncluirMovimento extends javax.swing.JFrame {
             //incluir.setListaProduto(incluir);
             AlterarProduto.setVisible(false);
         } catch (Exception ex) {
+            
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
+        
             JOptionPane.showMessageDialog(null, "Erro ao alterar produto !");
         }
     }//GEN-LAST:event_btEfetivarAltActionPerformed
@@ -1406,7 +1463,10 @@ public class IncluirMovimento extends javax.swing.JFrame {
         try {
             cliente.selectnoFilter(cliente, "999999");
         } catch (SQLException ex) {
-            Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
         }
 
         try {
@@ -1425,6 +1485,10 @@ public class IncluirMovimento extends javax.swing.JFrame {
             }
 
         } catch (Exception ex) {
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+                    
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao buscar os clientes, contate o suporte técnico");
         }
@@ -1515,6 +1579,10 @@ public class IncluirMovimento extends javax.swing.JFrame {
 
             txtValorTotalVenda.setText(String.format("%.2f", valorTotalVenda));
         } catch (Exception ex) {
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+                    
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao listar clientes, contate o suporte técnico");
         }
@@ -1543,6 +1611,11 @@ public class IncluirMovimento extends javax.swing.JFrame {
             valorUnitario = nf(txtValorUni.getText()).doubleValue();
         } catch (ParseException ex) {
             Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(Exception ex){
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
         }
         total = valorUnitario * qtde;
         txtTotalProd.setText(String.format("%.2f", total));
@@ -1555,6 +1628,11 @@ public class IncluirMovimento extends javax.swing.JFrame {
             valorUnitario = nf(txtValorUniAlt.getText()).doubleValue();
         } catch (ParseException ex) {
             Logger.getLogger(IncluirMovimento.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(Exception ex){
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
         }
         total = valorUnitario * qtde;
         txtTotalProdAlt.setText(String.format("%.2f", total));
@@ -1598,9 +1676,17 @@ public class IncluirMovimento extends javax.swing.JFrame {
             setCodigoCliente(codigoNome);
             cbCliente.setEditable(true);
         } catch (java.lang.NullPointerException e) {
+            String trace = ExceptionUtils.getStackTrace(e);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
             JOptionPane.showMessageDialog(null, "Cadastre pelo menos 1 cliente para realizar movimentações");
             this.dispose();
             e.printStackTrace();
+        }catch(Exception ex){
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
         }
     }
 
@@ -1625,9 +1711,17 @@ public class IncluirMovimento extends javax.swing.JFrame {
             codigoNome2 = cbFuncionario.getSelectedItem().toString();
             setCodigoFuncionario(codigoNome2);
         } catch (java.lang.NullPointerException e) {
+            String trace = ExceptionUtils.getStackTrace(e);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
             JOptionPane.showMessageDialog(null, "Cadastre pelo menos 1 funcionario para realizar movimentações");
             this.dispose();
             e.printStackTrace();
+        }catch(Exception ex){
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
         }
     }
 

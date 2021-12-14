@@ -9,44 +9,68 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import model.Usuarios;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  *
  * @author jonas
  */
 public class UsuarioDAO {
+
     Usuarios usuario;
-    
-    public UsuarioDAO (Usuarios usuario){
-        this.usuario=usuario;
+
+    public UsuarioDAO(Usuarios usuario) {
+        this.usuario = usuario;
     }
-       
-    public boolean insert(){
-        try{
-            String SQLINCLUIR= "INSERT INTO USUARIOS (USUARIO,SENHA,GERENCIA) VALUES (?,?,?)";       
-            PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(SQLINCLUIR);
+
+    public boolean insert() {
+        try {
+            String SQLINCLUIR = "INSERT INTO USUARIOS (USUARIO,SENHA,GERENCIA) VALUES (?,?,?)";
+            PreparedStatement pst = Connection.connectionFactory.getconnection().prepareStatement(SQLINCLUIR);
             pst.setString(1, usuario.getUsuario());
             pst.setString(2, usuario.getSenha());
             pst.setString(3, usuario.getGerencia());
             pst.executeUpdate();
             return true;
-        }catch(Exception e){
+        } catch (org.firebirdsql.jdbc.FBSQLException ex) {
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro interno do firebird, reinicie o sistema e tente novamente !");
+            System.exit(0);
+            return false;
+        } catch (Exception e) {
+            String trace = ExceptionUtils.getStackTrace(e);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            e.printStackTrace();
             return false;
         }
     }
-  
-    public Usuarios selectUsuario(){
-        try{
+
+    public Usuarios selectUsuario() {
+        try {
             String CONSULTACADASTRO;
-            CONSULTACADASTRO="SELECT * FROM USUARIOS WHERE USUARIO='"+usuario.getUsuario()+"'";
-            PreparedStatement pst= Connection.connectionFactory.getconnection().prepareStatement(CONSULTACADASTRO);
+            CONSULTACADASTRO = "SELECT * FROM USUARIOS WHERE USUARIO='" + usuario.getUsuario() + "'";
+            PreparedStatement pst = Connection.connectionFactory.getconnection().prepareStatement(CONSULTACADASTRO);
             ResultSet rs = pst.executeQuery();
-            while(rs.next()){
-                Usuarios selectUsuario = new Usuarios(rs.getString("USUARIO"),rs.getString("SENHA"),rs.getString("GERENCIA"));
-            return selectUsuario;
+            while (rs.next()) {
+                Usuarios selectUsuario = new Usuarios(rs.getString("USUARIO"), rs.getString("SENHA"), rs.getString("GERENCIA"));
+                return selectUsuario;
             }
-                       
-        }catch(Exception ex){
+        } catch (org.firebirdsql.jdbc.FBSQLException ex) {
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro interno do firebird, reinicie o sistema e tente novamente !");
+            System.exit(0);
+            return null;
+        } catch (Exception ex) {
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
             JOptionPane.showMessageDialog(null, ex);
             return null;
         }

@@ -13,54 +13,64 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 /**
  *
  * @author Jonas Santos
  */
 public class connectionFactory {
+
     private static Connection conexao;
-    
-    private static String getDataSource(){
+
+    private static String getDataSource() {
         String path = "C:\\Program Files (x86)\\Conatus\\parameters\\datasource.ini";
-        String teste=null;
-        teste=null;
-        try(BufferedReader br = new BufferedReader(new FileReader(path))){
-            String line=null;
+        String teste = null;
+        teste = null;
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line = null;
             line = br.readLine();
             return line;
         } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null,"Arquivo datasource.ini não encontrado");
+            JOptionPane.showMessageDialog(null, "Arquivo datasource.ini não encontrado");
             System.exit(0);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,"Falha ao consultar arquivo datasource.ini");
+            JOptionPane.showMessageDialog(null, "Falha ao consultar arquivo datasource.ini");
             System.exit(0);
         }
         return null;
     }
-       
-    public static Connection getconnection(){
-        try{
-            if(conexao==null){
-                Class.forName("org.firebirdsql.jdbc.FBDriver"); 
-                String criptografia="?encoding=ISO8859_1";
-                String Base=getDataSource();
-                conexao= DriverManager.getConnection(
-                    "jdbc:firebirdsql:"+Base+criptografia,
-                    "SYSDBA", "masterkey");
+
+    public static Connection getconnection() {
+        try {
+            if (conexao == null) {
+                Class.forName("org.firebirdsql.jdbc.FBDriver");
+                String criptografia = "?encoding=ISO8859_1";
+                String Base = getDataSource();
+                conexao = DriverManager.getConnection(
+                        "jdbc:firebirdsql:" + Base + criptografia,
+                        "SYSDBA", "masterkey");
             }
-            
+
             return conexao;
-        }
-        catch (ClassNotFoundException cnfe) {
-                JOptionPane.showMessageDialog(null, "Erro no driver JBDC");
-                System.exit(0);
-                return null;
-            }
-        catch(SQLException SQLex){
+        } catch (ClassNotFoundException cnfe) {
+            JOptionPane.showMessageDialog(null, "Erro no driver JBDC");
+            System.exit(0);
+            return null;
+
+        } catch (org.firebirdsql.jdbc.FBSQLException ex) {
+            String trace = ExceptionUtils.getStackTrace(ex);
+            String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
+            Util.Log.setLog(trace, metodo);
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro interno do firebird, reinicie o sitema e tente novamente !");
+            System.exit(0);
+            return null;
+        }catch (SQLException SQLex) {
             SQLex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Não foi possivel se conectar ao Banco de dados");
             System.exit(0);
             return null;
         }
-    } 
+    }
 }

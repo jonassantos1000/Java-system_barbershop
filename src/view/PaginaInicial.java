@@ -907,6 +907,7 @@ public class PaginaInicial extends javax.swing.JFrame {
                 String senhaBanco=usuario.selectall(usuario).getSenha();
                 usuario.setGerencia(usuario.selectall(usuario).getGerencia());
                 user=usuario;
+                
                 if (senhaBanco.equals(senhaCrip)==true){
                     btLogar.setText("Sair");
                     btLogar.setSelected(true);
