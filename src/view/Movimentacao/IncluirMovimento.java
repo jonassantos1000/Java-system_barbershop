@@ -88,7 +88,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         }catch(Exception ex){
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);  
+              
             this.dispose();
         }
     }
@@ -1000,7 +1000,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         }catch(Exception ex){
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
         }
 
     }//GEN-LAST:event_txtCodigoClienteFocusLost
@@ -1025,7 +1025,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
             } catch (ParseException ex) {
                 String trace = ExceptionUtils.getStackTrace(ex);
                 String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-                Util.Log.setLog(trace, metodo);
+                
                 ex.printStackTrace();
             }
             //Verifica se o cliente quer receber e-mail do comprovante conforme marcado no seu cadastro.
@@ -1061,7 +1061,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
                                 } catch (Exception ex) {
                                     String trace = ExceptionUtils.getStackTrace(ex);
                                     String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-                                    Util.Log.setLog(trace, metodo);
+                                    
                                 }
                             }
                         }.start();
@@ -1071,7 +1071,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
                     } catch (Exception ex) {
                         String trace = ExceptionUtils.getStackTrace(ex);
                         String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-                        Util.Log.setLog(trace, metodo);
+                        
                         ex.printStackTrace();
                     }
                 }
@@ -1080,7 +1080,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         } catch (Exception ex) {
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao incluir a movimentação !");
         }
@@ -1124,7 +1124,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         } catch (Exception ex) {
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             ex.printStackTrace();
         
             JOptionPane.showMessageDialog(null, "Selecione o produto que deseja remover !");
@@ -1164,7 +1164,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
 
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             ex.printStackTrace();
         
         }
@@ -1190,7 +1190,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
 
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
 
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao buscar os produtos, contate o suporte técnico");
@@ -1248,7 +1248,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         } catch (Exception ex) {
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             ex.printStackTrace();
 
             JOptionPane.showMessageDialog(null, "Selecione o servico que deseja incluir");
@@ -1284,7 +1284,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
 
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
 
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao adicionar Produto!");
@@ -1323,7 +1323,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         } catch (Exception ex) {
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             ex.printStackTrace();
         
             JOptionPane.showMessageDialog(null, "Selecione o registro que deseja alterar !");
@@ -1360,7 +1360,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
             
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             ex.printStackTrace();
         
             JOptionPane.showMessageDialog(null, "Erro ao alterar produto !");
@@ -1465,7 +1465,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         } catch (SQLException ex) {
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             ex.printStackTrace();
         }
 
@@ -1487,7 +1487,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         } catch (Exception ex) {
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
                     
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao buscar os clientes, contate o suporte técnico");
@@ -1581,7 +1581,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         } catch (Exception ex) {
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
                     
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao listar clientes, contate o suporte técnico");
@@ -1614,7 +1614,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         }catch(Exception ex){
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             ex.printStackTrace();
         }
         total = valorUnitario * qtde;
@@ -1631,7 +1631,7 @@ public class IncluirMovimento extends javax.swing.JFrame {
         }catch(Exception ex){
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             ex.printStackTrace();
         }
         total = valorUnitario * qtde;
@@ -1678,14 +1678,14 @@ public class IncluirMovimento extends javax.swing.JFrame {
         } catch (java.lang.NullPointerException e) {
             String trace = ExceptionUtils.getStackTrace(e);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             JOptionPane.showMessageDialog(null, "Cadastre pelo menos 1 cliente para realizar movimentações");
             this.dispose();
             e.printStackTrace();
         }catch(Exception ex){
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             ex.printStackTrace();
         }
     }
@@ -1713,14 +1713,14 @@ public class IncluirMovimento extends javax.swing.JFrame {
         } catch (java.lang.NullPointerException e) {
             String trace = ExceptionUtils.getStackTrace(e);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             JOptionPane.showMessageDialog(null, "Cadastre pelo menos 1 funcionario para realizar movimentações");
             this.dispose();
             e.printStackTrace();
         }catch(Exception ex){
             String trace = ExceptionUtils.getStackTrace(ex);
             String metodo = String.valueOf(new Throwable().getStackTrace()[0]);
-            Util.Log.setLog(trace, metodo);
+            
             ex.printStackTrace();
         }
     }

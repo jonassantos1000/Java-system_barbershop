@@ -241,10 +241,9 @@ public class PaginaInicial extends javax.swing.JFrame {
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                 .addComponent(lbRazaoSocial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                .addComponent(lbCNPJ, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(lbCNPJ, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1011,7 +1010,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btConfiguracoesGeraisActionPerformed
 
     private void txtCNPJFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCNPJFocusGained
-        txtCNPJ.setFormatterFactory(Mascara.getCpfMask());
+        txtCNPJ.setFormatterFactory(Mascara.getCnpjMask());
     }//GEN-LAST:event_txtCNPJFocusGained
 
     private void btSalvarConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarConfigActionPerformed

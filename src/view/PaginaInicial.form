@@ -237,13 +237,11 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="lbRazaoSocial" max="32767" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="lbCNPJ" pref="114" max="32767" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="lbCNPJ" pref="114" max="32767" attributes="0"/>
                                   </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtRazaoSocial" min="-2" pref="288" max="-2" attributes="0"/>
                                       <Component id="txtCNPJ" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
