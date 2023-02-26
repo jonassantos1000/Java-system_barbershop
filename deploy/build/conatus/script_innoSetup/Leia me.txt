@@ -1,0 +1,4 @@
+Quando executar os scripts para gerar instaladores, os executaveis vão ser criados na pasta 
+
+-Depois que criou colocar dentro da pasta instaladores que esta dentro da pasta "Instaladores_finais"
+-Depois que passou os novos instaladores, compactar e passar para o cliente.

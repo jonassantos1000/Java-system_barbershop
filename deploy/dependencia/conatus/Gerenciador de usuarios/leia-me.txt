@@ -1,0 +1,1 @@
+dependencias estão dentro do clientLoader.exe

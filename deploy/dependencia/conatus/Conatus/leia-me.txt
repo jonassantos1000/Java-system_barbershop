@@ -1,0 +1,2 @@
+dependencias estão dentro do clientLoader.exe
+precisar descompactar com 7-zip

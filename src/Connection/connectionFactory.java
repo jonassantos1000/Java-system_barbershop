@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 import javax.swing.JOptionPane;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -47,9 +48,14 @@ public class connectionFactory {
                 Class.forName("org.firebirdsql.jdbc.FBDriver");
                 String criptografia = "?encoding=ISO8859_1";
                 String Base = getDataSource();
+                Properties props = new Properties();
+                props.put("user", "SYSDBA");
+                props.put("password", "masterkey");
+                props.put("wireCrypt", "disabled");
+
                 conexao = DriverManager.getConnection(
                         "jdbc:firebirdsql:" + Base + criptografia,
-                        "SYSDBA", "masterkey");
+                        props);
             }
 
             return conexao;

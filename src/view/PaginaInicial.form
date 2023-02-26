@@ -235,26 +235,29 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="lbRazaoSocial" max="32767" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="lbCNPJ" pref="114" max="32767" attributes="0"/>
+                                      <Component id="lbRazaoSocial" max="32767" attributes="0"/>
+                                      <Component id="lbCNPJ" pref="162" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtRazaoSocial" min="-2" pref="288" max="-2" attributes="0"/>
-                                      <Component id="txtCNPJ" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
+                                      <Component id="txtRazaoSocial" alignment="0" min="-2" pref="288" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="txtIdEmpresa" min="-2" pref="153" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="rbCNPJ" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                          <Component id="rbCPF" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="lbResponsavelLegal" min="-2" pref="128" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtResponsavelLegal" min="-2" pref="218" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -275,8 +278,10 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtCNPJ" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtIdEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lbCNPJ" alignment="3" max="32767" attributes="0"/>
+                              <Component id="rbCNPJ" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rbCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -322,12 +327,12 @@
                     <Property name="text" type="java.lang.String" value="CNPJ da Empresa"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="txtCNPJ">
+                <Component class="javax.swing.JFormattedTextField" name="txtIdEmpresa">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCNPJFocusGained"/>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtIdEmpresaFocusGained"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbResponsavelLegal">
@@ -345,6 +350,36 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="rbCNPJ">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="bgTipoEmpresa"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="CNPJ"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="rbCNPJMouseClicked"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="rbCPF">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="bgTipoEmpresa"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="CPF"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="rbCPFMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -636,6 +671,8 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.ButtonGroup" name="bgTipoEmpresa">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>

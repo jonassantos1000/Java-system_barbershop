@@ -38,6 +38,8 @@ public class PaginaInicial extends javax.swing.JFrame {
     Usuarios user;
     public PaginaInicial() {       
         initComponents();
+        java.awt.Image icon = java.awt.Toolkit.getDefaultToolkit().getImage("src/Resources/logo.png");
+        setIconImage(icon);
         bloquearAcesso();
         txtPortaSMTP.setDocument(new ValidaNumeros());
     }
@@ -72,9 +74,11 @@ public class PaginaInicial extends javax.swing.JFrame {
         txtRazaoSocial = new javax.swing.JTextField();
         lbRazaoSocial = new javax.swing.JLabel();
         lbCNPJ = new javax.swing.JLabel();
-        txtCNPJ = new javax.swing.JFormattedTextField();
+        txtIdEmpresa = new javax.swing.JFormattedTextField();
         lbResponsavelLegal = new javax.swing.JLabel();
         txtResponsavelLegal = new javax.swing.JTextField();
+        rbCNPJ = new javax.swing.JRadioButton();
+        rbCPF = new javax.swing.JRadioButton();
         lbTitulo = new javax.swing.JLabel();
         lbEmail = new javax.swing.JLabel();
         lbSenhaEmail = new javax.swing.JLabel();
@@ -93,6 +97,7 @@ public class PaginaInicial extends javax.swing.JFrame {
         btSalvarConfig = new javax.swing.JButton();
         lbPainelPretoFundo = new javax.swing.JLabel();
         lbImagemDeFundo = new javax.swing.JLabel();
+        bgTipoEmpresa = new javax.swing.ButtonGroup();
         pnTitulo = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         pnMenu = new javax.swing.JPanel();
@@ -205,10 +210,10 @@ public class PaginaInicial extends javax.swing.JFrame {
         lbCNPJ.setForeground(new java.awt.Color(255, 255, 255));
         lbCNPJ.setText("CNPJ da Empresa");
 
-        txtCNPJ.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCNPJ.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtIdEmpresa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIdEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCNPJFocusGained(evt);
+                txtIdEmpresaFocusGained(evt);
             }
         });
 
@@ -218,13 +223,25 @@ public class PaginaInicial extends javax.swing.JFrame {
 
         txtResponsavelLegal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jLayeredPane1.setLayer(lbInformacaoEmpresa, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(txtRazaoSocial, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(lbRazaoSocial, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(lbCNPJ, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(txtCNPJ, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(lbResponsavelLegal, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(txtResponsavelLegal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        bgTipoEmpresa.add(rbCNPJ);
+        rbCNPJ.setForeground(new java.awt.Color(255, 255, 255));
+        rbCNPJ.setText("CNPJ");
+        rbCNPJ.setContentAreaFilled(false);
+        rbCNPJ.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbCNPJMouseClicked(evt);
+            }
+        });
+
+        bgTipoEmpresa.add(rbCPF);
+        rbCPF.setForeground(new java.awt.Color(255, 255, 255));
+        rbCPF.setText("CPF");
+        rbCPF.setContentAreaFilled(false);
+        rbCPF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbCPFMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -239,20 +256,23 @@ public class PaginaInicial extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                .addComponent(lbRazaoSocial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(lbCNPJ, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                            .addComponent(lbRazaoSocial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbCNPJ, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(58, 58, 58))
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbCNPJ)
+                                .addGap(6, 6, 6)
+                                .addComponent(rbCPF))))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addComponent(lbResponsavelLegal, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtResponsavelLegal, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,10 +289,21 @@ public class PaginaInicial extends javax.swing.JFrame {
                     .addComponent(txtResponsavelLegal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbCNPJ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtIdEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbCNPJ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbCNPJ)
+                    .addComponent(rbCPF))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        jLayeredPane1.setLayer(lbInformacaoEmpresa, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtRazaoSocial, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(lbRazaoSocial, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(lbCNPJ, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtIdEmpresa, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(lbResponsavelLegal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtResponsavelLegal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(rbCNPJ, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(rbCPF, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jPanel1.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 490, 140));
 
@@ -983,7 +1014,7 @@ public class PaginaInicial extends javax.swing.JFrame {
                     Configuracao config = new Configuracao();
                     txtRazaoSocial.setText(config.pesquisar().getRazaoSocial());
                     txtResponsavelLegal.setText(config.pesquisar().getResponsavelLegal());
-                    txtCNPJ.setText(config.pesquisar().getCnpj());
+                    txtIdEmpresa.setText(config.pesquisar().getCnpj());
                     txtEmail.setText(config.pesquisar().getEmail());
                     txtSenhaEmail.setText(config.pesquisar().getSenha());
                     txtSMTP.setText(config.pesquisar().getSmtp());
@@ -1009,15 +1040,19 @@ public class PaginaInicial extends javax.swing.JFrame {
                 
     }//GEN-LAST:event_btConfiguracoesGeraisActionPerformed
 
-    private void txtCNPJFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCNPJFocusGained
-        txtCNPJ.setFormatterFactory(Mascara.getCnpjMask());
-    }//GEN-LAST:event_txtCNPJFocusGained
+    private void txtIdEmpresaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdEmpresaFocusGained
+    }//GEN-LAST:event_txtIdEmpresaFocusGained
 
     private void btSalvarConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarConfigActionPerformed
         try{
+            if (rbCNPJ.isSelected() == false && rbCPF.isSelected() == false){
+                JOptionPane.showMessageDialog(null, "Selecione se a identificação da Empresa é CNPJ ou CPF para continuar!");
+                throw new Exception("Usuario não selecionou o tipo de identificação da empresa");
+            }
+            
             String razaoSocial= coalesce(txtRazaoSocial.getText());
             String responsavelLegal = coalesce(txtResponsavelLegal.getText());
-            String cnpj= coalesce(txtCNPJ.getText());
+            String cnpj= coalesce(txtIdEmpresa.getText());
             String email = coalesce(txtEmail.getText());
             String senha = new String (txtSenhaEmail.getPassword());
             String smtp = coalesce(txtSMTP.getText());
@@ -1039,6 +1074,20 @@ public class PaginaInicial extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         testaEnvio();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void rbCNPJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbCNPJMouseClicked
+        String idEmpresa = txtIdEmpresa.getText();
+        txtIdEmpresa.setValue(null);
+        txtIdEmpresa.setFormatterFactory(Mascara.getCnpjMask());
+        txtIdEmpresa.setText(idEmpresa);
+    }//GEN-LAST:event_rbCNPJMouseClicked
+
+    private void rbCPFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbCPFMouseClicked
+        String idEmpresa = txtIdEmpresa.getText();
+        txtIdEmpresa.setValue(null);
+        txtIdEmpresa.setFormatterFactory(Mascara.getCpfMask());
+        txtIdEmpresa.setText(idEmpresa);
+    }//GEN-LAST:event_rbCPFMouseClicked
            
     private static void setButton(JButton botao){
         botao.setBackground(new Color(58,58,58));
@@ -1072,6 +1121,16 @@ public class PaginaInicial extends javax.swing.JFrame {
         btConfiguracoesGerais.setEnabled(true);
         btRelatorio.setEnabled(true);
         btMovimentacao.setEnabled(true);
+    }
+    
+    private void validarTipoEmpresa(String idEmpresa){
+        if(!idEmpresa.isEmpty() && idEmpresa.length() == 18){
+            rbCNPJ.setSelected(true);
+            txtIdEmpresa.setText(idEmpresa);
+        } else if(!idEmpresa.isEmpty() && idEmpresa.length() < 15){
+            rbCPF.setSelected(true);
+            txtIdEmpresa.setText(idEmpresa);
+        }
     }
 
     /**
@@ -1113,6 +1172,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog ConfiguracoesGerais;
     private javax.swing.JDialog Suporte;
+    private javax.swing.ButtonGroup bgTipoEmpresa;
     private javax.swing.JButton btCliente;
     private javax.swing.JButton btConfiguracoesGerais;
     private javax.swing.JButton btFecharConfig;
@@ -1167,8 +1227,10 @@ public class PaginaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel pnMenu;
     private javax.swing.JPanel pnSuporte;
     private javax.swing.JPanel pnTitulo;
-    private javax.swing.JFormattedTextField txtCNPJ;
+    private javax.swing.JRadioButton rbCNPJ;
+    private javax.swing.JRadioButton rbCPF;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JFormattedTextField txtIdEmpresa;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextArea txtMensagemPadraoEmail;
     private javax.swing.JTextField txtPortaSMTP;
